@@ -5,7 +5,7 @@
       <routerLink class="btn nav-button" :to="{ name: 'second' }">Second</routerLink>
     </nav>
     <div class="container my-4 px-4">
-      <router-view></router-view> <!--Component that renders the matched component for the given path.-->
+      <router-view></router-view> <!--Component that renders the matched component for the given path.--> 
     </div>
   </div>
 </template>
