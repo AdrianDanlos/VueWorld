@@ -1,11 +1,12 @@
-import VueRouter from "vue-router";
-import ExampleComponent from "./components/ExampleComponent";
-import Example2 from "./components/Example2";
+//When the php router returns a view to the frontend, VUE router takes control of the application and decides what to show.
 
-const routes = [
-    {
+import VueRouter from "vue-router";
+import Example2 from "./components/Example2";
+import Bookables from "./bookables/Bookables";
+
+const routes = [{
         path: "/",
-        component: ExampleComponent,
+        component: Bookables,
         name: "home",
     },
     {
@@ -15,9 +16,10 @@ const routes = [
     },
 ]
 
+//We create a router object with our routes and export it to reference it in app.js
 const router = new VueRouter({
-    routes, // short for `routes: routes`
-    mode: 'history',
-  })
+    routes, // shorthand for `routes: routes`
+    mode: 'history', //to get rid of hash in url
+})
 
-  export default router;
+export default router;
