@@ -31,7 +31,7 @@ export default {
     };
   },
   created() {
-    //"this" references the component
+    //"this" references the component 
     this.loading = true;
 
     //fetching data from the server
