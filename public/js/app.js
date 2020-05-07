@@ -1925,20 +1925,34 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 //We import and declare ('export component') BookablesListItem component locally in this parent component (Bookables).
 //To delcare a component globally we would do it in the app.js.
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    BookableListItem: _BookablesListItem__WEBPACK_IMPORTED_MODULE_0__["default"] //This allows us to use the component in either PacalCase or kebab-case
+    BookableListItem: _BookablesListItem__WEBPACK_IMPORTED_MODULE_0__["default"] //This allows us to use the component in either PascalCase or kebab-case
 
   },
   data: function data() {
     //Fetching data from the server. Constantly rerendering components as data changes
     return {
       bookables: null,
-      loading: false
+      loading: false,
+      columns: 3 //Amount of bookables we want for each row.
+
     };
+  },
+  computed: {
+    rows: function rows() {
+      return this.bookables === null ? 0 : Math.ceil(this.bookables.length / this.columns); //if we have bookables return amount of rows we need
+    }
+  },
+  methods: {
+    bookablesInRow: function bookablesInRow(row) {
+      return this.bookables.slice((row - 1) * this.columns, row * this.columns); //gets array of bookables for this row
+    }
   },
   created: function created() {
     var _this = this;
@@ -1948,7 +1962,23 @@ __webpack_require__.r(__webpack_exports__);
 
     setTimeout(function () {
       _this.bookables = [{
+        id: 1,
         title: "Beijing house",
+        content: "Amazing hostel to have lots of fun"
+      }, {
+        title: "Shanghai house",
+        content: "Amazing hostel to have lots of fun"
+      }, {
+        title: "Shanghai house",
+        content: "Amazing hostel to have lots of fun"
+      }, {
+        title: "Shanghai house",
+        content: "Amazing hostel to have lots of fun"
+      }, {
+        title: "Shanghai house",
+        content: "Amazing hostel to have lots of fun"
+      }, {
+        title: "Shanghai house",
         content: "Amazing hostel to have lots of fun"
       }, {
         title: "Shanghai house",
@@ -1978,14 +2008,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     itemTitle: String,
     itemContent: String,
     itemPrice: Number
-  },
-  mounted: function mounted() {
-    console.log(this.itemTitle);
   }
 });
 
@@ -37447,17 +37478,30 @@ var render = function() {
       ? _c("div", [_vm._v("Data is loading")])
       : _c(
           "div",
-          _vm._l(_vm.bookables, function(bookable, index) {
-            return _c("BookableListItem", {
-              key: index,
-              attrs: {
-                "item-title": bookable.title,
-                "item-content": bookable.content,
-                "item-price": 1600
-              }
-            })
+          _vm._l(_vm.rows, function(row, rowIndex) {
+            return _c(
+              "div",
+              { key: rowIndex, staticClass: "row mb-4" },
+              _vm._l(_vm.bookablesInRow(row), function(bookable, columnIndex) {
+                return _c(
+                  "div",
+                  { key: columnIndex, staticClass: "col-4" },
+                  [
+                    _c("BookableListItem", {
+                      attrs: {
+                        "item-title": bookable.title,
+                        "item-content": bookable.content,
+                        "item-price": 1600
+                      }
+                    })
+                  ],
+                  1
+                )
+              }),
+              0
+            )
           }),
-          1
+          0
         )
   ])
 }
@@ -37484,11 +37528,19 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("h1", [_vm._v(_vm._s(_vm.itemTitle))]),
-    _vm._v(" "),
-    _c("p", [_vm._v(_vm._s(_vm.itemContent))]),
-    _vm._v(" "),
-    _c("p", [_vm._v(_vm._s(_vm.itemPrice))])
+    _c("div", { staticClass: "card" }, [
+      _c("div", { staticClass: "card-body" }, [
+        _c("div", { staticClass: "card-title" }, [
+          _vm._v(_vm._s(_vm.itemTitle))
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "card-text" }, [
+          _vm._v(_vm._s(_vm.itemContent))
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "card-text" }, [_vm._v(_vm._s(_vm.itemPrice))])
+      ])
+    ])
   ])
 }
 var staticRenderFns = []
