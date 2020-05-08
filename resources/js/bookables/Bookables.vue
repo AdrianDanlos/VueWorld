@@ -3,10 +3,10 @@
     <div v-if="loading">Data is loading</div>
     <div v-else>
       <div class="row mb-4" v-for="(row, rowIndex) in rows" :key="rowIndex">
-        <div class="col-4" v-for="(bookable,columnIndex) in bookablesInRow(row)" :key="columnIndex">
+        <div class="col-4 d-flex align-items-stretch" v-for="(bookable,columnIndex) in bookablesInRow(row)" :key="columnIndex">
           <BookableListItem
             :item-title="bookable.title"
-            :item-content="bookable.content"
+            :item-description="bookable.description"
             :item-price="1600"
           ></BookableListItem>
         </div>
@@ -49,41 +49,20 @@ export default {
     //"this" references the component
     this.loading = true;
 
+    const promise = new Promise((resolve, reject) => {
+      setTimeout(() => resolve("Hello"), 3000); //In real application we will receive a resolve or reject value from the server. We won't manually pass a value to resolve funtcion.
+    })
+      .then(result => console.log(`Success ${result}`))
+      .catch(result => console.log(`Error ${result}`));
+
+    console.log(promise);
+
     //fetching data from the server
-    setTimeout(() => {
-      this.bookables = [
-        {
-          id: 1,
-          title: "Beijing house",
-          content: "Amazing hostel to have lots of fun"
-        },
-        {
-          title: "Shanghai house",
-          content: "Amazing hostel to have lots of fun"
-        },
-        {
-          title: "Shanghai house",
-          content: "Amazing hostel to have lots of fun"
-        },
-        {
-          title: "Shanghai house",
-          content: "Amazing hostel to have lots of fun"
-        },
-        {
-          title: "Shanghai house",
-          content: "Amazing hostel to have lots of fun"
-        },
-        {
-          title: "Shanghai house",
-          content: "Amazing hostel to have lots of fun"
-        },
-        {
-          title: "Shanghai house",
-          content: "Amazing hostel to have lots of fun"
-        }
-      ];
+    //axios returns a promise object
+    const request = axios.get('api/bookables').then(result => {
+      this.bookables = result.data
       this.loading = false;
-    }, 2000);
+    })
   }
 };
 </script>

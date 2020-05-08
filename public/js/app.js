@@ -1958,34 +1958,23 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     //"this" references the component
-    this.loading = true; //fetching data from the server
+    this.loading = true;
+    var promise = new Promise(function (resolve, reject) {
+      setTimeout(function () {
+        return resolve("Hello");
+      }, 3000); //In real application we will receive a resolve or reject value from the server. We won't manually pass a value to resolve funtcion.
+    }).then(function (result) {
+      return console.log("Success ".concat(result));
+    })["catch"](function (result) {
+      return console.log("Error ".concat(result));
+    });
+    console.log(promise); //fetching data from the server
+    //axios returns a promise object
 
-    setTimeout(function () {
-      _this.bookables = [{
-        id: 1,
-        title: "Beijing house",
-        content: "Amazing hostel to have lots of fun"
-      }, {
-        title: "Shanghai house",
-        content: "Amazing hostel to have lots of fun"
-      }, {
-        title: "Shanghai house",
-        content: "Amazing hostel to have lots of fun"
-      }, {
-        title: "Shanghai house",
-        content: "Amazing hostel to have lots of fun"
-      }, {
-        title: "Shanghai house",
-        content: "Amazing hostel to have lots of fun"
-      }, {
-        title: "Shanghai house",
-        content: "Amazing hostel to have lots of fun"
-      }, {
-        title: "Shanghai house",
-        content: "Amazing hostel to have lots of fun"
-      }];
+    var request = axios.get('api/bookables').then(function (result) {
+      _this.bookables = result.data;
       _this.loading = false;
-    }, 2000);
+    });
   }
 });
 
@@ -2010,12 +1999,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     itemTitle: String,
-    itemContent: String,
+    itemDescription: String,
     itemPrice: Number
   }
 });
@@ -37485,12 +37472,15 @@ var render = function() {
               _vm._l(_vm.bookablesInRow(row), function(bookable, columnIndex) {
                 return _c(
                   "div",
-                  { key: columnIndex, staticClass: "col-4" },
+                  {
+                    key: columnIndex,
+                    staticClass: "col-4 d-flex align-items-stretch"
+                  },
                   [
                     _c("BookableListItem", {
                       attrs: {
                         "item-title": bookable.title,
-                        "item-content": bookable.content,
+                        "item-description": bookable.description,
                         "item-price": 1600
                       }
                     })
@@ -37527,19 +37517,15 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("div", { staticClass: "card" }, [
-      _c("div", { staticClass: "card-body" }, [
-        _c("div", { staticClass: "card-title" }, [
-          _vm._v(_vm._s(_vm.itemTitle))
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "card-text" }, [
-          _vm._v(_vm._s(_vm.itemContent))
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "card-text" }, [_vm._v(_vm._s(_vm.itemPrice))])
-      ])
+  return _c("div", { staticClass: "card w-100" }, [
+    _c("div", { staticClass: "card-body" }, [
+      _c("div", { staticClass: "card-title" }, [_vm._v(_vm._s(_vm.itemTitle))]),
+      _vm._v(" "),
+      _c("div", { staticClass: "card-text" }, [
+        _vm._v(_vm._s(_vm.itemDescription))
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "card-text" }, [_vm._v(_vm._s(_vm.itemPrice))])
     ])
   ])
 }
