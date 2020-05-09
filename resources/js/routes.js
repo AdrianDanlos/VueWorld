@@ -1,8 +1,8 @@
 //When the php router returns a view to the frontend, VUE router takes control of the application and decides what to show.
 
 import VueRouter from "vue-router";
-import Example2 from "./components/Example2";
 import Bookables from "./bookables/Bookables";
+import Bookable from "./bookable/Bookable";
 
 const routes = [{
         path: "/",
@@ -10,10 +10,10 @@ const routes = [{
         name: "home",
     },
     {
-        path: "/second",
-        component: Example2,
-        name: "second",
-    },
+        path: "/bookable/:id",
+        component: Bookable,
+        name: "bookable",
+    }
 ]
 
 //We create a router object with our routes and export it to reference it in app.js

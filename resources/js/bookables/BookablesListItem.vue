@@ -1,15 +1,18 @@
 <template>
   <div class="card w-100">
     <div class="card-body">
-      <div class="card-title">{{ itemTitle }}</div>
-      <div class="card-text">{{ itemDescription }}</div>
-      <div class="card-text">{{ itemPrice }}</div>
+      <!--Redirects to the component declared with that name in the vue router-->
+      <routerLink :to="{ name: 'bookable', params: {id} }">
+        <h5 class="card-title">{{ title }}</h5>
+      </routerLink>
+      <p class="card-text">{{ id }}</p>
+      <p class="card-text">{{ description }}</p>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  props: { itemTitle: String, itemDescription: String, itemPrice: Number }
+  props: { id: Number, title: String, description: String }
 };
 </script>

@@ -5,9 +5,7 @@
       <div class="row mb-4" v-for="(row, rowIndex) in rows" :key="rowIndex">
         <div class="col-4 d-flex align-items-stretch" v-for="(bookable,columnIndex) in bookablesInRow(row)" :key="columnIndex">
           <BookableListItem
-            :item-title="bookable.title"
-            :item-description="bookable.description"
-            :item-price="1600"
+            v-bind="bookable"
           ></BookableListItem>
         </div>
       </div>
@@ -49,16 +47,8 @@ export default {
     //"this" references the component
     this.loading = true;
 
-    const promise = new Promise((resolve, reject) => {
-      setTimeout(() => resolve("Hello"), 3000); //In real application we will receive a resolve or reject value from the server. We won't manually pass a value to resolve funtcion.
-    })
-      .then(result => console.log(`Success ${result}`))
-      .catch(result => console.log(`Error ${result}`));
-
-    console.log(promise);
-
     //fetching data from the server
-    //axios returns a promise object
+    //axios returns a promise object -> console.log(axios.get('api/bookables'))
     const request = axios.get('api/bookables').then(result => {
       this.bookables = result.data
       this.loading = false;
