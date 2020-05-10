@@ -24,3 +24,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 //:apiResource method creates all the routes by default. See php artisan route:list.
 Route::apiResource('bookables', 'Api\BookableController')->only(['index', 'show']);
+Route::get('bookables/{bookable}/availability', 'Api\BookableAvailabilityController')->name('bookables.availability.show');
