@@ -31,9 +31,8 @@ class BookableAvailabilityController extends Controller
         //On the first one we fetch the bookings of that bookable (Relation established on the model) 
         //On the second one we start to create a query to filter some of the results
 
-        //We check in the database if the dates are available using an Eloquent Query Scope that we created on the Booking model. 
-        //It's basically a custom query method (betweenDates) that we have created on our Booking model. https://laravel.com/docs/7.x/eloquent#local-scopes
-        //The query to the database returns the amount of bookings that are being overlapped for these dates. If it returns 0, the apartment is free.
-        dd($bookable->bookings()->betweenDates($data['from'], $data['to'])->count());
+        return $bookable->availableFor($data['from'], $data['to'])
+            ? response()->json([])
+            : response()->json([], 404); //No availability found for these dates. When calling this function from the frontend we will get back either a 200 response or a 404. We are customizing the response of the server.
     }
 }
