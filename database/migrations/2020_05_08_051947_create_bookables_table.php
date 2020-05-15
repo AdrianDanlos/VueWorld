@@ -18,6 +18,7 @@ class CreateBookablesTable extends Migration
             $table->timestamps();
             $table->string('title');
             $table->text('description');
+            $table->text('photo_url');
         });
     }
 
