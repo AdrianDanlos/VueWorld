@@ -7,6 +7,7 @@
             <h2>{{ bookable.title }}</h2>
             <hr />
             <article>{{ bookable.description }}</article>
+            <div :style="{ backgroundImage: 'url(' + bookable.photo_url + ')' }" id="photo"></div>
           </div>
           <div v-else>Loading...</div>
         </div>
@@ -42,3 +43,19 @@ export default {
   }
 };
 </script>
+
+
+<style scoped>
+#photo{
+  width: 100%;
+  background-size: cover;
+  margin-top: 1rem;
+}
+/* Trick to give the image resonsive height*/
+#photo:after {
+  content: "";
+  display: block;
+  padding-bottom: 60%;
+}
+
+</style>
