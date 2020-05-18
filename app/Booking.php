@@ -25,6 +25,14 @@ class Booking extends Model
             ->where('from', '<', $to);
     }
 
+    public static function findByReviewKey(string $reviewKey): ?Booking{
+        //->with('bookable'). It uses the bookable_id column (fk) to retrieve the bookable object and retrieve it inside the booking object.
+        //This is great since we only have to create a single query to retrieve the bookable object related to de booking.
+        return static::where('review_key', $reviewKey)->with('bookable')->get()->first();
+    }
+
+
+    //Using Laravel Model Events
     //This method initializes how an eloquent model should behave. This method is define in the parent class, Model.
     protected static function boot(){
         //parent:: refers to the Model. Booking extends from model (inheritance)
