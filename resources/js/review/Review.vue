@@ -1,7 +1,8 @@
 <template>
   <div>
+    <success v-if="success">You've left a review, thank you very much!</success>
     <fatal-error v-if="error"></fatal-error>
-    <div class="row" v-else>
+    <div class="row" v-if="!success && !error">
       <div :class="[{'col-md-4': twoColumns}, {'d-none': oneColumn}]">
         <div class="card">
           <div class="card-body">
@@ -40,13 +41,15 @@
                 rows="10"
                 class="form-control"
                 v-model="review.content"
+                :class="[{'is-invalid': errorFor('content')}]"
               ></textarea>
+              <v-errors :errors="errorFor('content')"></v-errors>
             </div>
 
             <button
               class="btn btn-lg btn-primary btn-block"
-              @click="storeReview"
-              :disabled="loading"
+              @click.prevent="storeReview"
+              :disabled="sending"
             >Submit</button>
           </div>
         </div>
@@ -57,7 +60,10 @@
 
 <script>
 import { is404, is422 } from "./../shared/utils/response"; // this is the equivalent of importing the js in an html file
+import validationErrors from "./../shared/mixins/validationErrors";
+
 export default {
+  mixins: [validationErrors],
   data() {
     return {
       // We create a review object and then assign to rating the value of the emitted event ($event) by the child StarRating component
@@ -70,39 +76,35 @@ export default {
       loading: false,
       booking: null,
       error: false, //we store in a boolean value if there was severe errors found (except for the 404 which is handled separately)
-      errors: null //we store the error information
+      sending: false, //to avoid spamming send button
+      success: false
     };
   },
-  created() {
+  async created() {
     this.review.id = this.$route.params.id;
     this.loading = true;
+
     // 1. If review already exists (in reviews table by id)
-    axios
-      .get(`/api/reviews/${this.review.id}`)
-      .then(response => {
-        this.existingReview = response.data;
-      })
-      .catch(err => {
-        if (is404(err)) {
-          // 2. Else Fetch a booking by a review key
-          return axios
-            .get(`/api/booking-by-review/${this.review.id}`)
-            .then(response => {
-              this.booking = response.data;
-            })
-            .catch(err => {
-              this.error = !is404(err);
-              // is404(err) ? {} : (this.error = true);
-              // if (!is404(err)) {
-              //   this.error = true;
-              // }
-            });
+    try {
+      this.existingReview = (
+        await axios.get(`/api/reviews/${this.review.id}`)
+      ).data;
+    } catch (err) {
+      if (is404(err)) {
+        // 2. Fetch a booking by a review key
+        try {
+          this.booking = (
+            await axios.get(`/api/booking-by-review/${this.review.id}`)
+          ).data;
+        } catch (err) {
+          this.error = !is404(err);
         }
+      } else {
         this.error = true;
-      })
-      .then(() => {
-        this.loading = false;
-      });
+      }
+    }
+
+    this.loading = false;
   },
   computed: {
     alreadyReviewed() {
@@ -121,22 +123,26 @@ export default {
   methods: {
     storeReview() {
       this.errors = null;
-      this.loading = true;
+      this.sending = true;
+      this.success = false;
 
       axios
         .post(`/api/reviews`, this.review)
-        .then(response => console.log(response))
+        .then(response => {
+          this.success = 201 === response.status;
+        })
         .catch(err => {
           if (is422(err)) {
             const errors = err.response.data.errors; //Axios uses XMLHttpRequest object to make the request. XMLHttpRequest.response property contains response's body content when request is ready.
-            if (errors["content"] && 1 === _.size(errors)) { //Using lodash library. (lodash) _.size(errors) / (regular JS) Object.keys(errors).length;
+            if (errors["content"] && 1 === _.size(errors)) {
+              //Using lodash library. (lodash) _.size(errors) / (regular JS) Object.keys(errors).length;
               this.errors = errors;
               return;
             }
           }
           this.error = true;
         })
-        .then(() => (this.loading = false));
+        .then(() => (this.sending = false));
     }
   }
 };
