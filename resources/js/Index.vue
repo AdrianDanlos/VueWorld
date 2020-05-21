@@ -8,3 +8,22 @@
     </div>
   </div>
 </template>
+
+<script>
+import { mapState } from "vuex";
+export default {
+  data() {
+    return {
+      lastSearch: this.$store.state.lastSearch
+    };
+  },
+  computed: mapState({
+    lastSearchComputed: "lastSearch" //We get the values from lastSearch object in vueX state (store.js) and assign them to a new object "lastSearchComputed".
+  }),
+  // computed: {
+  //   ...mapState({ //We can also use the rest/spread operator for destructuring, as mapState returns an object from the state
+  //     lastSearchComputed: "lastSearch" 
+  //   }),
+  // }
+};
+</script> 
