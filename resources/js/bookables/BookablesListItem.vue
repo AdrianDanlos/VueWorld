@@ -6,7 +6,6 @@
       <routerLink :to="{ name: 'bookable', params: {id} }">
         <h5 class="card-title">{{ title }}</h5>
       </routerLink>
-      <p class="card-text">{{ id }}</p>
       <p class="card-text">{{ description }}</p>
     </div>
   </div>

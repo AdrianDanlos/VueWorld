@@ -15,23 +15,38 @@
       <review-list :bookable-id="this.$route.params.id"></review-list>
     </div>
     <div class="col-md-4 pb-4">
-      <availability :bookable-id="this.$route.params.id"></availability> 
+      <availability
+        :bookable-id="this.$route.params.id"
+        @availability="checkPrice($event)"
+        class="mb-4"
+      ></availability>
+
+      <transition name="fade">
+        <price-breakdown v-if="price" :price="price" class="mb-4"></price-breakdown>
+      </transition>
+      <transition name="fade">
+        <button class="btn btn-outline-secondary btn-block" v-if="price">Book now</button>
+      </transition>
     </div>
   </div>
 </template>
 <script>
 import Availability from "./Availability";
 import ReviewList from "./ReviewList";
+import PriceBreakdown from "./PriceBreakdown";
+import { mapState } from "vuex";
 
 export default {
   components: {
     Availability,
-    ReviewList
+    ReviewList,
+    PriceBreakdown
   },
   data() {
     return {
       bookable: null,
-      loading: false
+      loading: false,
+      price: null
     };
   },
   created() {
@@ -40,14 +55,33 @@ export default {
       this.bookable = result.data;
       this.loading = false;
     });
-    
+  },
+  computed: mapState({
+    lastSearch: "lastSearch"
+  }),
+  methods: {
+    async checkPrice(hasAvailability) {
+      try {
+        if (hasAvailability) {
+          this.price = (
+            await axios.get(
+              `/api/bookables/${this.$route.params.id}/price?from=${this.lastSearch.from}&to=${this.lastSearch.to}`
+            )
+          ).data;
+        } else {
+          this.price = null;
+        }
+      } catch (err) {
+        this.price = null;
+      }
+    }
   }
 };
 </script>
 
 
 <style scoped>
-#photo{
+#photo {
   width: 100%;
   background-size: cover;
   margin-top: 1rem;
@@ -58,5 +92,4 @@ export default {
   display: block;
   padding-bottom: 60%;
 }
-
 </style>
