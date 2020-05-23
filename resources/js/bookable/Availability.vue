@@ -17,6 +17,7 @@
           class="form-control form-control-sm"
           placeholder="Start date"
           v-model="from"
+          :disabled="inBasketAlready"
           @keyup.enter="check"
           :class="[{'is-invalid': errorFor('from')}]"
         />
@@ -31,6 +32,7 @@
           class="form-control form-control-sm"
           placeholder="End date"
           v-model="to"
+          :disabled="inBasketAlready"
           @keyup.enter="check"
           :class="[{'is-invalid': errorFor('to')}]"
         />
@@ -53,7 +55,7 @@ import validationErrors from "./../shared/mixins/validationErrors";
 export default {
   mixins: [validationErrors],
   props: {
-    bookableId: [String, Number] //We accept the bookableId both as a string and as a number
+    bookableId: [String, Number] //We accept the bookableId both as a string and as a number. Sometimes we receive the data as a string and other times as a number.
   },
   data() {
     return {
@@ -97,6 +99,12 @@ export default {
     },
     noAvailability() {
       return 404 === this.status;
+    },
+    inBasketAlready() {
+      if (null === this.bookableId) {
+        return false;
+      }
+      return this.$store.getters.inBasketAlready(parseInt(this.bookableId));
     }
   }
 };
