@@ -13,7 +13,7 @@ class BookableIndexResource extends JsonResource
      * @return array
      */
 
-    //This is used to customize the data from an object we get from the api or database. Most of the time there is data that we won't be using, thus it doesn't make sense to retrieve it. (Example, update or create timestpams...)
+    //This is used to format or customize the object we are retrieving from the api or database (serializing). Most of the time the object will have fields that are not useful in our logic. (Example, update or create timestpams...)
     //It's also very useful to customize objects depending on the user. For example, for admins it could be very useful to have all the object data but for regular users we want to keep some data hidden.
     public function toArray($request)
     {

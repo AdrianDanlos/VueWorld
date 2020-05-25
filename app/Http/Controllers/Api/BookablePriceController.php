@@ -15,23 +15,21 @@ class BookablePriceController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
     public function __invoke($id, Request $request)
     {
+        //fetching data
         $bookable = Bookable::findOrFail($id);
-        
+
+        //validating data
         $data = $request->validate([
             'from' => 'required|date_format:Y-m-d',
-            'to' => 'required|date_format:Y-m-d|after_or_equal:from',
+            'to' => 'required|date_format:Y-m-d|after_or_equal:from'
         ]);
 
-        $days = (new Carbon($data['from']))->diffInDays(new Carbon($data['to']));
-        $totalPrice = $days * $bookable->price;
-
+        //Calculating something on a model and returning a value
         return response()->json([
-            'total' => $totalPrice,
-            'breakdown' => [
-                $bookable->price => $days //We return the price for each specific day. Atm in our app we have the same price for every day but in the future we could build a price breakdown depending on the days booked. (Holidays? Special days?...)
-            ]
+            'data' => $bookable->priceFor($data['from'], $data['to'])
         ]);
     }
 }

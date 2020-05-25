@@ -79,7 +79,7 @@ export default {
     inBasketAlready() {
       if (null === this.bookable) {
         return false;
-      }
+      } 
       return this.$store.getters.inBasketAlready(this.bookable.id);
     }
   },

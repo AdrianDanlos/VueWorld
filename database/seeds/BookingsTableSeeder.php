@@ -29,7 +29,8 @@ class BookingsTableSeeder extends Seeder
                 //Instead of doing it on the begginers way we'll do it using Eloquent static methods, which is cleaner. For this mass assignment to work we had to enable it in the Booking model first.
                 $booking = Booking::make([
                     'from' => $from,
-                    'to' => $to
+                    'to' => $to,
+                    'price' => random_int(200, 5000)
                 ]);
 
                 //We push the booking into the collection of bookings.
