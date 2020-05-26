@@ -16,16 +16,6 @@ export default {
             state.basket = payload;
         },
         addToBasket(state, payload) {
-            /*if(itemsInBasket !== 0){
-                state.basket.items.forEach((item) => {
-                    if(item.bookable.id !== payload.bookable.id){
-                        state.basket.items.push(payload);
-                    }
-                })
-            }
-            else{
-                state.basket.items.push(payload);
-            }*/
             state.basket.items.push(payload);
         },
         removeFromBasket(state, payload) {
@@ -58,6 +48,10 @@ export default {
             commit('removeFromBasket', payload);
             localStorage.setItem('basket', JSON.stringify(state.basket));
         },
+        clearBasket({commit, state}, payload){
+            commit('setBasket', {items: []});
+            localStorage.setItem('basket', JSON.stringify(state.basket));
+        }
     },
     getters: {
         itemsInBasket: (state) => state.basket.items.length,
