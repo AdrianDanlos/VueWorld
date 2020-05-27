@@ -1,3 +1,7 @@
+import {
+    isLoggedIn,
+    logOut
+} from "./shared/utils/auth";
 export default {
     state: {
         lastSearch: {
@@ -6,13 +10,15 @@ export default {
         },
         basket: {
             items: [],
-        }
+        },
+        isLoggedIn: false,
+        user: {}
     },
     mutations: {
         setLastSearch(state, payload) {
             state.lastSearch = payload;
         },
-        setBasket(state, payload){
+        setBasket(state, payload) {
             state.basket = payload;
         },
         addToBasket(state, payload) {
@@ -22,6 +28,12 @@ export default {
             //We iterate through all the items in the basket and remove the one that has the id we are passing on the payload.
             state.basket.items = state.basket.items.filter(item => item.bookable.id !== payload);
         },
+        setUser(state, payload) {
+            state.user = payload;
+        },
+        setIsLoggedIn(state, payload) {
+            state.isLoggedIn = payload;
+        }
     },
     actions: { //actions call mutations
         setLastSearch(context, payload) {
@@ -38,19 +50,56 @@ export default {
             if (lastBasket) {
                 context.commit('setBasket', JSON.parse(lastBasket));
             }
+
+            context.commit("setIsLoggedIn", isLoggedIn());
         },
-        addToBasket({ commit, state }, payload){
+        addToBasket({
+            commit,
+            state
+        }, payload) {
             //context.commit, context.state //Destructuring context object to exclusively get the methods we need.
             commit('addToBasket', payload);
             localStorage.setItem('basket', JSON.stringify(state.basket));
         },
-        removeFromBasket({ commit, state }, payload) {
+        removeFromBasket({
+            commit,
+            state
+        }, payload) {
             commit('removeFromBasket', payload);
             localStorage.setItem('basket', JSON.stringify(state.basket));
         },
-        clearBasket({commit, state}, payload){
-            commit('setBasket', {items: []});
+        clearBasket({
+            commit,
+            state
+        }, payload) {
+            commit('setBasket', {
+                items: []
+            });
             localStorage.setItem('basket', JSON.stringify(state.basket));
+        },
+        async loadUser({
+            commit,
+            dispatch,
+            state
+        }) {
+            if (isLoggedIn()) {
+                try {
+                    const currentUser = (await axios.get("/user")).data; //Get the current user
+                    commit('setUser', currentUser);
+                    commit('setIsLoggedIn', true);
+                    localStorage.setItem('user', state.user);
+                } catch (error) {
+                    dispatch("logout"); //if an error happens loading the current user we logout.
+
+                }
+            }
+        },
+        logout({
+            commit
+        }) {
+            commit("setUser", {});
+            commit("setIsLoggedIn", false);
+            logOut(); //Remove user from localStorage
         }
     },
     getters: {

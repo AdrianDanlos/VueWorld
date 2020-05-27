@@ -27,6 +27,18 @@ Vue.component("v-errors", ValidationErrors);
 
 const store = new Vuex.Store(storeDefinition);
 
+
+//Whenever axios makes a request and gets back a 401 (bakend expected you to be authenticated but you are not) we update the global state (vuex) and local storage with no user logged.
+window.axios.interceptors.response.use(
+    response => response,
+    error => {
+        if (401 === error.response.status) {
+            store.dispatch('logout')
+        }
+        return Promise.reject(error);
+    }
+);
+
 //Main component of the website that acts as a container
 const app = new Vue({
     el: "#app",
@@ -35,7 +47,8 @@ const app = new Vue({
     components: {
         index: Index
     },
-    beforeCreate() {
-        this.$store.dispatch("loadStoredState"); //Just before creating the main component of our app we call the loadStoredState action of vueX (store.js)
+    async beforeCreate() {
+        this.$store.dispatch("loadStoredState"); //Just before creating the main component of our app we call the loadStoredState action of vueX to get whatever is saved in the localstorage (store.js)
+        this.$store.dispatch("loadUser");
     },
 });
