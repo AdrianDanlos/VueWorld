@@ -1,21 +1,28 @@
 <template>
   <div>
-    <video autoplay muted loop id="myVideo">
-      <source src="../../../storage/videos/landing.mp4" type="video/mp4" />
-    </video>
+    <input type="text" v-model="country">
+    <router-link :to="{name: 'bookablesByCountry',  params: {country: country}}">clicka</router-link>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      country: null,
+    };
+  },
+};
 </script>
 
 <style scoped>
-#myVideo {
-  position: fixed;
-  right: 0;
-  bottom: 0;
-  min-width: 100%;
-  min-height: 100%;
+#container {
+  background-image: url("/public/images/landing/0.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+  width: 1000px;
+  height: 1000px;
 }
 </style>

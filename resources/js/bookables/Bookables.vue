@@ -33,7 +33,7 @@ export default {
     return {
       bookables: null,
       loading: false,
-      columns: 3 //Amount of bookables we want for each row.
+      columns: 3, //Amount of bookables we want for each row.
     };
   },
   computed: {
@@ -57,17 +57,9 @@ export default {
 
     //fetching data from the server
     //axios returns a promise object -> console.log(axios.get('api/bookables'))
-
-    // const request = axios.get("api/bookables").then(result => {
-    //   this.bookables = result.data;
-    //   this.loading = false;
-    // });
-
-    const options = {
-      headers: { "Access-Control-Allow-Origin": "*" }
-    };
-    const countries = axios.get(`api/bookables/countries/Montenegro`).then(result => {
+    const countries = axios.get(`/api/bookables/countries/${this.$route.params.country}`).then(result => {
       console.log(result.data);
+      this.bookables = result.data;
       this.loading = false;
     });
 

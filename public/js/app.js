@@ -3076,18 +3076,10 @@ __webpack_require__.r(__webpack_exports__);
     //"this" references the component
     this.loading = true; //fetching data from the server
     //axios returns a promise object -> console.log(axios.get('api/bookables'))
-    // const request = axios.get("api/bookables").then(result => {
-    //   this.bookables = result.data;
-    //   this.loading = false;
-    // });
 
-    var options = {
-      headers: {
-        "Access-Control-Allow-Origin": "*"
-      }
-    };
-    var countries = axios.get("api/bookables/countries/Montenegro").then(function (result) {
+    var countries = axios.get("/api/bookables/countries/".concat(this.$route.params.country)).then(function (result) {
       console.log(result.data);
+      _this.bookables = result.data;
       _this.loading = false;
     });
     console.log(countries);
@@ -3146,8 +3138,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-/* harmony default export */ __webpack_exports__["default"] = ({});
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      country: null
+    };
+  }
+});
 
 /***/ }),
 
@@ -7976,7 +7973,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\nh6.badge[data-v-9d55657e] {\r\n  font-size: 100%;\n}\na[data-v-9d55657e] {\r\n  color: black;\n}\r\n", ""]);
+exports.push([module.i, "\nh6.badge[data-v-9d55657e] {\n  font-size: 100%;\n}\na[data-v-9d55657e] {\n  color: black;\n}\n", ""]);
 
 // exports
 
@@ -7995,7 +7992,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n/* 'scoped' keeps the scope of the stylesheet to the component. Otherwise the scope would be global. */\nlabel[data-v-39d99139] {\r\n  font-size: 0.7rem;\r\n  text-transform: uppercase;\r\n  color: gray;\r\n  font-weight: bolder;\n}\n.is-invalid[data-v-39d99139] {\r\n  border-color: #b22222;\r\n  background-image: none;\n}\n.invalid-feedback[data-v-39d99139] {\r\n  color: #b22222;\n}\r\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* 'scoped' keeps the scope of the stylesheet to the component. Otherwise the scope would be global. */\nlabel[data-v-39d99139] {\n  font-size: 0.7rem;\n  text-transform: uppercase;\n  color: gray;\n  font-weight: bolder;\n}\n.is-invalid[data-v-39d99139] {\n  border-color: #b22222;\n  background-image: none;\n}\n.invalid-feedback[data-v-39d99139] {\n  color: #b22222;\n}\n", ""]);
 
 // exports
 
@@ -8014,7 +8011,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n#photo[data-v-0d2ee2be] {\r\n  width: 100%;\r\n  background-size: cover;\r\n  margin-top: 1rem;\n}\r\n/* Trick to give the image resonsive height*/\n#photo[data-v-0d2ee2be]:after {\r\n  content: \"\";\r\n  display: block;\r\n  padding-bottom: 60%;\n}\r\n", ""]);
+exports.push([module.i, "\n#photo[data-v-0d2ee2be] {\n  width: 100%;\n  background-size: cover;\n  margin-top: 1rem;\n}\n/* Trick to give the image resonsive height*/\n#photo[data-v-0d2ee2be]:after {\n  content: \"\";\n  display: block;\n  padding-bottom: 60%;\n}\n", ""]);
 
 // exports
 
@@ -8033,7 +8030,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.warning[data-v-0d2ee2be] {\r\n  font-size: 0.7rem;\n}\r\n", ""]);
+exports.push([module.i, "\n.warning[data-v-0d2ee2be] {\n  font-size: 0.7rem;\n}\n", ""]);
 
 // exports
 
@@ -8052,7 +8049,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n#review-list-container[data-v-62084ff4] {\r\n  padding: 1.25rem;\n}\r\n", ""]);
+exports.push([module.i, "\n#review-list-container[data-v-62084ff4] {\n  padding: 1.25rem;\n}\n", ""]);
 
 // exports
 
@@ -8071,7 +8068,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.flip-list-move[data-v-7a867923] {\r\n  transition: transform 1s;\n}\n*[data-v-7a867923]:focus {\r\n  outline: 0 !important;\r\n  box-shadow: none;\n}\r\n", ""]);
+exports.push([module.i, "\n.flip-list-move[data-v-7a867923] {\n  transition: transform 1s;\n}\n*[data-v-7a867923]:focus {\n  outline: 0 !important;\n  box-shadow: none;\n}\n", ""]);
 
 // exports
 
@@ -8090,7 +8087,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n#photo[data-v-ca153ad8]{\r\n  width: 100%;\r\n  background-size: cover;\r\n  margin-bottom: 1rem;\n}\r\n/* Trick to give the image resonsive height*/\n#photo[data-v-ca153ad8]:after {\r\n  content: \"\";\r\n  display: block;\r\n  padding-bottom: 70%;\n}\r\n\r\n", ""]);
+exports.push([module.i, "\n#photo[data-v-ca153ad8]{\n  width: 100%;\n  background-size: cover;\n  margin-bottom: 1rem;\n}\n/* Trick to give the image resonsive height*/\n#photo[data-v-ca153ad8]:after {\n  content: \"\";\n  display: block;\n  padding-bottom: 70%;\n}\n\n", ""]);
 
 // exports
 
@@ -8109,7 +8106,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n#myVideo[data-v-6cb9731e] {\r\n  position: fixed;\r\n  right: 0;\r\n  bottom: 0;\r\n  min-width: 100%;\r\n  min-height: 100%;\n}\r\n", ""]);
+exports.push([module.i, "\n#container[data-v-6cb9731e] {\n  background-image: url(\"/public/images/landing/0.jpg\");\n  background-repeat: no-repeat;\n  background-attachment: fixed;\n  background-position: center;\n  background-size: cover;\n  width: 1000px;\n  height: 1000px;\n}\n", ""]);
 
 // exports
 
@@ -8128,7 +8125,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.error[data-v-1664aff1] {\r\n  color: #999;\r\n  font-size: 10rem;\n}\r\n", ""]);
+exports.push([module.i, "\n.error[data-v-1664aff1] {\n  color: #999;\n  font-size: 10rem;\n}\n", ""]);
 
 // exports
 
@@ -8147,7 +8144,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.success[data-v-b58db574] {\r\n  color: #999;\r\n  font-size: 10rem;\n}\r\n", ""]);
+exports.push([module.i, "\n.success[data-v-b58db574] {\n  color: #999;\n  font-size: 10rem;\n}\n", ""]);
 
 // exports
 
@@ -8166,7 +8163,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.form-control.is-invalid ~ div > .invalid-feedback[data-v-4356abde] {\r\n  display: block;\n}\r\n", ""]);
+exports.push([module.i, "\n.form-control.is-invalid ~ div > .invalid-feedback[data-v-4356abde] {\n  display: block;\n}\n", ""]);
 
 // exports
 
@@ -63369,23 +63366,42 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c(
-      "video",
-      {
-        attrs: { autoplay: "", muted: "", loop: "", id: "myVideo" },
-        domProps: { muted: true }
-      },
-      [
-        _c("source", {
-          attrs: {
-            src: __webpack_require__(/*! ../../../storage/videos/landing.mp4 */ "./storage/videos/landing.mp4"),
-            type: "video/mp4"
+  return _c(
+    "div",
+    [
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.country,
+            expression: "country"
           }
-        })
-      ]
-    )
-  ])
+        ],
+        attrs: { type: "text" },
+        domProps: { value: _vm.country },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.country = $event.target.value
+          }
+        }
+      }),
+      _vm._v(" "),
+      _c(
+        "router-link",
+        {
+          attrs: {
+            to: { name: "bookablesByCountry", params: { country: _vm.country } }
+          }
+        },
+        [_vm._v("clicka")]
+      )
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -80933,14 +80949,15 @@ axios.defaults.withCredentials = true;
 /*!******************************************!*\
   !*** ./resources/js/landing/Landing.vue ***!
   \******************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Landing_vue_vue_type_template_id_6cb9731e_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Landing.vue?vue&type=template&id=6cb9731e&scoped=true& */ "./resources/js/landing/Landing.vue?vue&type=template&id=6cb9731e&scoped=true&");
 /* harmony import */ var _Landing_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Landing.vue?vue&type=script&lang=js& */ "./resources/js/landing/Landing.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _Landing_vue_vue_type_style_index_0_id_6cb9731e_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Landing.vue?vue&type=style&index=0&id=6cb9731e&scoped=true&lang=css& */ "./resources/js/landing/Landing.vue?vue&type=style&index=0&id=6cb9731e&scoped=true&lang=css&");
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _Landing_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _Landing_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _Landing_vue_vue_type_style_index_0_id_6cb9731e_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Landing.vue?vue&type=style&index=0&id=6cb9731e&scoped=true&lang=css& */ "./resources/js/landing/Landing.vue?vue&type=style&index=0&id=6cb9731e&scoped=true&lang=css&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -80972,7 +80989,7 @@ component.options.__file = "resources/js/landing/Landing.vue"
 /*!*******************************************************************!*\
   !*** ./resources/js/landing/Landing.vue?vue&type=script&lang=js& ***!
   \*******************************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -81693,17 +81710,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-
-/***/ }),
-
-/***/ "./storage/videos/landing.mp4":
-/*!************************************!*\
-  !*** ./storage/videos/landing.mp4 ***!
-  \************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-throw new Error("Module parse failed: Unexpected character '\u0000' (1:0)\nYou may need an appropriate loader to handle this file type, currently no loaders are configured to process this file. See https://webpack.js.org/concepts#loaders\n(Source code omitted for this binary file)");
 
 /***/ }),
 
