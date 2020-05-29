@@ -6,11 +6,17 @@ import Bookable from "./bookable/Bookable";
 import Review from "./review/Review";
 import Basket from "./basket/Basket"
 import Login from "./auth/Login";
+import Landing from "./landing/Landing";
 
 const routes = [{
         path: "/",
-        component: Bookables,
+        component: Landing,
         name: "home",
+    },
+    {
+        path: "/bookables/:country",
+        component: Bookables,
+        name: "bookablesByCountry",
     },
     {
         path: "/bookable/:id",

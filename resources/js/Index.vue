@@ -26,7 +26,7 @@
     </nav>
 
     <div class="container mt-4 mb-4 pr-4 pl-4">
-      <router-view></router-view><!--Component that renders the matched component for the given path.--> 
+      <router-view></router-view><!-- Component that renders the matched component for the given path of the router.js.  -->
     </div>
   </div>
 </template>

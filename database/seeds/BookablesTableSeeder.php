@@ -12,6 +12,14 @@ class BookablesTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Bookable::class, 100)->create();
+        $client = new \GuzzleHttp\Client();
+        $response = $client->request('GET', 'https://restcountries.eu/rest/v2/all?fields=name;');
+
+
+        $countries = json_decode($response->getBody());
+
+        foreach ($countries as $country) {
+            factory(App\Bookable::class, 30)->create(['country' => $country->name]);
+        }
     }
 }

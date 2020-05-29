@@ -2,13 +2,18 @@
   <div>
     <div v-if="loading">Data is loading</div>
     <div v-else>
-      <div class="row mb-4" v-for="(row, rowIndex) in rows" :key="rowIndex">
-        <div class="col-4 d-flex align-items-stretch" v-for="(bookable,columnIndex) in bookablesInRow(row)" :key="columnIndex">
-          <BookableListItem
-            v-bind="bookable"
-          ></BookableListItem>
+      <button class="btn btn-secondary mb-3" @click="shuffle">Shuffle appartments</button>
+      <transition-group name="flip-list">
+        <div class="row mb-4" v-for="(row, rowIndex) in rows" :key="rowIndex + 0">
+          <div
+            class="col-4 d-flex align-items-stretch"
+            v-for="(bookable,columnIndex) in bookablesInRow(row)"
+            :key="columnIndex"
+          >
+            <BookableListItem v-bind="bookable"></BookableListItem>
+          </div>
         </div>
-      </div>
+      </transition-group>
     </div>
   </div>
 </template>
@@ -41,6 +46,9 @@ export default {
   methods: {
     bookablesInRow(row) {
       return this.bookables.slice((row - 1) * this.columns, row * this.columns); //gets array of bookables for this row
+    },
+    shuffle: function() {
+      this.bookables = _.shuffle(this.bookables);
     }
   },
   created() {
@@ -49,10 +57,31 @@ export default {
 
     //fetching data from the server
     //axios returns a promise object -> console.log(axios.get('api/bookables'))
-    const request = axios.get('api/bookables').then(result => {
-      this.bookables = result.data
+
+    // const request = axios.get("api/bookables").then(result => {
+    //   this.bookables = result.data;
+    //   this.loading = false;
+    // });
+
+    const options = {
+      headers: { "Access-Control-Allow-Origin": "*" }
+    };
+    const countries = axios.get(`api/bookables/countries/Montenegro`).then(result => {
+      console.log(result.data);
       this.loading = false;
-    })
+    });
+
+    console.log(countries);
   }
 };
 </script>
+
+<style scoped>
+.flip-list-move {
+  transition: transform 1s;
+}
+*:focus {
+  outline: 0 !important;
+  box-shadow: none;
+}
+</style>

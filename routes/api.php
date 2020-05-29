@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Route;
 
 //:apiResource method creates all the routes by default. See php artisan route:list.
 Route::apiResource('bookables', 'Api\BookableController')->only(['index', 'show']);
+
 Route::get('bookables/{bookable}/availability', 'Api\BookableAvailabilityController')->name('bookables.availability.show');
 Route::get('bookables/{bookable}/reviews', 'Api\BookableReviewController')->name('bookables.reviews.index');
 Route::get('bookables/{bookable}/price', 'Api\BookablePriceController')->name('bookables.price.show');
@@ -29,4 +30,7 @@ Route::get('/booking-by-review/{reviewKey}', 'Api\BookingByReviewController')->n
 Route::apiResource('reviews', 'Api\ReviewController')->only(['show', 'store']);
 
 Route::post('checkout', 'Api\CheckoutController')->name('checkout');
+
+Route::get('bookables/countries/{country}', 'Api\BookableCountryController');
+
 
