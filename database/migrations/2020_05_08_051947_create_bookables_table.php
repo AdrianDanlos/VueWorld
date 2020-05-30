@@ -21,6 +21,7 @@ class CreateBookablesTable extends Migration
             $table->text('photo_url');
             $table->unsignedBigInteger('price');
             $table->string('country');
+            $table->string('city');
         });
     }
 

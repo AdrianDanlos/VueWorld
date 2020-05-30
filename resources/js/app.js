@@ -7,6 +7,7 @@ import Index from "./Index";
 import router from "./routes";
 import FatalError from "./shared/components/FatalError";
 import StarRating from "./shared/components/StarRating";
+import SearchCity from "./shared/components/SearchCity";
 import Success from "./shared/components/Success";
 import ValidationErrors from "./shared/components/ValidationErrors";
 import storeDefinition from "./store";
@@ -15,6 +16,7 @@ import storeDefinition from "./store";
 //We are importing components on our router so we dont have to declare them here again
 
 window.Vue = require("vue");
+
 Vue.use(VueRouter); //To enable vue router
 Vue.use(Vuex);
 
@@ -24,6 +26,7 @@ Vue.component("star-rating", StarRating);
 Vue.component("fatal-error", FatalError);
 Vue.component("success", Success);
 Vue.component("v-errors", ValidationErrors);
+Vue.component("search-city", SearchCity);
 
 const store = new Vuex.Store(storeDefinition);
 

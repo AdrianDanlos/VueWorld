@@ -16946,3 +16946,7 @@ a.text-dark:focus {
   opacity: 0;
 }
 
+:root {
+  --main-color: #f25621;
+}
+

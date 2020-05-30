@@ -20,20 +20,23 @@
 
 <script>
 export default {
-    props: {
-        value: Number
+  props: {
+    value: Number
+  },
+  computed: {
+    halfStar() {
+      //logic: if rating(value) is 4.1 or above display 4.5
+      return this.value - Math.floor(this.value) > 0.25 ? 1 : 0;
     },
-    computed: {
-        halfStar(){
-            //logic: if rating(value) is 4.1 or above display 4.5
-            return this.value - Math.floor(this.value) > 0.1 ? 1 : 0;
-        },
-        fullStars(){
-            return Math.floor(this.value);
-        },
-        emptyStars(){ 
-            return Math.floor(5 - this.value);
-        }
+    fullStars() {
+      return Math.floor(this.value);
+    },
+    emptyStars() {
+      //if we have added a halfstar add floor.emptyStarts. If we havent, add ceil.emptyStars
+      return Math.floor(
+        5 - (this.halfStar === 0 ? Math.floor(this.value) : Math.ceil(this.value))
+      );
     }
-}
+  }
+};
 </script>

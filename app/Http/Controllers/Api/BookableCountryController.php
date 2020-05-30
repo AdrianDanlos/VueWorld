@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 use App\Http\Resources\BookableByCountryResource;
+use App\Http\Resources\BookableByCountryReviewResource;
+use App\Review;
 
 class BookableCountryController extends Controller
 {

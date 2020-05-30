@@ -19,8 +19,10 @@ class BookableByCountryResource extends JsonResource
             'title' => $this->title,
             'description' => $this->description,
             'photo_url' => $this->photo_url,
+            'price' => $this->price,
             'country' => $this->country,
-            'price' => $this->price
+            'city' => $this->city,
+            'reviews' => BookableByCountryReviewResource::collection($this->reviews),
         ];
     }
 }

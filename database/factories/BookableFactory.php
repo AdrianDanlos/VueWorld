@@ -25,6 +25,6 @@ $factory->define(Bookable::class, function (Faker $faker) use($suffix, $images_f
         'title' => $faker->city . ' ' . Arr::random($suffix),
         'description' => $faker->text(),
         'photo_url' => $images_formatted_url[array_rand($images_formatted_url)],
-        'price' => random_int(15, 600)
+        'price' => random_int(15, 250)
     ];
 });

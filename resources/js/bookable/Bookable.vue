@@ -71,6 +71,8 @@ export default {
       this.bookable = result.data;
       this.loading = false;
     });
+
+    
   },
   computed: {
     ...mapState({

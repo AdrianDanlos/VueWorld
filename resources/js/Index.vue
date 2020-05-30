@@ -24,8 +24,10 @@
         </li>
       </ul>
     </nav>
-
-    <div class="container mt-4 mb-4 pr-4 pl-4">
+    <div v-if="isLanding()">
+      <router-view></router-view><!-- Component that renders the matched component for the given path of the router.js.  -->
+    </div>
+    <div v-else id="web-container" class="container mb-4 pr-4 pl-4">
       <router-view></router-view><!-- Component that renders the matched component for the given path of the router.js.  -->
     </div>
   </div>
@@ -34,6 +36,7 @@
 <script>
 import { mapState, mapGetters } from "vuex";
 import { isLoggedIn } from './shared/utils/auth';
+
 export default {
   data() {
     return {
@@ -58,7 +61,16 @@ export default {
       } catch (error) {
         this.$store.dispatch("logout");
       }
+    },
+    isLanding(){
+      return "/" === this.$route.path;
     }
   }
 };
 </script> 
+
+<style scoped>
+#web-container{
+  margin-top: 50px;
+}
+</style>
