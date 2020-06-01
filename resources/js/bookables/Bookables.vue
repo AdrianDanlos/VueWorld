@@ -3,14 +3,14 @@
     <div v-if="loading">Data is loading</div>
     <div v-else-if="errors">{{ redirectHome() }}</div>
     <div v-else>
-      <div class="d-flex justify-content-between align-items-center mb-3">
-        <div class="country-container py-2 px-4">
+      <div class="info-bar d-flex justify-content-between align-items-stretch mb-3">
+        <div class="d-flex align-items-center country-container py-2 px-4">
           <i class="fas fa-map-marker-alt"></i>
           <span>{{bookables[0].city}},</span>
           <span>{{bookables[0].country}}</span>
           <img class="countryFlag" :src="countryFlag" alt="countryFlag" />
         </div>
-        <search-city></search-city>
+        <search-city class="flex-grow-1" :searchLayout="{inputSize: 'col-md-10', buttonSize: 'col-md-1'}" @search="getBookablesByCountry($event)"></search-city>
         <button class="btn btn-secondary py-2" @click="shuffle">Shuffle appartments</button>
       </div>
 
@@ -68,34 +68,43 @@ export default {
     },
     redirectHome() {
       this.$router.push({ name: "home" });
+    },
+    async getBookablesByCountry(country) {
+      if (this.$route.name !== "bookablesByCountry") {
+        //Update URL
+        this.$router.push({
+          name: "bookablesByCountry",
+          params: { country: country }
+        });
+      }
+
+      //"this" references the component
+      this.loading = true;
+      this.errors = false;
+
+      //fetching data from the server
+      //axios returns a promise object -> console.log(axios.get('api/bookables'))
+      try {
+        this.bookables = (
+          await axios.get(`/api/bookables/countries/${country}`)
+        ).data;
+        console.log(this.bookables);
+        // this.countryFlag = (
+        //   await axios.get(
+        //     `https://restcountries.eu/rest/v2/name/${this.$route.params.country}?fields=flag;`
+        //   )
+        // ).data[0].flag;
+      } catch (error) {}
+
+      if (!this.bookables.length) {
+        this.errors = true;
+      }
+
+      this.loading = false;
     }
   },
-  async created() {
-    //"this" references the component
-    this.loading = true;
-    this.errors = false;
-
-    //fetching data from the server
-    //axios returns a promise object -> console.log(axios.get('api/bookables'))
-    try {
-      this.bookables = (
-        await axios.get(
-          `/api/bookables/countries/${this.$route.params.country}`
-        )
-      ).data;
-      console.log(this.bookables);
-      // this.countryFlag = (
-      //   await axios.get(
-      //     `https://restcountries.eu/rest/v2/name/${this.$route.params.country}?fields=flag;`
-      //   )
-      // ).data[0].flag;
-    } catch (error) {}
-
-    if (!this.bookables.length) {
-      this.errors = true;
-    }
-
-    this.loading = false;
+  created() {
+    this.getBookablesByCountry(this.$route.params.country);
   }
 };
 </script>
@@ -114,13 +123,35 @@ export default {
   border-radius: 0.25rem;
 }
 .country-container span {
-  margin: 0 1px;
+  margin: 2px;
+}
+.country-container i {
+  margin-right: 10px;
 }
 .country-container img {
   margin-left: 10px;
 }
 .countryFlag {
-  width: 50px;
+  width: 40px;
   border-radius: 3px;
 }
+
+/deep/ .info-bar #search-country-input {
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  height: 50px;
+}
+
+/deep/ .info-bar .search-container {
+  flex-grow: 1;
+}
+/deep/ .dropdown {
+  width: 100%;
+  top: 50px;
+  left: 0;
+}
+/deep/ .dropdown li{
+  background-color: white;
+  height: 60px;
+}
+
 </style>

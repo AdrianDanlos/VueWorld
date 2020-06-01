@@ -1,38 +1,78 @@
 <template>
-    <div id="landing" :style="{ backgroundImage: 'url(' + image + ')' }">
-      <search-city v-model="country"></search-city>
-      <router-link :to="{name: 'bookablesByCountry',  params: {country: country}}">Letsgo</router-link>
-    </div>
+  <div id="landing" class="d-flex flex-column justify-content-center align-items-center">
+    <img src="/images/landing/brand.png" alt="brand" />
+    <p>36,000 properties, 178 countries • Over 13 million verified guest reviews • 24/7 customer service</p>
+    <search-city
+      class="w-100"
+      :searchLayout="{inputSize: 'col-md-6 offset-md-3', buttonSize: 'col-md-3'}"
+      @search="redirect($event)"
+    ></search-city>
+  </div>
 </template>
 
 <script>
 import SearchCity from "../shared/components/SearchCity";
-// import JS from "./landing";
-// import $ from "jquery";
 
 export default {
   components: {
     SearchCity
   },
-  data() {
-    return {
-      image: "/images/landing/1.jpg",
-      country: null
-    };
+  methods: {
+    redirect(country) {
+      this.$router.push({
+        name: "bookablesByCountry",
+        params: { country: country }
+      });
+    }
+  },
+  created() {
+    document.body.style.overflow = "hidden";
+  },
+  beforeDestroy() {
+    document.body.style.overflow = "visible";
   }
 };
 </script>
 
 <style scoped>
-body {
-  overflow: hidden;
-}
 #landing {
+  background: url("/images/landing/indonesia.jpg");
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center;
   background-size: cover;
   width: 100%;
   height: 100vh;
+}
+p {
+  color: white;
+  margin-left: -50px;
+}
+
+/deep/ .search-container {
+  margin-bottom: 40vh;
+  width: 100%;
+}
+/deep/ #search-country-input {
+  border: 6px solid rgba(0, 0, 0, 0.5);
+  height: 60px;
+  font-size: 1.2rem;
+}
+/deep/ #search-country-input::placeholder {
+  font-size: 1.2rem;
+}
+/deep/ .btn {
+  width: 60px;
+  font-size: 1.1rem;
+}
+/deep/ .dropdown {
+  width: calc(100% - (6px * 2)); /*100% - border width*/
+  top: 55px;
+  left: 6px;
+}
+/deep/ .dropdown li{
+  background-color: rgba(255, 255, 255, 0.8);
+  font-size: 1.2rem;
+  height: 48px;
 }
 </style>

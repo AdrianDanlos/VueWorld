@@ -3104,54 +3104,67 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.$router.push({
         name: "home"
       });
+    },
+    getBookablesByCountry: function getBookablesByCountry(country) {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                if (_this.$route.name !== "bookablesByCountry") {
+                  //Update URL
+                  _this.$router.push({
+                    name: "bookablesByCountry",
+                    params: {
+                      country: country
+                    }
+                  });
+                } //"this" references the component
+
+
+                _this.loading = true;
+                _this.errors = false; //fetching data from the server
+                //axios returns a promise object -> console.log(axios.get('api/bookables'))
+
+                _context.prev = 3;
+                _context.next = 6;
+                return axios.get("/api/bookables/countries/".concat(country));
+
+              case 6:
+                _this.bookables = _context.sent.data;
+                console.log(_this.bookables); // this.countryFlag = (
+                //   await axios.get(
+                //     `https://restcountries.eu/rest/v2/name/${this.$route.params.country}?fields=flag;`
+                //   )
+                // ).data[0].flag;
+
+                _context.next = 12;
+                break;
+
+              case 10:
+                _context.prev = 10;
+                _context.t0 = _context["catch"](3);
+
+              case 12:
+                if (!_this.bookables.length) {
+                  _this.errors = true;
+                }
+
+                _this.loading = false;
+
+              case 14:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, null, [[3, 10]]);
+      }))();
     }
   },
   created: function created() {
-    var _this = this;
-
-    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              //"this" references the component
-              _this.loading = true;
-              _this.errors = false; //fetching data from the server
-              //axios returns a promise object -> console.log(axios.get('api/bookables'))
-
-              _context.prev = 2;
-              _context.next = 5;
-              return axios.get("/api/bookables/countries/".concat(_this.$route.params.country));
-
-            case 5:
-              _this.bookables = _context.sent.data;
-              console.log(_this.bookables); // this.countryFlag = (
-              //   await axios.get(
-              //     `https://restcountries.eu/rest/v2/name/${this.$route.params.country}?fields=flag;`
-              //   )
-              // ).data[0].flag;
-
-              _context.next = 11;
-              break;
-
-            case 9:
-              _context.prev = 9;
-              _context.t0 = _context["catch"](2);
-
-            case 11:
-              if (!_this.bookables.length) {
-                _this.errors = true;
-              }
-
-              _this.loading = false;
-
-            case 13:
-            case "end":
-              return _context.stop();
-          }
-        }
-      }, _callee, null, [[2, 9]]);
-    }))();
+    this.getBookablesByCountry(this.$route.params.country);
   }
 });
 
@@ -3167,6 +3180,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _shared_components_StarRating__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../shared/components/StarRating */ "./resources/js/shared/components/StarRating.vue");
+//
+//
+//
 //
 //
 //
@@ -3233,18 +3249,31 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
- // import JS from "./landing";
-// import $ from "jquery";
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     SearchCity: _shared_components_SearchCity__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
-  data: function data() {
-    return {
-      image: "/images/landing/1.jpg",
-      country: null
-    };
+  methods: {
+    redirect: function redirect(country) {
+      this.$router.push({
+        name: "bookablesByCountry",
+        params: {
+          country: country
+        }
+      });
+    }
+  },
+  created: function created() {
+    document.body.style.overflow = "hidden";
+  },
+  beforeDestroy: function beforeDestroy() {
+    document.body.style.overflow = "visible";
   }
 });
 
@@ -3473,7 +3502,83 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({});
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: {
+    searchLayout: Object
+  },
+  data: function data() {
+    return {
+      country: "",
+      countries: ["Florida", "Alabama", "New Mexico", "California", "Nevada", "Alaska", "Ohio", "China", "Nepal", "Washington", "Missouri"],
+      filteredCountries: [],
+      modal: false
+    };
+  },
+  methods: {
+    filterCountries: function filterCountries() {
+      var _this = this;
+
+      if (0 === this.country.length) {
+        this.filteredCountries = this.countries;
+      } // this.filteredCountries = this.countries.filter(country => {
+      //   return country.toLowerCase().startsWith(this.country.toLowerCase());
+      // });
+
+
+      this.filteredCountries = [];
+      this.countries.forEach(function (country) {
+        if (_this.filteredCountries.length <= 4 && country.toLowerCase().startsWith(_this.country.toLowerCase())) {
+          _this.filteredCountries.push(country);
+        }
+      });
+    },
+    setCountry: function setCountry(country) {
+      this.country = country;
+      this.modal = false;
+    }
+  },
+  mounted: function mounted() {
+    this.filterCountries();
+  },
+  watch: {
+    country: function country() {
+      this.filterCountries();
+    }
+  }
+});
 
 /***/ }),
 
@@ -8210,7 +8315,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.flip-list-move[data-v-7a867923] {\n  transition: transform 1s;\n}\n*[data-v-7a867923]:focus {\n  outline: 0 !important;\n  box-shadow: none;\n}\n.country-container[data-v-7a867923] {\n  background-color: white;\n  border: 1px solid rgba(0, 0, 0, 0.125);\n  border-radius: 0.25rem;\n}\n.country-container span[data-v-7a867923] {\n  margin: 0 1px;\n}\n.country-container img[data-v-7a867923] {\n  margin-left: 10px;\n}\n.countryFlag[data-v-7a867923] {\n  width: 50px;\n  border-radius: 3px;\n}\n", ""]);
+exports.push([module.i, "\n.flip-list-move[data-v-7a867923] {\n  transition: transform 1s;\n}\n*[data-v-7a867923]:focus {\n  outline: 0 !important;\n  box-shadow: none;\n}\n.country-container[data-v-7a867923] {\n  background-color: white;\n  border: 1px solid rgba(0, 0, 0, 0.125);\n  border-radius: 0.25rem;\n}\n.country-container span[data-v-7a867923] {\n  margin: 2px;\n}\n.country-container i[data-v-7a867923] {\n  margin-right: 10px;\n}\n.country-container img[data-v-7a867923] {\n  margin-left: 10px;\n}\n.countryFlag[data-v-7a867923] {\n  width: 40px;\n  border-radius: 3px;\n}\n[data-v-7a867923] .info-bar #search-country-input {\n  border: 1px solid rgba(0, 0, 0, 0.125);\n  height: 50px;\n}\n[data-v-7a867923] .info-bar .search-container {\n  flex-grow: 1;\n}\n[data-v-7a867923] .dropdown {\n  width: 100%;\n  top: 50px;\n  left: 0;\n}\n[data-v-7a867923] .dropdown li{\n  background-color: white;\n  height: 60px;\n}\n\n", ""]);
 
 // exports
 
@@ -8229,7 +8334,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n#photo[data-v-ca153ad8] {\n  width: 100%;\n  background-size: cover;\n  margin-bottom: 1rem;\n}\n/* Trick to give the image resonsive height*/\n#photo[data-v-ca153ad8]:after {\n  content: \"\";\n  display: block;\n  padding-bottom: 70%;\n}\n.card-body[data-v-ca153ad8] {\n  position: relative;\n}\n.review-amount[data-v-ca153ad8] {\n  color: #3490dc;\n  margin-top: 2px;\n}\n.star[data-v-ca153ad8]{\n  color: var(--main-color);\n}\n", ""]);
+exports.push([module.i, "\n#photo[data-v-ca153ad8] {\n  width: 100%;\n  background-size: cover;\n  margin-bottom: 1rem;\n}\n/* Trick to give the image resonsive height*/\n#photo[data-v-ca153ad8]:after {\n  content: \"\";\n  display: block;\n  padding-bottom: 70%;\n}\n.card-body[data-v-ca153ad8] {\n  position: relative;\n}\n.review-amount[data-v-ca153ad8] {\n  color: #3490dc;\n  margin-top: 2px;\n}\n.star[data-v-ca153ad8] {\n  color: var(--main-color);\n}\n", ""]);
 
 // exports
 
@@ -8248,7 +8353,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\nbody[data-v-6cb9731e] {\n  overflow: hidden;\n}\n#landing[data-v-6cb9731e] {\n  background-repeat: no-repeat;\n  background-attachment: fixed;\n  background-position: center;\n  background-size: cover;\n  width: 100%;\n  height: 100vh;\n}\n", ""]);
+exports.push([module.i, "\n#landing[data-v-6cb9731e] {\n  background: url(\"/images/landing/indonesia.jpg\");\n  background-repeat: no-repeat;\n  background-attachment: fixed;\n  background-position: center;\n  background-size: cover;\n  width: 100%;\n  height: 100vh;\n}\np[data-v-6cb9731e] {\n  color: white;\n  margin-left: -50px;\n}\n[data-v-6cb9731e] .search-container {\n  margin-bottom: 40vh;\n  width: 100%;\n}\n[data-v-6cb9731e] #search-country-input {\n  border: 6px solid rgba(0, 0, 0, 0.5);\n  height: 60px;\n  font-size: 1.2rem;\n}\n[data-v-6cb9731e] #search-country-input::-webkit-input-placeholder {\n  font-size: 1.2rem;\n}\n[data-v-6cb9731e] #search-country-input::-moz-placeholder {\n  font-size: 1.2rem;\n}\n[data-v-6cb9731e] #search-country-input:-ms-input-placeholder {\n  font-size: 1.2rem;\n}\n[data-v-6cb9731e] #search-country-input::-ms-input-placeholder {\n  font-size: 1.2rem;\n}\n[data-v-6cb9731e] #search-country-input::placeholder {\n  font-size: 1.2rem;\n}\n[data-v-6cb9731e] .btn {\n  width: 60px;\n  font-size: 1.1rem;\n}\n[data-v-6cb9731e] .dropdown {\n  width: calc(100% - (6px * 2)); /*100% - border width*/\n  top: 55px;\n  left: 6px;\n}\n[data-v-6cb9731e] .dropdown li{\n  background-color: rgba(255, 255, 255, 0.8);\n  font-size: 1.2rem;\n  height: 48px;\n}\n", ""]);
 
 // exports
 
@@ -8286,7 +8391,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\ninput[data-v-62f66040] {\r\n  border-radius: 5px;\r\n  border: 1px solid rgba(0, 0, 0, .3);\n}\ninput[data-v-62f66040]:focus,\r\ninput[data-v-62f66040]:active {\r\n  outline:none;\n}\ninput[data-v-62f66040]::-webkit-input-placeholder{\r\n    color: black;\r\n    font-size: 0.9rem;\n}\ninput[data-v-62f66040]::-moz-placeholder{\r\n    color: black;\r\n    font-size: 0.9rem;\n}\ninput[data-v-62f66040]:-ms-input-placeholder{\r\n    color: black;\r\n    font-size: 0.9rem;\n}\ninput[data-v-62f66040]::-ms-input-placeholder{\r\n    color: black;\r\n    font-size: 0.9rem;\n}\ninput[data-v-62f66040]::placeholder{\r\n    color: black;\r\n    font-size: 0.9rem;\n}\ni[data-v-62f66040]{\r\n    font-size: 22px;\n}\r\n", ""]);
+exports.push([module.i, "\ninput[data-v-62f66040] {\r\n  border-radius: 5px;\r\n  background: url(\"/images/searchBar/search.png\") no-repeat;\r\n  background-color: rgba(255, 255, 255, 0.8);\r\n  background-clip: padding-box;\r\n  background-position: left 5px top 3px;\r\n  background-size: 40px 40px;\r\n  padding-left: 60px;\r\n  caret-color: #6c757d;\r\n  color: rgb(56, 56, 56);\n}\ninput[data-v-62f66040]:focus,\r\ninput[data-v-62f66040]:active {\r\n  outline: none;\n}\ninput[data-v-62f66040]:focus::-webkit-input-placeholder {\r\n  color: transparent;\n}\ninput[data-v-62f66040]:focus::-moz-placeholder {\r\n  color: transparent;\n}\ninput[data-v-62f66040]:focus:-ms-input-placeholder {\r\n  color: transparent;\n}\ninput[data-v-62f66040]:focus::-ms-input-placeholder {\r\n  color: transparent;\n}\ninput[data-v-62f66040]:focus::placeholder {\r\n  color: transparent;\n}\ninput[data-v-62f66040]::-webkit-input-placeholder {\r\n  color: rgb(56, 56, 56);\n}\ninput[data-v-62f66040]::-moz-placeholder {\r\n  color: rgb(56, 56, 56);\n}\ninput[data-v-62f66040]:-ms-input-placeholder {\r\n  color: rgb(56, 56, 56);\n}\ninput[data-v-62f66040]::-ms-input-placeholder {\r\n  color: rgb(56, 56, 56);\n}\ninput[data-v-62f66040]::placeholder {\r\n  color: rgb(56, 56, 56);\n}\ni[data-v-62f66040] {\r\n  font-size: 22px;\n}\n.btn[data-v-62f66040] {\r\n  background-color: var(--main-color);\r\n  font-weight: bold;\r\n  color: white;\r\n  height: 100%;\n}\n.search-blanket[data-v-62f66040] {\r\n  width: 100vw;\r\n  height: 100vh;\r\n  position: absolute;\r\n  top: 0;\r\n  left: 0;\r\n  background: transparent;\n}\n.dropdown[data-v-62f66040] {\r\n  z-index: 1;\n}\n.dropdown ul[data-v-62f66040] {\r\n  list-style: none;\r\n  padding: 0;\n}\n.dropdown li[data-v-62f66040] {\r\n  border-bottom: 1px solid var(--main-color);\r\n  padding-left: 60px;\r\n  color: rgb(56, 56, 56);\n}\n.dropdown li[data-v-62f66040]:hover {\r\n  cursor: pointer;\r\n  background-color: var(--main-color);\r\n  color: white;\n}\r\n", ""]);
 
 // exports
 
@@ -63487,23 +63592,43 @@ var render = function() {
               "div",
               {
                 staticClass:
-                  "d-flex justify-content-between align-items-center mb-3"
+                  "info-bar d-flex justify-content-between align-items-stretch mb-3"
               },
               [
-                _c("div", { staticClass: "country-container py-2 px-4" }, [
-                  _c("i", { staticClass: "fas fa-map-marker-alt" }),
-                  _vm._v(" "),
-                  _c("span", [_vm._v(_vm._s(_vm.bookables[0].city) + ",")]),
-                  _vm._v(" "),
-                  _c("span", [_vm._v(_vm._s(_vm.bookables[0].country))]),
-                  _vm._v(" "),
-                  _c("img", {
-                    staticClass: "countryFlag",
-                    attrs: { src: _vm.countryFlag, alt: "countryFlag" }
-                  })
-                ]),
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "d-flex align-items-center country-container py-2 px-4"
+                  },
+                  [
+                    _c("i", { staticClass: "fas fa-map-marker-alt" }),
+                    _vm._v(" "),
+                    _c("span", [_vm._v(_vm._s(_vm.bookables[0].city) + ",")]),
+                    _vm._v(" "),
+                    _c("span", [_vm._v(_vm._s(_vm.bookables[0].country))]),
+                    _vm._v(" "),
+                    _c("img", {
+                      staticClass: "countryFlag",
+                      attrs: { src: _vm.countryFlag, alt: "countryFlag" }
+                    })
+                  ]
+                ),
                 _vm._v(" "),
-                _c("search-city"),
+                _c("search-city", {
+                  staticClass: "flex-grow-1",
+                  attrs: {
+                    searchLayout: {
+                      inputSize: "col-md-10",
+                      buttonSize: "col-md-1"
+                    }
+                  },
+                  on: {
+                    search: function($event) {
+                      return _vm.getBookablesByCountry($event)
+                    }
+                  }
+                }),
                 _vm._v(" "),
                 _c(
                   "button",
@@ -63616,9 +63741,16 @@ var render = function() {
                     attrs: { value: _vm.getAverageRating() }
                   }),
                   _vm._v(" "),
-                  _c("span", { staticClass: "ml-2 review-amount" }, [
-                    _vm._v(_vm._s(_vm.reviews.length))
-                  ])
+                  _c(
+                    "routerLink",
+                    {
+                      staticClass: "ml-2 review-amount",
+                      attrs: {
+                        to: { name: "bookable", params: { id: _vm.id } }
+                      }
+                    },
+                    [_vm._v(_vm._s(_vm.reviews.length))]
+                  )
                 ],
                 1
               ),
@@ -63659,29 +63791,33 @@ var render = function() {
   return _c(
     "div",
     {
-      style: { backgroundImage: "url(" + _vm.image + ")" },
+      staticClass:
+        "d-flex flex-column justify-content-center align-items-center",
       attrs: { id: "landing" }
     },
     [
-      _c("search-city", {
-        model: {
-          value: _vm.country,
-          callback: function($$v) {
-            _vm.country = $$v
-          },
-          expression: "country"
-        }
-      }),
+      _c("img", { attrs: { src: "/images/landing/brand.png", alt: "brand" } }),
       _vm._v(" "),
-      _c(
-        "router-link",
-        {
-          attrs: {
-            to: { name: "bookablesByCountry", params: { country: _vm.country } }
+      _c("p", [
+        _vm._v(
+          "36,000 properties, 178 countries • Over 13 million verified guest reviews • 24/7 customer service"
+        )
+      ]),
+      _vm._v(" "),
+      _c("search-city", {
+        staticClass: "w-100",
+        attrs: {
+          searchLayout: {
+            inputSize: "col-md-6 offset-md-3",
+            buttonSize: "col-md-3"
           }
         },
-        [_vm._v("Letsgo")]
-      )
+        on: {
+          search: function($event) {
+            return _vm.redirect($event)
+          }
+        }
+      })
     ],
     1
   )
@@ -63960,27 +64096,117 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "d-flex justify-content-center flex-grow-1" },
-      [
-        _c("i", { staticClass: "fas fa-search text-secondary" }),
-        _vm._v(" "),
-        _c("input", {
-          staticClass: "ml-3 w-75",
-          attrs: { type: "text", placeholder: "Where do you want to go?" }
+  return _c("div", [
+    _vm.modal
+      ? _c("div", {
+          staticClass: "search-blanket",
+          on: {
+            click: function($event) {
+              _vm.modal = false
+            }
+          }
         })
+      : _vm._e(),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "search-container d-flex justify-content-center row mx-0"
+      },
+      [
+        _c(
+          "div",
+          {
+            staticClass: "position-relative d-flex justify-content-start p-0",
+            class: _vm.searchLayout.inputSize
+          },
+          [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.country,
+                  expression: "country"
+                }
+              ],
+              staticClass: "w-100",
+              attrs: {
+                id: "search-country-input",
+                type: "text",
+                autocomplete: "no",
+                placeholder: "Where do you want to go?"
+              },
+              domProps: { value: _vm.country },
+              on: {
+                keyup: function($event) {
+                  if (
+                    !$event.type.indexOf("key") &&
+                    _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+                  ) {
+                    return null
+                  }
+                  return _vm.$emit("search", _vm.country)
+                },
+                focus: function($event) {
+                  _vm.modal = true
+                },
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.country = $event.target.value
+                }
+              }
+            }),
+            _vm._v(" "),
+            _vm.filteredCountries && _vm.modal
+              ? _c("div", { staticClass: "dropdown position-absolute" }, [
+                  _c(
+                    "ul",
+                    _vm._l(_vm.filteredCountries, function(filteredCountry) {
+                      return _c(
+                        "li",
+                        {
+                          key: filteredCountry,
+                          staticClass: "d-flex align-items-center",
+                          on: {
+                            click: function($event) {
+                              return _vm.setCountry(filteredCountry)
+                            }
+                          }
+                        },
+                        [_vm._v(_vm._s(filteredCountry))]
+                      )
+                    }),
+                    0
+                  )
+                ])
+              : _vm._e()
+          ]
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "pl-1", class: _vm.searchLayout.buttonSize }, [
+          _c(
+            "button",
+            {
+              staticClass:
+                "btn d-flex align-items-center justify-content-center",
+              attrs: { type: "button" },
+              on: {
+                click: function($event) {
+                  return _vm.$emit("search", _vm.country)
+                }
+              }
+            },
+            [_vm._v("GO")]
+          )
+        ])
       ]
     )
-  }
-]
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 

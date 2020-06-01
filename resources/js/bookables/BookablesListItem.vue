@@ -13,7 +13,10 @@
         >
           <div class="d-flex align-items-center">
             <star-rating :value="getAverageRating()" class="card-text star"></star-rating>
-            <span class="ml-2 review-amount">{{ reviews.length }}</span>
+            <routerLink
+              :to="{ name: 'bookable', params: {id}}"
+              class="ml-2 review-amount"
+            >{{ reviews.length }}</routerLink>
           </div>
           <span class="card-text font-weight-bold">{{ price }}€</span>
         </div>
@@ -69,7 +72,7 @@ export default {
   color: #3490dc;
   margin-top: 2px;
 }
-.star{
+.star {
   color: var(--main-color);
 }
 </style>
