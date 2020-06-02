@@ -71,6 +71,6 @@ export default {
 
 <style scoped>
 #web-container{
-  margin-top: 50px;
+  margin-top: 45px;
 }
 </style>

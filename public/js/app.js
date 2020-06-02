@@ -3027,7 +3027,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _BookablesListItem__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./BookablesListItem */ "./resources/js/bookables/BookablesListItem.vue");
 /* harmony import */ var _shared_mixins_validationErrors__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../shared/mixins/validationErrors */ "./resources/js/shared/mixins/validationErrors.js");
-/* harmony import */ var _shared_components_SearchCity__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../shared/components/SearchCity */ "./resources/js/shared/components/SearchCity.vue");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -3066,17 +3065,25 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //We import and declare ('export component') BookablesListItem component locally in this parent component (Bookables).
 //To delcare a component globally we would do it in the app.js.
-
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   mixins: [_shared_mixins_validationErrors__WEBPACK_IMPORTED_MODULE_2__["default"]],
   components: {
-    BookableListItem: _BookablesListItem__WEBPACK_IMPORTED_MODULE_1__["default"],
-    //This allows us to use the component in either PascalCase or kebab-case
-    SearchCity: _shared_components_SearchCity__WEBPACK_IMPORTED_MODULE_3__["default"]
+    BookableListItem: _BookablesListItem__WEBPACK_IMPORTED_MODULE_1__["default"] //This allows us to use the component in either PascalCase or kebab-case
+
   },
   data: function data() {
     //Fetching data from the server. Constantly rerendering components as data changes
@@ -3085,7 +3092,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       loading: false,
       columns: 3,
       //Amount of bookables we want for each row.
-      countryFlag: "https://restcountries.eu/data/chn.svg"
+      countryFlag: "https://restcountries.eu/data/chn.svg",
+      errAxiosCall: "We had a problem retrieving our bookables. Please, try again later.",
+      errCountryNotFound: "Sorry, we cannot find anything that matches your search term."
     };
   },
   computed: {
@@ -3100,11 +3109,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     shuffle: function shuffle() {
       this.bookables = _.shuffle(this.bookables);
     },
-    redirectHome: function redirectHome() {
-      this.$router.push({
-        name: "home"
-      });
-    },
     getBookablesByCountry: function getBookablesByCountry(country) {
       var _this = this;
 
@@ -3113,8 +3117,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                if (_this.$route.name !== "bookablesByCountry") {
-                  //Update URL
+                if (!country) {
+                  _context.next = 17;
+                  break;
+                }
+
+                //Update URL
+                if (_this.$route.path !== "/bookables/".concat(country)) {
                   _this.$router.push({
                     name: "bookablesByCountry",
                     params: {
@@ -3125,14 +3134,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
                 _this.loading = true;
-                _this.errors = false; //fetching data from the server
+                _this.errors = ""; //fetching data from the server
                 //axios returns a promise object -> console.log(axios.get('api/bookables'))
 
-                _context.prev = 3;
-                _context.next = 6;
+                _context.prev = 4;
+                _context.next = 7;
                 return axios.get("/api/bookables/countries/".concat(country));
 
-              case 6:
+              case 7:
                 _this.bookables = _context.sent.data;
                 console.log(_this.bookables); // this.countryFlag = (
                 //   await axios.get(
@@ -3140,26 +3149,31 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 //   )
                 // ).data[0].flag;
 
-                _context.next = 12;
+                _context.next = 13;
                 break;
 
-              case 10:
-                _context.prev = 10;
-                _context.t0 = _context["catch"](3);
+              case 11:
+                _context.prev = 11;
+                _context.t0 = _context["catch"](4);
 
-              case 12:
+              case 13:
                 if (!_this.bookables.length) {
-                  _this.errors = true;
+                  _this.errors = _this.errAxiosCall;
                 }
 
                 _this.loading = false;
+                _context.next = 18;
+                break;
 
-              case 14:
+              case 17:
+                _this.errors = _this.errCountryNotFound;
+
+              case 18:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[3, 10]]);
+        }, _callee, null, [[4, 11]]);
       }))();
     }
   },
@@ -3241,7 +3255,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _shared_components_SearchCity__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../shared/components/SearchCity */ "./resources/js/shared/components/SearchCity.vue");
 //
 //
 //
@@ -3254,19 +3267,33 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
 /* harmony default export */ __webpack_exports__["default"] = ({
-  components: {
-    SearchCity: _shared_components_SearchCity__WEBPACK_IMPORTED_MODULE_0__["default"]
+  data: function data() {
+    return {
+      brandData: "36,000 properties, 178 countries • Over 13 million verified guest reviews • 24/7 customer service",
+      errCountryNotFound: "Sorry, we cannot find anything that matches your search term.",
+      error: false
+    };
   },
   methods: {
     redirect: function redirect(country) {
-      this.$router.push({
-        name: "bookablesByCountry",
-        params: {
-          country: country
-        }
-      });
+      this.error = false;
+
+      if (country) {
+        this.$router.push({
+          name: "bookablesByCountry",
+          params: {
+            country: country
+          }
+        });
+      } else {
+        this.error = true;
+      }
+    }
+  },
+  computed: {
+    isError: function isError() {
+      return this.error === true;
     }
   },
   created: function created() {
@@ -3535,6 +3562,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     searchLayout: Object
@@ -3542,7 +3579,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       country: "",
-      countries: ["Florida", "Alabama", "New Mexico", "California", "Nevada", "Alaska", "Ohio", "China", "Nepal", "Washington", "Missouri"],
+      countries: ["China", "Indonesia", "France", "Uganda", "Somalia", "Monaco", "Mongolia", "Montenegro", "Egypt", "Spain", "Italy"],
       filteredCountries: [],
       modal: false
     };
@@ -3553,10 +3590,7 @@ __webpack_require__.r(__webpack_exports__);
 
       if (0 === this.country.length) {
         this.filteredCountries = this.countries;
-      } // this.filteredCountries = this.countries.filter(country => {
-      //   return country.toLowerCase().startsWith(this.country.toLowerCase());
-      // });
-
+      }
 
       this.filteredCountries = [];
       this.countries.forEach(function (country) {
@@ -3568,6 +3602,13 @@ __webpack_require__.r(__webpack_exports__);
     setCountry: function setCountry(country) {
       this.country = country;
       this.modal = false;
+    },
+    checkCountry: function checkCountry() {
+      if (this.filteredCountries.length && this.country.toLowerCase() === this.filteredCountries[0].toLowerCase()) {
+        return this.country;
+      }
+
+      return null;
     }
   },
   mounted: function mounted() {
@@ -3648,7 +3689,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["errors"],
+  props: {
+    errors: Array,
+    errorLayout: String
+  },
   methods: {
     key: function key(index) {
       return "validation_error_".concat(index, "_").concat(Math.random());
@@ -8201,7 +8245,7 @@ exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader
 
 
 // module
-exports.push([module.i, "\n#web-container[data-v-147fb424]{\n  margin-top: 50px;\n}\n", ""]);
+exports.push([module.i, "\n#web-container[data-v-147fb424]{\n  margin-top: 45px;\n}\n", ""]);
 
 // exports
 
@@ -8315,7 +8359,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.flip-list-move[data-v-7a867923] {\n  transition: transform 1s;\n}\n*[data-v-7a867923]:focus {\n  outline: 0 !important;\n  box-shadow: none;\n}\n.country-container[data-v-7a867923] {\n  background-color: white;\n  border: 1px solid rgba(0, 0, 0, 0.125);\n  border-radius: 0.25rem;\n}\n.country-container span[data-v-7a867923] {\n  margin: 2px;\n}\n.country-container i[data-v-7a867923] {\n  margin-right: 10px;\n}\n.country-container img[data-v-7a867923] {\n  margin-left: 10px;\n}\n.countryFlag[data-v-7a867923] {\n  width: 40px;\n  border-radius: 3px;\n}\n[data-v-7a867923] .info-bar #search-country-input {\n  border: 1px solid rgba(0, 0, 0, 0.125);\n  height: 50px;\n}\n[data-v-7a867923] .info-bar .search-container {\n  flex-grow: 1;\n}\n[data-v-7a867923] .dropdown {\n  width: 100%;\n  top: 50px;\n  left: 0;\n}\n[data-v-7a867923] .dropdown li{\n  background-color: white;\n  height: 60px;\n}\n\n", ""]);
+exports.push([module.i, "\n.flip-list-move[data-v-7a867923] {\n  transition: transform 1s;\n}\n*[data-v-7a867923]:focus {\n  outline: 0 !important;\n  box-shadow: none;\n}\n.country-container[data-v-7a867923] {\n  background-color: white;\n  border: 1px solid rgba(0, 0, 0, 0.125);\n  border-radius: 0.25rem;\n}\n.country-container span[data-v-7a867923] {\n  margin: 2px;\n}\n.country-container i[data-v-7a867923] {\n  margin-right: 10px;\n}\n.country-container img[data-v-7a867923] {\n  margin-left: 10px;\n}\n.countryFlag[data-v-7a867923] {\n  width: 40px;\n  border-radius: 3px;\n}\n.error-container[data-v-7a867923] {\n  height: 20px;\n}\n.search-city[data-v-7a867923] {\n  padding: 0 40px;\n}\n[data-v-7a867923] .info-bar #search-country-input {\n  border: 1px solid rgba(0, 0, 0, 0.125);\n  height: 50px;\n}\n[data-v-7a867923] .info-bar .search-container {\n  flex-grow: 1;\n}\n[data-v-7a867923] .dropdown {\n  width: 100%;\n  top: 50px;\n  left: 0;\n}\n[data-v-7a867923] .dropdown li {\n  background-color: white;\n  height: 50px;\n}\n[data-v-7a867923] .dropdownFlag {\n  width: 74px;\n}\n[data-v-7a867923] .invalid-feedback {\n  display: block;\n  padding-left: 40px;\n}\n", ""]);
 
 // exports
 
@@ -8353,7 +8397,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n#landing[data-v-6cb9731e] {\n  background: url(\"/images/landing/indonesia.jpg\");\n  background-repeat: no-repeat;\n  background-attachment: fixed;\n  background-position: center;\n  background-size: cover;\n  width: 100%;\n  height: 100vh;\n}\np[data-v-6cb9731e] {\n  color: white;\n  margin-left: -50px;\n}\n[data-v-6cb9731e] .search-container {\n  margin-bottom: 40vh;\n  width: 100%;\n}\n[data-v-6cb9731e] #search-country-input {\n  border: 6px solid rgba(0, 0, 0, 0.5);\n  height: 60px;\n  font-size: 1.2rem;\n}\n[data-v-6cb9731e] #search-country-input::-webkit-input-placeholder {\n  font-size: 1.2rem;\n}\n[data-v-6cb9731e] #search-country-input::-moz-placeholder {\n  font-size: 1.2rem;\n}\n[data-v-6cb9731e] #search-country-input:-ms-input-placeholder {\n  font-size: 1.2rem;\n}\n[data-v-6cb9731e] #search-country-input::-ms-input-placeholder {\n  font-size: 1.2rem;\n}\n[data-v-6cb9731e] #search-country-input::placeholder {\n  font-size: 1.2rem;\n}\n[data-v-6cb9731e] .btn {\n  width: 60px;\n  font-size: 1.1rem;\n}\n[data-v-6cb9731e] .dropdown {\n  width: calc(100% - (6px * 2)); /*100% - border width*/\n  top: 55px;\n  left: 6px;\n}\n[data-v-6cb9731e] .dropdown li{\n  background-color: rgba(255, 255, 255, 0.8);\n  font-size: 1.2rem;\n  height: 48px;\n}\n", ""]);
+exports.push([module.i, "\n#landing[data-v-6cb9731e] {\n  background: url(\"/images/landing/indonesia.jpg\");\n  background-repeat: no-repeat;\n  background-attachment: fixed;\n  background-position: center;\n  background-size: cover;\n  width: 100%;\n  height: 100vh;\n}\np[data-v-6cb9731e] {\n  color: white;\n  margin-left: -50px;\n  font-weight: 400 !important;\n}\n[data-v-6cb9731e] .search-container {\n  margin-bottom: 40vh;\n  width: 100%;\n}\n[data-v-6cb9731e] #search-country-input {\n  border: 6px solid rgba(0, 0, 0, 0.5);\n  height: 60px;\n  font-size: 1.2rem;\n}\n[data-v-6cb9731e] #search-country-input::-webkit-input-placeholder {\n  font-size: 1.2rem;\n}\n[data-v-6cb9731e] #search-country-input::-moz-placeholder {\n  font-size: 1.2rem;\n}\n[data-v-6cb9731e] #search-country-input:-ms-input-placeholder {\n  font-size: 1.2rem;\n}\n[data-v-6cb9731e] #search-country-input::-ms-input-placeholder {\n  font-size: 1.2rem;\n}\n[data-v-6cb9731e] #search-country-input::placeholder {\n  font-size: 1.2rem;\n}\n[data-v-6cb9731e] .btn {\n  width: 60px;\n  font-size: 1.1rem;\n}\n[data-v-6cb9731e] .dropdown {\n  width: calc(100% - (6px * 2)); /*100% - border width*/\n  top: 55px;\n  left: 6px;\n}\n[data-v-6cb9731e] .dropdown li {\n  background-color: rgba(255, 255, 255, 0.8);\n  font-size: 1.2rem;\n  height: 48px;\n}\n[data-v-6cb9731e] .dropdownFlag {\n  width: 70px;\n}\n", ""]);
 
 // exports
 
@@ -8391,7 +8435,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\ninput[data-v-62f66040] {\r\n  border-radius: 5px;\r\n  background: url(\"/images/searchBar/search.png\") no-repeat;\r\n  background-color: rgba(255, 255, 255, 0.8);\r\n  background-clip: padding-box;\r\n  background-position: left 5px top 3px;\r\n  background-size: 40px 40px;\r\n  padding-left: 60px;\r\n  caret-color: #6c757d;\r\n  color: rgb(56, 56, 56);\n}\ninput[data-v-62f66040]:focus,\r\ninput[data-v-62f66040]:active {\r\n  outline: none;\n}\ninput[data-v-62f66040]:focus::-webkit-input-placeholder {\r\n  color: transparent;\n}\ninput[data-v-62f66040]:focus::-moz-placeholder {\r\n  color: transparent;\n}\ninput[data-v-62f66040]:focus:-ms-input-placeholder {\r\n  color: transparent;\n}\ninput[data-v-62f66040]:focus::-ms-input-placeholder {\r\n  color: transparent;\n}\ninput[data-v-62f66040]:focus::placeholder {\r\n  color: transparent;\n}\ninput[data-v-62f66040]::-webkit-input-placeholder {\r\n  color: rgb(56, 56, 56);\n}\ninput[data-v-62f66040]::-moz-placeholder {\r\n  color: rgb(56, 56, 56);\n}\ninput[data-v-62f66040]:-ms-input-placeholder {\r\n  color: rgb(56, 56, 56);\n}\ninput[data-v-62f66040]::-ms-input-placeholder {\r\n  color: rgb(56, 56, 56);\n}\ninput[data-v-62f66040]::placeholder {\r\n  color: rgb(56, 56, 56);\n}\ni[data-v-62f66040] {\r\n  font-size: 22px;\n}\n.btn[data-v-62f66040] {\r\n  background-color: var(--main-color);\r\n  font-weight: bold;\r\n  color: white;\r\n  height: 100%;\n}\n.search-blanket[data-v-62f66040] {\r\n  width: 100vw;\r\n  height: 100vh;\r\n  position: absolute;\r\n  top: 0;\r\n  left: 0;\r\n  background: transparent;\n}\n.dropdown[data-v-62f66040] {\r\n  z-index: 1;\n}\n.dropdown ul[data-v-62f66040] {\r\n  list-style: none;\r\n  padding: 0;\n}\n.dropdown li[data-v-62f66040] {\r\n  border-bottom: 1px solid var(--main-color);\r\n  padding-left: 60px;\r\n  color: rgb(56, 56, 56);\n}\n.dropdown li[data-v-62f66040]:hover {\r\n  cursor: pointer;\r\n  background-color: var(--main-color);\r\n  color: white;\n}\r\n", ""]);
+exports.push([module.i, "\ninput[data-v-62f66040] {\r\n  border-radius: 5px;\r\n  background: url(\"/images/searchBar/search.png\") no-repeat;\r\n  background-color: rgba(255, 255, 255, 0.8);\r\n  background-clip: padding-box;\r\n  background-position: left 5px top 3px;\r\n  background-size: 40px 40px;\r\n  padding-left: 60px;\r\n  caret-color: #6c757d;\r\n  color: rgb(56, 56, 56);\n}\ninput[data-v-62f66040]:focus,\r\ninput[data-v-62f66040]:active {\r\n  outline: none;\n}\ninput[data-v-62f66040]:focus::-webkit-input-placeholder {\r\n  color: transparent;\n}\ninput[data-v-62f66040]:focus::-moz-placeholder {\r\n  color: transparent;\n}\ninput[data-v-62f66040]:focus:-ms-input-placeholder {\r\n  color: transparent;\n}\ninput[data-v-62f66040]:focus::-ms-input-placeholder {\r\n  color: transparent;\n}\ninput[data-v-62f66040]:focus::placeholder {\r\n  color: transparent;\n}\ninput[data-v-62f66040]::-webkit-input-placeholder {\r\n  color: rgb(56, 56, 56);\n}\ninput[data-v-62f66040]::-moz-placeholder {\r\n  color: rgb(56, 56, 56);\n}\ninput[data-v-62f66040]:-ms-input-placeholder {\r\n  color: rgb(56, 56, 56);\n}\ninput[data-v-62f66040]::-ms-input-placeholder {\r\n  color: rgb(56, 56, 56);\n}\ninput[data-v-62f66040]::placeholder {\r\n  color: rgb(56, 56, 56);\n}\ni[data-v-62f66040] {\r\n  font-size: 22px;\n}\n.btn[data-v-62f66040] {\r\n  background-color: var(--main-color);\r\n  font-weight: bold;\r\n  color: white;\r\n  height: 100%;\n}\n.search-blanket[data-v-62f66040] {\r\n  width: 100%;\r\n  height: 100vh;\r\n  position: absolute;\r\n  top: 0;\r\n  left: 0;\r\n  background: transparent;\n}\n.dropdown[data-v-62f66040] {\r\n  z-index: 1;\n}\n.dropdown ul[data-v-62f66040] {\r\n  list-style: none;\r\n  padding: 0;\n}\n.dropdown li[data-v-62f66040] {\r\n  border-bottom: 1px solid var(--main-color);\r\n  padding-left: 16px;\r\n  color: rgb(56, 56, 56);\n}\n.dropdown li[data-v-62f66040]:hover {\r\n  cursor: pointer;\r\n  background-color: var(--main-color);\r\n  color: white;\n}\n.dropdown li i[data-v-62f66040] {\r\n  color: var(--main-color);\n}\n.dropdown li:hover i[data-v-62f66040] {\r\n  color: white;\n}\n.dropdownFlag[data-v-62f66040] {\r\n  opacity: 0.7;\n}\r\n", ""]);
 
 // exports
 
@@ -8429,7 +8473,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.form-control.is-invalid ~ div > .invalid-feedback[data-v-4356abde] {\n  display: block;\n}\n", ""]);
+exports.push([module.i, "\n.form-control.is-invalid ~ div > .invalid-feedback[data-v-4356abde] {\n  display: block;\n}\n.invalid-feedback[data-v-4356abde] {\n  color: #b22222;\n}\n", ""]);
 
 // exports
 
@@ -63580,103 +63624,107 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _vm.loading
-      ? _c("div", [_vm._v("Data is loading")])
-      : _vm.errors
-      ? _c("div", [_vm._v(_vm._s(_vm.redirectHome()))])
-      : _c(
-          "div",
-          [
-            _c(
-              "div",
-              {
-                staticClass:
-                  "info-bar d-flex justify-content-between align-items-stretch mb-3"
-              },
-              [
-                _c(
-                  "div",
-                  {
-                    staticClass:
-                      "d-flex align-items-center country-container py-2 px-4"
-                  },
-                  [
-                    _c("i", { staticClass: "fas fa-map-marker-alt" }),
-                    _vm._v(" "),
-                    _c("span", [_vm._v(_vm._s(_vm.bookables[0].city) + ",")]),
-                    _vm._v(" "),
-                    _c("span", [_vm._v(_vm._s(_vm.bookables[0].country))]),
-                    _vm._v(" "),
-                    _c("img", {
-                      staticClass: "countryFlag",
-                      attrs: { src: _vm.countryFlag, alt: "countryFlag" }
-                    })
-                  ]
-                ),
-                _vm._v(" "),
-                _c("search-city", {
-                  staticClass: "flex-grow-1",
-                  attrs: {
-                    searchLayout: {
-                      inputSize: "col-md-10",
-                      buttonSize: "col-md-1"
+  return _c(
+    "div",
+    [
+      _c("v-errors", {
+        staticClass: "error-container row px-3 mb-1",
+        attrs: { errorLayout: "offset-md-3 col-md-9", errors: [_vm.errors] }
+      }),
+      _vm._v(" "),
+      _vm.loading
+        ? _c("div", [_vm._v("Data is loading")])
+        : _c(
+            "div",
+            [
+              _c(
+                "div",
+                { staticClass: "info-bar row mb-3 px-3" },
+                [
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "d-flex align-items-center justify-content-center country-container py-2 col-md-3"
+                    },
+                    [
+                      _c("i", { staticClass: "fas fa-map-marker-alt" }),
+                      _vm._v(" "),
+                      _c("span", [_vm._v(_vm._s(_vm.bookables[0].city) + ",")]),
+                      _vm._v(" "),
+                      _c("span", [_vm._v(_vm._s(_vm.bookables[0].country))]),
+                      _vm._v(" "),
+                      _c("img", {
+                        staticClass: "countryFlag",
+                        attrs: { src: _vm.countryFlag, alt: "countryFlag" }
+                      })
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("search-city", {
+                    staticClass: "search-city col-md-7 position-static",
+                    attrs: {
+                      searchLayout: {
+                        inputSize: "col-md-11",
+                        buttonSize: "col-md-1"
+                      }
+                    },
+                    on: {
+                      search: function($event) {
+                        return _vm.getBookablesByCountry($event)
+                      }
                     }
-                  },
-                  on: {
-                    search: function($event) {
-                      return _vm.getBookablesByCountry($event)
-                    }
-                  }
-                }),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-secondary py-2",
-                    on: { click: _vm.shuffle }
-                  },
-                  [_vm._v("Shuffle appartments")]
-                )
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "transition-group",
-              { attrs: { name: "flip-list" } },
-              _vm._l(_vm.rows, function(row, rowIndex) {
-                return _c(
-                  "div",
-                  { key: rowIndex + 0, staticClass: "row mb-4" },
-                  _vm._l(_vm.bookablesInRow(row), function(
-                    bookable,
-                    columnIndex
-                  ) {
-                    return _c(
-                      "div",
-                      {
-                        key: columnIndex,
-                        staticClass: "col-4 d-flex align-items-stretch"
-                      },
-                      [
-                        _c(
-                          "BookableListItem",
-                          _vm._b({}, "BookableListItem", bookable, false)
-                        )
-                      ],
-                      1
-                    )
                   }),
-                  0
-                )
-              }),
-              0
-            )
-          ],
-          1
-        )
-  ])
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-secondary py-2 col-md-2",
+                      on: { click: _vm.shuffle }
+                    },
+                    [_vm._v("Shuffle appartments")]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "transition-group",
+                { attrs: { name: "flip-list" } },
+                _vm._l(_vm.rows, function(row, rowIndex) {
+                  return _c(
+                    "div",
+                    { key: rowIndex + 0, staticClass: "row mb-4" },
+                    _vm._l(_vm.bookablesInRow(row), function(
+                      bookable,
+                      columnIndex
+                    ) {
+                      return _c(
+                        "div",
+                        {
+                          key: columnIndex,
+                          staticClass: "col-4 d-flex align-items-stretch"
+                        },
+                        [
+                          _c(
+                            "BookableListItem",
+                            _vm._b({}, "BookableListItem", bookable, false)
+                          )
+                        ],
+                        1
+                      )
+                    }),
+                    0
+                  )
+                }),
+                0
+              )
+            ],
+            1
+          )
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -63799,9 +63847,7 @@ var render = function() {
       _c("img", { attrs: { src: "/images/landing/brand.png", alt: "brand" } }),
       _vm._v(" "),
       _c("p", [
-        _vm._v(
-          "36,000 properties, 178 countries • Over 13 million verified guest reviews • 24/7 customer service"
-        )
+        _vm._v(_vm._s(_vm.isError ? _vm.errCountryNotFound : _vm.brandData))
       ]),
       _vm._v(" "),
       _c("search-city", {
@@ -64134,7 +64180,7 @@ var render = function() {
               attrs: {
                 id: "search-country-input",
                 type: "text",
-                autocomplete: "no",
+                autocomplete: "search",
                 placeholder: "Where do you want to go?"
               },
               domProps: { value: _vm.country },
@@ -64146,7 +64192,7 @@ var render = function() {
                   ) {
                     return null
                   }
-                  return _vm.$emit("search", _vm.country)
+                  _vm.$emit("search", _vm.checkCountry())
                 },
                 focus: function($event) {
                   _vm.modal = true
@@ -64169,14 +64215,31 @@ var render = function() {
                         "li",
                         {
                           key: filteredCountry,
-                          staticClass: "d-flex align-items-center",
+                          staticClass:
+                            "d-flex align-items-center justify-content-between",
                           on: {
-                            click: function($event) {
+                            mousedown: function($event) {
                               return _vm.setCountry(filteredCountry)
                             }
                           }
                         },
-                        [_vm._v(_vm._s(filteredCountry))]
+                        [
+                          _c("div", [
+                            _c("i", { staticClass: "far fa-building" }),
+                            _vm._v(" "),
+                            _c("span", { staticClass: "ml-3" }, [
+                              _vm._v(_vm._s(filteredCountry))
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("img", {
+                            staticClass: "dropdownFlag",
+                            attrs: {
+                              src: "https://restcountries.eu/data/fra.svg",
+                              alt: "dropdownFlag"
+                            }
+                          })
+                        ]
                       )
                     }),
                     0
@@ -64195,7 +64258,7 @@ var render = function() {
               attrs: { type: "button" },
               on: {
                 click: function($event) {
-                  return _vm.$emit("search", _vm.country)
+                  _vm.$emit("search", _vm.checkCountry())
                 }
               }
             },
@@ -64320,7 +64383,11 @@ var render = function() {
     _vm._l(_vm.errors, function(error, index) {
       return _c(
         "div",
-        { key: _vm.key(index), staticClass: "invalid-feedback" },
+        {
+          key: _vm.key(index),
+          staticClass: "invalid-feedback",
+          class: _vm.errorLayout
+        },
         [_vm._v(_vm._s(error))]
       )
     }),

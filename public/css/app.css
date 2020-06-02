@@ -1,4 +1,16 @@
-@import url(https://fonts.googleapis.com/css?family=Nunito);@charset "UTF-8";
+@import url(https://fonts.googleapis.com/css?family=Nunito);@import url(https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;
+
+400&family=Roboto:wght@300;400&display=swap);@charset "UTF-8";
+html,
+body {
+  font-family: "Roboto", sans-serif !important;
+  font-weight: 300 !important;
+}
+
+#app {
+  font-family: "Roboto", sans-serif !important;
+  font-weight: 300 !important;
+}
 
 /*!
  * Font Awesome Free 5.13.0 by @fontawesome - https://fontawesome.com

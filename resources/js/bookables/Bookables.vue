@@ -1,17 +1,27 @@
 <template>
   <div>
+    <v-errors
+      class="error-container row px-3 mb-1"
+      :errorLayout="'offset-md-3 col-md-9'"
+      :errors="[errors]"
+    ></v-errors>
     <div v-if="loading">Data is loading</div>
-    <div v-else-if="errors">{{ redirectHome() }}</div>
     <div v-else>
-      <div class="info-bar d-flex justify-content-between align-items-stretch mb-3">
-        <div class="d-flex align-items-center country-container py-2 px-4">
+      <div class="info-bar row mb-3 px-3">
+        <div
+          class="d-flex align-items-center justify-content-center country-container py-2 col-md-3"
+        >
           <i class="fas fa-map-marker-alt"></i>
           <span>{{bookables[0].city}},</span>
           <span>{{bookables[0].country}}</span>
           <img class="countryFlag" :src="countryFlag" alt="countryFlag" />
         </div>
-        <search-city class="flex-grow-1" :searchLayout="{inputSize: 'col-md-10', buttonSize: 'col-md-1'}" @search="getBookablesByCountry($event)"></search-city>
-        <button class="btn btn-secondary py-2" @click="shuffle">Shuffle appartments</button>
+        <search-city
+          class="search-city col-md-7 position-static"
+          :searchLayout="{inputSize: 'col-md-11', buttonSize: 'col-md-1'}"
+          @search="getBookablesByCountry($event)"
+        ></search-city>
+        <button class="btn btn-secondary py-2 col-md-2" @click="shuffle">Shuffle appartments</button>
       </div>
 
       <transition-group name="flip-list">
@@ -35,13 +45,11 @@
 //To delcare a component globally we would do it in the app.js.
 import BookableListItem from "./BookablesListItem";
 import validationErrors from "../shared/mixins/validationErrors";
-import SearchCity from "../shared/components/SearchCity";
 
 export default {
   mixins: [validationErrors],
   components: {
-    BookableListItem, //This allows us to use the component in either PascalCase or kebab-case
-    SearchCity
+    BookableListItem //This allows us to use the component in either PascalCase or kebab-case
   },
   data() {
     //Fetching data from the server. Constantly rerendering components as data changes
@@ -49,7 +57,11 @@ export default {
       bookables: null,
       loading: false,
       columns: 3, //Amount of bookables we want for each row.
-      countryFlag: "https://restcountries.eu/data/chn.svg"
+      countryFlag: "https://restcountries.eu/data/chn.svg",
+      errAxiosCall:
+        "We had a problem retrieving our bookables. Please, try again later.",
+      errCountryNotFound:
+        "Sorry, we cannot find anything that matches your search term."
     };
   },
   computed: {
@@ -66,41 +78,41 @@ export default {
     shuffle: function() {
       this.bookables = _.shuffle(this.bookables);
     },
-    redirectHome() {
-      this.$router.push({ name: "home" });
-    },
     async getBookablesByCountry(country) {
-      if (this.$route.name !== "bookablesByCountry") {
+      if (country) {
         //Update URL
-        this.$router.push({
-          name: "bookablesByCountry",
-          params: { country: country }
-        });
+        if (this.$route.path !== `/bookables/${country}`) {
+          this.$router.push({
+            name: "bookablesByCountry",
+            params: { country: country }
+          });
+        }
+
+        //"this" references the component
+        this.loading = true;
+        this.errors = "";
+
+        //fetching data from the server
+        //axios returns a promise object -> console.log(axios.get('api/bookables'))
+        try {
+          this.bookables = (
+            await axios.get(`/api/bookables/countries/${country}`)
+          ).data;
+          console.log(this.bookables);
+          // this.countryFlag = (
+          //   await axios.get(
+          //     `https://restcountries.eu/rest/v2/name/${this.$route.params.country}?fields=flag;`
+          //   )
+          // ).data[0].flag;
+        } catch (error) {}
+
+        if (!this.bookables.length) {
+          this.errors = this.errAxiosCall;
+        }
+        this.loading = false;
+      } else {
+        this.errors = this.errCountryNotFound;
       }
-
-      //"this" references the component
-      this.loading = true;
-      this.errors = false;
-
-      //fetching data from the server
-      //axios returns a promise object -> console.log(axios.get('api/bookables'))
-      try {
-        this.bookables = (
-          await axios.get(`/api/bookables/countries/${country}`)
-        ).data;
-        console.log(this.bookables);
-        // this.countryFlag = (
-        //   await axios.get(
-        //     `https://restcountries.eu/rest/v2/name/${this.$route.params.country}?fields=flag;`
-        //   )
-        // ).data[0].flag;
-      } catch (error) {}
-
-      if (!this.bookables.length) {
-        this.errors = true;
-      }
-
-      this.loading = false;
     }
   },
   created() {
@@ -135,6 +147,13 @@ export default {
   width: 40px;
   border-radius: 3px;
 }
+.error-container {
+  height: 20px;
+}
+
+.search-city {
+  padding: 0 40px;
+}
 
 /deep/ .info-bar #search-country-input {
   border: 1px solid rgba(0, 0, 0, 0.125);
@@ -149,9 +168,16 @@ export default {
   top: 50px;
   left: 0;
 }
-/deep/ .dropdown li{
+/deep/ .dropdown li {
   background-color: white;
-  height: 60px;
+  height: 50px;
+}
+/deep/ .dropdownFlag {
+  width: 74px;
 }
 
+/deep/ .invalid-feedback {
+  display: block;
+  padding-left: 40px;
+}
 </style>

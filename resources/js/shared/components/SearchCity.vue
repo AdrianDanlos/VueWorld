@@ -9,11 +9,11 @@
         <input
           id="search-country-input"
           v-model="country"
-          @keyup.enter="$emit('search', country)"
+          @keyup.enter="$emit('search', checkCountry())"
           @focus="modal = true"
           class="w-100"
           type="text"
-          autocomplete="no"
+          autocomplete="search"
           placeholder="Where do you want to go?"
         />
         <div class="dropdown position-absolute" v-if="filteredCountries && modal">
@@ -21,16 +21,26 @@
             <li
               v-for="filteredCountry in filteredCountries"
               :key="filteredCountry"
-              @click="setCountry(filteredCountry)"
-              class="d-flex align-items-center"
-            >{{filteredCountry}}</li>
+              @mousedown="setCountry(filteredCountry)"
+              class="d-flex align-items-center justify-content-between"
+            >
+              <div>
+                <i class="far fa-building"></i>
+                <span class="ml-3">{{filteredCountry}}</span>
+              </div>
+              <img
+                class="dropdownFlag"
+                src="https://restcountries.eu/data/fra.svg"
+                alt="dropdownFlag"
+              />
+            </li>
           </ul>
         </div>
       </div>
       <div class="pl-1" :class="searchLayout.buttonSize">
         <button
           type="button"
-          @click="$emit('search', country)"
+          @click="$emit('search', checkCountry())"
           class="btn d-flex align-items-center justify-content-center"
         >GO</button>
       </div>
@@ -47,17 +57,17 @@ export default {
     return {
       country: "",
       countries: [
-        "Florida",
-        "Alabama",
-        "New Mexico",
-        "California",
-        "Nevada",
-        "Alaska",
-        "Ohio",
         "China",
-        "Nepal",
-        "Washington",
-        "Missouri"
+        "Indonesia",
+        "France",
+        "Uganda",
+        "Somalia",
+        "Monaco",
+        "Mongolia",
+        "Montenegro",
+        "Egypt",
+        "Spain",
+        "Italy"
       ],
       filteredCountries: [],
       modal: false
@@ -68,12 +78,12 @@ export default {
       if (0 === this.country.length) {
         this.filteredCountries = this.countries;
       }
-      // this.filteredCountries = this.countries.filter(country => {
-      //   return country.toLowerCase().startsWith(this.country.toLowerCase());
-      // });
       this.filteredCountries = [];
       this.countries.forEach(country => {
-        if (this.filteredCountries.length <= 4 && country.toLowerCase().startsWith(this.country.toLowerCase())) {
+        if (
+          this.filteredCountries.length <= 4 &&
+          country.toLowerCase().startsWith(this.country.toLowerCase())
+        ) {
           this.filteredCountries.push(country);
         }
       });
@@ -81,7 +91,16 @@ export default {
     setCountry(country) {
       this.country = country;
       this.modal = false;
-    }
+    },
+    checkCountry() {
+      if (
+        this.filteredCountries.length &&
+        this.country.toLowerCase() === this.filteredCountries[0].toLowerCase()
+      ) {
+        return this.country;
+      }
+      return null;
+    },
   },
   mounted() {
     this.filterCountries();
@@ -126,7 +145,7 @@ i {
   height: 100%;
 }
 .search-blanket {
-  width: 100vw;
+  width: 100%;
   height: 100vh;
   position: absolute;
   top: 0;
@@ -143,7 +162,7 @@ i {
 
 .dropdown li {
   border-bottom: 1px solid var(--main-color);
-  padding-left: 60px;
+  padding-left: 16px;
   color: rgb(56, 56, 56);
 }
 
@@ -151,5 +170,14 @@ i {
   cursor: pointer;
   background-color: var(--main-color);
   color: white;
+}
+.dropdown li i {
+  color: var(--main-color);
+}
+.dropdown li:hover i {
+  color: white;
+}
+.dropdownFlag {
+  opacity: 0.7;
 }
 </style>

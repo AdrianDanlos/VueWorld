@@ -1,7 +1,7 @@
 <template>
   <div id="landing" class="d-flex flex-column justify-content-center align-items-center">
     <img src="/images/landing/brand.png" alt="brand" />
-    <p>36,000 properties, 178 countries • Over 13 million verified guest reviews • 24/7 customer service</p>
+    <p>{{isError ? errCountryNotFound : brandData}}</p>
     <search-city
       class="w-100"
       :searchLayout="{inputSize: 'col-md-6 offset-md-3', buttonSize: 'col-md-3'}"
@@ -11,18 +11,33 @@
 </template>
 
 <script>
-import SearchCity from "../shared/components/SearchCity";
 
 export default {
-  components: {
-    SearchCity
+  data() {
+    return {
+      brandData: "36,000 properties, 178 countries • Over 13 million verified guest reviews • 24/7 customer service",
+      errCountryNotFound:
+        "Sorry, we cannot find anything that matches your search term.",
+      error: false
+    }
   },
   methods: {
     redirect(country) {
-      this.$router.push({
-        name: "bookablesByCountry",
-        params: { country: country }
-      });
+      this.error = false;
+      if (country) {
+        this.$router.push({
+          name: "bookablesByCountry",
+          params: { country: country }
+        });
+      }
+      else{
+        this.error = true;
+      }
+    }
+  },
+  computed: {
+    isError(){
+      return this.error === true;
     }
   },
   created() {
@@ -47,6 +62,7 @@ export default {
 p {
   color: white;
   margin-left: -50px;
+  font-weight: 400 !important;
 }
 
 /deep/ .search-container {
@@ -70,9 +86,12 @@ p {
   top: 55px;
   left: 6px;
 }
-/deep/ .dropdown li{
+/deep/ .dropdown li {
   background-color: rgba(255, 255, 255, 0.8);
   font-size: 1.2rem;
   height: 48px;
+}
+/deep/ .dropdownFlag {
+  width: 70px;
 }
 </style>
