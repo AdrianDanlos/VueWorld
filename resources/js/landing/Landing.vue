@@ -1,13 +1,20 @@
 <template>
-  <div id="landing" class="d-flex flex-column justify-content-center align-items-center">
-    <img class="brand-logo" src="/images/landing/brand.png" alt="brand" />
-    <p>{{isError ? errCountryNotFound : brandData}}</p>
-    <search-city
-      class="w-100"
-      :searchLayout="{inputSize: 'col-md-6 offset-md-3', buttonSize: 'col-md-3'}"
-      @search="redirect($event)"
-    ></search-city>
-  </div>
+  <transition
+    appear
+    appear-class="custom-appear-class"
+    appear-to-class="custom-appear-to-class"
+    (2.1.8+)
+  >
+    <div id="landing" class="d-flex flex-column justify-content-center align-items-center">
+      <img class="brand-logo" src="/images/landing/brand.png" alt="brand" />
+      <p>{{isError ? errCountryNotFound : brandData}}</p>
+      <search-city
+        class="w-100"
+        :searchLayout="{inputSize: 'col-md-6 offset-md-3', buttonSize: 'col-md-3'}"
+        @search="redirect($event)"
+      ></search-city>
+    </div>
+  </transition>
 </template>
 
 <script>
@@ -63,7 +70,7 @@ p {
   margin-left: -50px;
   font-weight: 400 !important;
 }
-.brand-logo{
+.brand-logo {
   margin: 3rem 0;
 }
 
@@ -95,5 +102,13 @@ p {
 }
 /deep/ .dropdownFlag {
   width: 70px;
+}
+
+.custom-appear-class {
+  opacity: 0;
+}
+.custom-appear-to-class {
+  transition-duration: 1s;
+  opacity: 1;
 }
 </style>

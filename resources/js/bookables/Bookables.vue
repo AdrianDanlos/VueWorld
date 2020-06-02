@@ -21,21 +21,16 @@
           :searchLayout="{inputSize: 'col-md-11', buttonSize: 'col-md-1'}"
           @search="getBookablesByCountry($event)"
         ></search-city>
-        <button
-          class="btn py-2 col-md-2 btn-main-transparent"
-          @click="shuffle"
-        >Shuffle appartments</button>
+        <button class="btn py-2 col-md-2 btn-main-transparent" @click="shuffle">Shuffle appartments</button>
       </div>
 
-      <transition-group name="flip-list">
-        <div class="row mb-4" v-for="(row, rowIndex) in rows" :key="rowIndex + 0">
-          <div
-            class="col-4 d-flex align-items-stretch"
-            v-for="(bookable,columnIndex) in bookablesInRow(row)"
-            :key="columnIndex"
-          >
-            <BookableListItem v-bind="bookable"></BookableListItem>
-          </div>
+      <transition-group class="row d-flex flex-wrap" name="bookable" tag="div">
+        <div
+          class="col-4 d-flex align-items-stretch mb-3"
+          v-for="(bookable) in bookables"
+          :key="bookable.id"
+        >
+          <BookableListItem v-bind="bookable"></BookableListItem>
         </div>
       </transition-group>
     </div>
@@ -57,7 +52,12 @@ export default {
   data() {
     //Fetching data from the server. Constantly rerendering components as data changes
     return {
-      bookables: null,
+      bookables: Array.apply(null, { length: 30 }).map(function(_, index) {
+        return {
+          id: index,
+          number: (index % 3) + 1
+        };
+      }),
       loading: false,
       columns: 3, //Amount of bookables we want for each row.
       countryFlag: "https://restcountries.eu/data/chn.svg",
@@ -159,6 +159,10 @@ export default {
 }
 .loading-text {
   font-size: 2.2rem;
+}
+
+.bookable-move {
+  transition: transform 1s;
 }
 
 /deep/ .info-bar #search-country-input {

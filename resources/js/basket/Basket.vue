@@ -211,7 +211,18 @@ export default {
       this.loading = false;
       this.bookingAttempted = true;
     }
-  }
+  },
+  watch: {
+    success() {
+      if (this.success) {
+        setTimeout(() => {
+          this.$router.push({
+            name: "home"
+          });
+        }, 2000);
+      }
+    }
+  },
 };
 </script>
 

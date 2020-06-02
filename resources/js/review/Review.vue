@@ -2,11 +2,11 @@
   <div>
     <success v-if="success">You've left a review, thank you very much!</success>
     <fatal-error v-if="error"></fatal-error>
-    <div class="row" v-if="!success && !error">
+    <div v-if="loading">Loading...</div>
+    <div class="row" v-if="!success && !error && !loading">
       <div :class="[{'col-md-4': twoColumns}, {'d-none': oneColumn}]">
         <div class="card">
           <div class="card-body">
-            <div v-if="loading">Loading...</div>
             <div v-if="hasBooking">
               <p>
                 Stayed at
@@ -26,38 +26,37 @@
         </div>
       </div>
       <div :class="[{'col-md-8': twoColumns}, {'col-md-12': oneColumn}]">
-        <div v-if="loading">Loading...</div>
+        <div class="alreadyReviewed" v-if="alreadyReviewed">
+          <span>Already reviewed</span>
+          <i class="fas fa-feather-alt"></i>
+        </div>
+        <div class="bookingNoExist" v-else-if="!hasBooking">
+          <span>The booking doesn't exist</span>
+          <i class="fas fa-dizzy"></i>
+        </div>
         <div v-else>
-          <div v-if="alreadyReviewed">
-            <h5>You've already left a review for this booking!</h5>
+          <div class="form-group">
+            <label class="text-muted">Select the star rating (1 is worst - 5 is best)</label>
+            <star-rating class="fa-lg main-color" v-model="review.rating"></star-rating>
           </div>
-          <div v-else-if="!hasBooking">
-            <h5>The booking doesn't exist</h5>
+          <div class="form-group">
+            <label for="content" class="text-muted">Describe your expirience with</label>
+            <textarea
+              name="content"
+              cols="30"
+              rows="10"
+              class="form-control"
+              v-model="review.content"
+              :class="[{'is-invalid': errorFor('content')}]"
+            ></textarea>
+            <v-errors :errors="errorFor('content')"></v-errors>
           </div>
-          <div v-else>
-            <div class="form-group">
-              <label class="text-muted">Select the star rating (1 is worst - 5 is best)</label>
-              <star-rating class="fa-lg main-color" v-model="review.rating"></star-rating>
-            </div>
-            <div class="form-group">
-              <label for="content" class="text-muted">Describe your expirience with</label>
-              <textarea
-                name="content"
-                cols="30"
-                rows="10"
-                class="form-control"
-                v-model="review.content"
-                :class="[{'is-invalid': errorFor('content')}]"
-              ></textarea>
-              <v-errors :errors="errorFor('content')"></v-errors>
-            </div>
 
-            <button
-              class="btn btn-lg btn-main btn-block"
-              @click.prevent="storeReview"
-              :disabled="sending"
-            >Submit</button>
-          </div>
+          <button
+            class="btn btn-lg btn-main btn-block"
+            @click.prevent="storeReview"
+            :disabled="sending"
+          >Submit</button>
         </div>
       </div>
     </div>
@@ -164,3 +163,23 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.alreadyReviewed,
+.bookingNoExist {
+  height: 50vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 5rem;
+}
+.alreadyReviewed i,
+.bookingNoExist i {
+  font-size: 5rem;
+}
+.alreadyReviewed span,
+.bookingNoExist span {
+  font-size: 3rem;
+  margin-right: 1rem;
+}
+</style>
