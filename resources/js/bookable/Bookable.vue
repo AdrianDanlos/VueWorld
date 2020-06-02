@@ -26,7 +26,7 @@
       </transition>
       <transition name="fade">
         <button
-          class="btn btn-outline-secondary btn-block"
+          class="btn btn-main-transparent btn-block"
           v-if="price"
           @click="addToBasket"
           :disabled="inBasketAlready"
@@ -34,7 +34,7 @@
       </transition>
 
       <button
-        class="btn btn-outline-secondary btn-block"
+        class="btn btn-caution btn-block"
         v-if="inBasketAlready"
         @click="removeFromBasket"
       >Remove from basket</button>

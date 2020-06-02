@@ -5,7 +5,7 @@
       :errorLayout="'offset-md-3 col-md-9'"
       :errors="[errors]"
     ></v-errors>
-    <div v-if="loading">Data is loading</div>
+    <div v-if="loading" class="loading-text text-center">Data is loading...</div>
     <div v-else>
       <div class="info-bar row mb-3 px-3">
         <div
@@ -21,7 +21,10 @@
           :searchLayout="{inputSize: 'col-md-11', buttonSize: 'col-md-1'}"
           @search="getBookablesByCountry($event)"
         ></search-city>
-        <button class="btn btn-secondary py-2 col-md-2" @click="shuffle">Shuffle appartments</button>
+        <button
+          class="btn py-2 col-md-2 btn-main-transparent"
+          @click="shuffle"
+        >Shuffle appartments</button>
       </div>
 
       <transition-group name="flip-list">
@@ -153,6 +156,9 @@ export default {
 
 .search-city {
   padding: 0 40px;
+}
+.loading-text {
+  font-size: 2.2rem;
 }
 
 /deep/ .info-bar #search-country-input {

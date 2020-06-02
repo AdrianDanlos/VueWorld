@@ -1,6 +1,32 @@
 <template>
   <div id="review-list-container">
-    <h6 class="text-uppercase text-secondary font-weight-bolder pt-4">Review List</h6>
+    <div class="d-flex justify-content-between align-items-center mt-4 mb-3">
+      <h6 class="text-uppercase text-secondary font-weight-bolder p-0 m-0">Review List</h6>
+      <div class="dropdown">
+        <button
+          class="btn btn-main dropdown-toggle"
+          type="button"
+          id="dropdownMenuButton"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >Sorty by</button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <span class="dropdown-item" @click="sortByRating('best')">
+            <i class="fas fa-star"></i>Top Rated
+          </span>
+          <span class="dropdown-item" @click="sortByRating('worst')">
+            <i class="far fa-star"></i>Lowest Rated
+          </span>
+          <span class="dropdown-item" @click="sortByDateNewest()">
+            <i class="far fa-calendar-plus"></i>Newest
+          </span>
+          <span class="dropdown-item" @click="sortByDateOldest()">
+            <i class="far fa-calendar-minus"></i>Oldest
+          </span>
+        </div>
+      </div>
+    </div>
     <div v-if="loading">Loading...</div>
     <div v-else>
       <div class="border-bottom d-none d-md-block" v-for="(review, index) in reviews" :key="index">
@@ -34,12 +60,33 @@ export default {
       reviews: null
     };
   },
+  methods: {
+    sortByRating(order) {
+      console.log(this.reviews)
+      this.reviews.sort(function(a, b) {
+        return order === 'best' ? b.rating - a.rating : a.rating - b.rating;
+      });
+    },
+    sortByDateNewest(){
+      this.reviews.sort(function(a, b) {
+        return (b.created_at < a.created_at) ? -1 : ((b.created_at > a.created_at) ? 1 : 0);
+      });
+    },
+    sortByDateOldest(){
+      this.reviews.sort(function(a, b) {
+        return (a.created_at < b.created_at) ? -1 : ((a.created_at > b.created_at) ? 1 : 0);
+      });
+    }
+  },
   created() {
     this.loading = true;
     axios
       .get(`/api/bookables/${this.bookableId}/reviews`)
       .then(response => (this.reviews = response.data))
       .then(() => (this.loading = false));
+      
+
+    // axios.get('https://randomuser.me/api/').then(response => console.log(response))
   }
   // filters: {
   //   fromNow(value){
@@ -51,7 +98,21 @@ export default {
 
 <style scoped>
 #review-list-container {
-  padding: 1.25rem;
+  /* padding: 1.25rem; */
+}
+.dropdown-menu {
+  padding: 0;
+}
+.dropdown-item {
+  padding: 0.55rem 1.5rem;
+  border-bottom: 1px solid rgb(219, 219, 219);
+  font-weight: 300;
+}
+.dropdown-item:hover {
+  cursor: pointer;
+}
+.dropdown-item i {
+  margin-right: 10px;
 }
 </style>
 

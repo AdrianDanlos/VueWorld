@@ -2505,6 +2505,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2984,6 +2985,32 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //import moment from 'moment';
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
@@ -2995,6 +3022,24 @@ __webpack_require__.r(__webpack_exports__);
       reviews: null
     };
   },
+  methods: {
+    sortByRating: function sortByRating(order) {
+      console.log(this.reviews);
+      this.reviews.sort(function (a, b) {
+        return order === 'best' ? b.rating - a.rating : a.rating - b.rating;
+      });
+    },
+    sortByDateNewest: function sortByDateNewest() {
+      this.reviews.sort(function (a, b) {
+        return b.created_at < a.created_at ? -1 : b.created_at > a.created_at ? 1 : 0;
+      });
+    },
+    sortByDateOldest: function sortByDateOldest() {
+      this.reviews.sort(function (a, b) {
+        return a.created_at < b.created_at ? -1 : a.created_at > b.created_at ? 1 : 0;
+      });
+    }
+  },
   created: function created() {
     var _this = this;
 
@@ -3003,7 +3048,7 @@ __webpack_require__.r(__webpack_exports__);
       return _this.reviews = response.data;
     }).then(function () {
       return _this.loading = false;
-    });
+    }); // axios.get('https://randomuser.me/api/').then(response => console.log(response))
   } // filters: {
   //   fromNow(value){
   //     return moment(value).fromNow();
@@ -3033,6 +3078,9 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
+//
+//
 //
 //
 //
@@ -3385,6 +3433,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
  // this is the equivalent of importing the js in an html file
 
 
@@ -3483,29 +3537,42 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       return this.loading || !this.alreadyReviewed;
     }
   },
+  watch: {
+    success: function success() {
+      var _this2 = this;
+
+      if (this.success) {
+        setTimeout(function () {
+          _this2.$router.push({
+            name: "home"
+          });
+        }, 2000);
+      }
+    }
+  },
   methods: {
     storeReview: function storeReview() {
-      var _this2 = this;
+      var _this3 = this;
 
       this.errors = null;
       this.sending = true;
       this.success = false;
       axios.post("/api/reviews", this.review).then(function (response) {
-        _this2.success = 201 === response.status;
+        _this3.success = 201 === response.status;
       })["catch"](function (err) {
         if (Object(_shared_utils_response__WEBPACK_IMPORTED_MODULE_1__["is422"])(err)) {
           var errors = err.response.data.errors; //Axios uses XMLHttpRequest object to make the request. XMLHttpRequest.response property contains response's body content when request is ready.
 
           if (errors["content"] && 1 === _.size(errors)) {
             //Using lodash library. (lodash) _.size(errors) / (regular JS) Object.keys(errors).length;
-            _this2.errors = errors;
+            _this3.errors = errors;
             return;
           }
         }
 
-        _this2.error = true;
+        _this3.error = true;
       }).then(function () {
-        return _this2.sending = false;
+        return _this3.sending = false;
       });
     }
   }
@@ -8245,7 +8312,7 @@ exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader
 
 
 // module
-exports.push([module.i, "\n#web-container[data-v-147fb424]{\n  margin-top: 45px;\n}\n", ""]);
+exports.push([module.i, "\n#web-container[data-v-147fb424]{\n  margin-top: 45px;\n}\n.navbar-nav[data-v-147fb424]{\n  font-weight: 400;\n}\n.badge-secondary[data-v-147fb424]{\n  background-color: #2cc65b;\n}\n", ""]);
 
 // exports
 
@@ -8264,7 +8331,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\nh6.badge[data-v-9d55657e] {\n  font-size: 100%;\n}\na[data-v-9d55657e] {\n  color: black;\n}\n", ""]);
+exports.push([module.i, "\nh6.badge[data-v-9d55657e] {\n  font-size: 100%;\n}\na[data-v-9d55657e] {\n  color: black;\n}\n.badge-secondary[data-v-9d55657e] {\n  background-color: #2cc65b;\n}\n.empty-cart-container[data-v-9d55657e] {\n  height: 300px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  border: 1px solid #6c757d;\n}\n.empty-cart-container span[data-v-9d55657e] {\n  font-size: 70px;\n}\n.empty-cart-container i[data-v-9d55657e] {\n  font-size: 90px;\n}\n", ""]);
 
 // exports
 
@@ -8283,7 +8350,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* 'scoped' keeps the scope of the stylesheet to the component. Otherwise the scope would be global. */\nlabel[data-v-39d99139] {\n  font-size: 0.7rem;\n  text-transform: uppercase;\n  color: gray;\n  font-weight: bolder;\n}\n.is-invalid[data-v-39d99139] {\n  border-color: #b22222;\n  background-image: none;\n}\n.invalid-feedback[data-v-39d99139] {\n  color: #b22222;\n}\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* 'scoped' keeps the scope of the stylesheet to the component. Otherwise the scope would be global. */\nlabel[data-v-39d99139] {\n  font-size: 0.7rem;\n  text-transform: uppercase;\n  color: gray;\n  font-weight: bolder;\n}\n.is-invalid[data-v-39d99139] {\n  border-color: #b22222;\n  background-image: none;\n}\n.invalid-feedback[data-v-39d99139] {\n  color: #b22222;\n}\n\n", ""]);
 
 // exports
 
@@ -8340,7 +8407,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n#review-list-container[data-v-62084ff4] {\n  padding: 1.25rem;\n}\n", ""]);
+exports.push([module.i, "\n#review-list-container[data-v-62084ff4] {\n  /* padding: 1.25rem; */\n}\n.dropdown-menu[data-v-62084ff4] {\n  padding: 0;\n}\n.dropdown-item[data-v-62084ff4] {\n  padding: 0.55rem 1.5rem;\n  border-bottom: 1px solid rgb(219, 219, 219);\n  font-weight: 300;\n}\n.dropdown-item[data-v-62084ff4]:hover {\n  cursor: pointer;\n}\n.dropdown-item i[data-v-62084ff4] {\n  margin-right: 10px;\n}\n", ""]);
 
 // exports
 
@@ -8359,7 +8426,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.flip-list-move[data-v-7a867923] {\n  transition: transform 1s;\n}\n*[data-v-7a867923]:focus {\n  outline: 0 !important;\n  box-shadow: none;\n}\n.country-container[data-v-7a867923] {\n  background-color: white;\n  border: 1px solid rgba(0, 0, 0, 0.125);\n  border-radius: 0.25rem;\n}\n.country-container span[data-v-7a867923] {\n  margin: 2px;\n}\n.country-container i[data-v-7a867923] {\n  margin-right: 10px;\n}\n.country-container img[data-v-7a867923] {\n  margin-left: 10px;\n}\n.countryFlag[data-v-7a867923] {\n  width: 40px;\n  border-radius: 3px;\n}\n.error-container[data-v-7a867923] {\n  height: 20px;\n}\n.search-city[data-v-7a867923] {\n  padding: 0 40px;\n}\n[data-v-7a867923] .info-bar #search-country-input {\n  border: 1px solid rgba(0, 0, 0, 0.125);\n  height: 50px;\n}\n[data-v-7a867923] .info-bar .search-container {\n  flex-grow: 1;\n}\n[data-v-7a867923] .dropdown {\n  width: 100%;\n  top: 50px;\n  left: 0;\n}\n[data-v-7a867923] .dropdown li {\n  background-color: white;\n  height: 50px;\n}\n[data-v-7a867923] .dropdownFlag {\n  width: 74px;\n}\n[data-v-7a867923] .invalid-feedback {\n  display: block;\n  padding-left: 40px;\n}\n", ""]);
+exports.push([module.i, "\n.flip-list-move[data-v-7a867923] {\n  transition: transform 1s;\n}\n*[data-v-7a867923]:focus {\n  outline: 0 !important;\n  box-shadow: none;\n}\n.country-container[data-v-7a867923] {\n  background-color: white;\n  border: 1px solid rgba(0, 0, 0, 0.125);\n  border-radius: 0.25rem;\n}\n.country-container span[data-v-7a867923] {\n  margin: 2px;\n}\n.country-container i[data-v-7a867923] {\n  margin-right: 10px;\n}\n.country-container img[data-v-7a867923] {\n  margin-left: 10px;\n}\n.countryFlag[data-v-7a867923] {\n  width: 40px;\n  border-radius: 3px;\n}\n.error-container[data-v-7a867923] {\n  height: 20px;\n}\n.search-city[data-v-7a867923] {\n  padding: 0 40px;\n}\n.loading-text[data-v-7a867923] {\n  font-size: 2.2rem;\n}\n[data-v-7a867923] .info-bar #search-country-input {\n  border: 1px solid rgba(0, 0, 0, 0.125);\n  height: 50px;\n}\n[data-v-7a867923] .info-bar .search-container {\n  flex-grow: 1;\n}\n[data-v-7a867923] .dropdown {\n  width: 100%;\n  top: 50px;\n  left: 0;\n}\n[data-v-7a867923] .dropdown li {\n  background-color: white;\n  height: 50px;\n}\n[data-v-7a867923] .dropdownFlag {\n  width: 74px;\n}\n[data-v-7a867923] .invalid-feedback {\n  display: block;\n  padding-left: 40px;\n}\n", ""]);
 
 // exports
 
@@ -8378,7 +8445,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n#photo[data-v-ca153ad8] {\n  width: 100%;\n  background-size: cover;\n  margin-bottom: 1rem;\n}\n/* Trick to give the image resonsive height*/\n#photo[data-v-ca153ad8]:after {\n  content: \"\";\n  display: block;\n  padding-bottom: 70%;\n}\n.card-body[data-v-ca153ad8] {\n  position: relative;\n}\n.review-amount[data-v-ca153ad8] {\n  color: #3490dc;\n  margin-top: 2px;\n}\n.star[data-v-ca153ad8] {\n  color: var(--main-color);\n}\n", ""]);
+exports.push([module.i, "\n#photo[data-v-ca153ad8] {\n  width: 100%;\n  background-size: cover;\n  margin-bottom: 1rem;\n}\n/* Trick to give the image resonsive height*/\n#photo[data-v-ca153ad8]:after {\n  content: \"\";\n  display: block;\n  padding-bottom: 70%;\n}\n.card-body[data-v-ca153ad8] {\n  position: relative;\n}\n.review-amount[data-v-ca153ad8] {\n  color: #3490dc;\n  margin-top: 2px;\n}\n\n", ""]);
 
 // exports
 
@@ -8397,7 +8464,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n#landing[data-v-6cb9731e] {\n  background: url(\"/images/landing/indonesia.jpg\");\n  background-repeat: no-repeat;\n  background-attachment: fixed;\n  background-position: center;\n  background-size: cover;\n  width: 100%;\n  height: 100vh;\n}\np[data-v-6cb9731e] {\n  color: white;\n  margin-left: -50px;\n  font-weight: 400 !important;\n}\n[data-v-6cb9731e] .search-container {\n  margin-bottom: 40vh;\n  width: 100%;\n}\n[data-v-6cb9731e] #search-country-input {\n  border: 6px solid rgba(0, 0, 0, 0.5);\n  height: 60px;\n  font-size: 1.2rem;\n}\n[data-v-6cb9731e] #search-country-input::-webkit-input-placeholder {\n  font-size: 1.2rem;\n}\n[data-v-6cb9731e] #search-country-input::-moz-placeholder {\n  font-size: 1.2rem;\n}\n[data-v-6cb9731e] #search-country-input:-ms-input-placeholder {\n  font-size: 1.2rem;\n}\n[data-v-6cb9731e] #search-country-input::-ms-input-placeholder {\n  font-size: 1.2rem;\n}\n[data-v-6cb9731e] #search-country-input::placeholder {\n  font-size: 1.2rem;\n}\n[data-v-6cb9731e] .btn {\n  width: 60px;\n  font-size: 1.1rem;\n}\n[data-v-6cb9731e] .dropdown {\n  width: calc(100% - (6px * 2)); /*100% - border width*/\n  top: 55px;\n  left: 6px;\n}\n[data-v-6cb9731e] .dropdown li {\n  background-color: rgba(255, 255, 255, 0.8);\n  font-size: 1.2rem;\n  height: 48px;\n}\n[data-v-6cb9731e] .dropdownFlag {\n  width: 70px;\n}\n", ""]);
+exports.push([module.i, "\n#landing[data-v-6cb9731e] {\n  background: url(\"/images/landing/indonesia.jpg\");\n  background-repeat: no-repeat;\n  background-attachment: fixed;\n  background-position: center;\n  background-size: cover;\n  width: 100%;\n  height: 100vh;\n}\np[data-v-6cb9731e] {\n  color: white;\n  margin-left: -50px;\n  font-weight: 400 !important;\n}\n.brand-logo[data-v-6cb9731e]{\n  margin: 3rem 0;\n}\n[data-v-6cb9731e] .search-container {\n  margin-bottom: 40vh;\n  width: 100%;\n}\n[data-v-6cb9731e] #search-country-input {\n  border: 6px solid rgba(0, 0, 0, 0.5);\n  height: 60px;\n  font-size: 1.2rem;\n}\n[data-v-6cb9731e] #search-country-input::-webkit-input-placeholder {\n  font-size: 1.2rem;\n}\n[data-v-6cb9731e] #search-country-input::-moz-placeholder {\n  font-size: 1.2rem;\n}\n[data-v-6cb9731e] #search-country-input:-ms-input-placeholder {\n  font-size: 1.2rem;\n}\n[data-v-6cb9731e] #search-country-input::-ms-input-placeholder {\n  font-size: 1.2rem;\n}\n[data-v-6cb9731e] #search-country-input::placeholder {\n  font-size: 1.2rem;\n}\n[data-v-6cb9731e] .btn {\n  width: 60px;\n  font-size: 1.1rem;\n}\n[data-v-6cb9731e] .dropdown {\n  width: calc(100% - (6px * 2)); /*100% - border width*/\n  top: 55px;\n  left: 6px;\n}\n[data-v-6cb9731e] .dropdown li {\n  background-color: rgba(255, 255, 255, 0.8);\n  font-size: 1.2rem;\n  height: 48px;\n}\n[data-v-6cb9731e] .dropdownFlag {\n  width: 70px;\n}\n", ""]);
 
 // exports
 
@@ -8435,7 +8502,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\ninput[data-v-62f66040] {\r\n  border-radius: 5px;\r\n  background: url(\"/images/searchBar/search.png\") no-repeat;\r\n  background-color: rgba(255, 255, 255, 0.8);\r\n  background-clip: padding-box;\r\n  background-position: left 5px top 3px;\r\n  background-size: 40px 40px;\r\n  padding-left: 60px;\r\n  caret-color: #6c757d;\r\n  color: rgb(56, 56, 56);\n}\ninput[data-v-62f66040]:focus,\r\ninput[data-v-62f66040]:active {\r\n  outline: none;\n}\ninput[data-v-62f66040]:focus::-webkit-input-placeholder {\r\n  color: transparent;\n}\ninput[data-v-62f66040]:focus::-moz-placeholder {\r\n  color: transparent;\n}\ninput[data-v-62f66040]:focus:-ms-input-placeholder {\r\n  color: transparent;\n}\ninput[data-v-62f66040]:focus::-ms-input-placeholder {\r\n  color: transparent;\n}\ninput[data-v-62f66040]:focus::placeholder {\r\n  color: transparent;\n}\ninput[data-v-62f66040]::-webkit-input-placeholder {\r\n  color: rgb(56, 56, 56);\n}\ninput[data-v-62f66040]::-moz-placeholder {\r\n  color: rgb(56, 56, 56);\n}\ninput[data-v-62f66040]:-ms-input-placeholder {\r\n  color: rgb(56, 56, 56);\n}\ninput[data-v-62f66040]::-ms-input-placeholder {\r\n  color: rgb(56, 56, 56);\n}\ninput[data-v-62f66040]::placeholder {\r\n  color: rgb(56, 56, 56);\n}\ni[data-v-62f66040] {\r\n  font-size: 22px;\n}\n.btn[data-v-62f66040] {\r\n  background-color: var(--main-color);\r\n  font-weight: bold;\r\n  color: white;\r\n  height: 100%;\n}\n.search-blanket[data-v-62f66040] {\r\n  width: 100%;\r\n  height: 100vh;\r\n  position: absolute;\r\n  top: 0;\r\n  left: 0;\r\n  background: transparent;\n}\n.dropdown[data-v-62f66040] {\r\n  z-index: 1;\n}\n.dropdown ul[data-v-62f66040] {\r\n  list-style: none;\r\n  padding: 0;\n}\n.dropdown li[data-v-62f66040] {\r\n  border-bottom: 1px solid var(--main-color);\r\n  padding-left: 16px;\r\n  color: rgb(56, 56, 56);\n}\n.dropdown li[data-v-62f66040]:hover {\r\n  cursor: pointer;\r\n  background-color: var(--main-color);\r\n  color: white;\n}\n.dropdown li i[data-v-62f66040] {\r\n  color: var(--main-color);\n}\n.dropdown li:hover i[data-v-62f66040] {\r\n  color: white;\n}\n.dropdownFlag[data-v-62f66040] {\r\n  opacity: 0.7;\n}\r\n", ""]);
+exports.push([module.i, "\ninput[data-v-62f66040] {\r\n  border-radius: 5px;\r\n  background: url(\"/images/searchBar/search.png\") no-repeat;\r\n  background-color: rgba(255, 255, 255, 0.8);\r\n  background-clip: padding-box;\r\n  background-position: left 5px top 3px;\r\n  background-size: 40px 40px;\r\n  padding-left: 60px;\r\n  caret-color: #6c757d;\r\n  color: rgb(56, 56, 56);\n}\ninput[data-v-62f66040]:focus,\r\ninput[data-v-62f66040]:active {\r\n  outline: none;\n}\ninput[data-v-62f66040]:focus::-webkit-input-placeholder {\r\n  color: transparent;\n}\ninput[data-v-62f66040]:focus::-moz-placeholder {\r\n  color: transparent;\n}\ninput[data-v-62f66040]:focus:-ms-input-placeholder {\r\n  color: transparent;\n}\ninput[data-v-62f66040]:focus::-ms-input-placeholder {\r\n  color: transparent;\n}\ninput[data-v-62f66040]:focus::placeholder {\r\n  color: transparent;\n}\ninput[data-v-62f66040]::-webkit-input-placeholder {\r\n  color: rgb(56, 56, 56);\n}\ninput[data-v-62f66040]::-moz-placeholder {\r\n  color: rgb(56, 56, 56);\n}\ninput[data-v-62f66040]:-ms-input-placeholder {\r\n  color: rgb(56, 56, 56);\n}\ninput[data-v-62f66040]::-ms-input-placeholder {\r\n  color: rgb(56, 56, 56);\n}\ninput[data-v-62f66040]::placeholder {\r\n  color: rgb(56, 56, 56);\n}\ni[data-v-62f66040] {\r\n  font-size: 22px;\n}\n.btn[data-v-62f66040] {\r\n  font-weight: bold;\r\n  height: 100%;\n}\n.search-blanket[data-v-62f66040] {\r\n  width: 100%;\r\n  height: 100vh;\r\n  position: absolute;\r\n  top: 0;\r\n  left: 0;\r\n  background: transparent;\n}\n.dropdown[data-v-62f66040] {\r\n  z-index: 1;\n}\n.dropdown ul[data-v-62f66040] {\r\n  list-style: none;\r\n  padding: 0;\n}\n.dropdown li[data-v-62f66040] {\r\n  border-bottom: 1px solid var(--main-color);\r\n  padding-left: 16px;\r\n  color: rgb(56, 56, 56);\r\n  font-weight: 400;\n}\n.dropdown li[data-v-62f66040]:hover {\r\n  cursor: pointer;\r\n  background-color: var(--main-color);\r\n  color: white;\n}\n.dropdown li i[data-v-62f66040] {\r\n  color: var(--main-color);\n}\n.dropdown li:hover i[data-v-62f66040] {\r\n  color: white;\n}\n.dropdownFlag[data-v-62f66040] {\r\n  opacity: 0.7;\n}\r\n", ""]);
 
 // exports
 
@@ -62189,7 +62256,12 @@ var render = function() {
             staticClass: "navbar-brand mr-auto",
             attrs: { to: { name: "home" } }
           },
-          [_vm._v("LaravelBnb")]
+          [
+            _c("img", {
+              staticClass: "w-50",
+              attrs: { src: "/images/landing/brand_text.png", alt: "brand" }
+            })
+          ]
         ),
         _vm._v(" "),
         _c("ul", { staticClass: "navbar-nav" }, [
@@ -62389,7 +62461,7 @@ var render = function() {
         _c(
           "button",
           {
-            staticClass: "btn btn-primary btn-lg btn-block",
+            staticClass: "btn btn-main btn-lg btn-block",
             attrs: { type: "submit", disabled: _vm.loading },
             on: {
               click: function($event) {
@@ -62626,7 +62698,7 @@ var render = function() {
         _c(
           "button",
           {
-            staticClass: "btn btn-primary btn-lg btn-block",
+            staticClass: "btn btn-main btn-lg btn-block",
             attrs: { type: "submit", disabled: _vm.loading },
             on: {
               click: function($event) {
@@ -63054,7 +63126,7 @@ var render = function() {
                       _c(
                         "button",
                         {
-                          staticClass: "btn btn-lg btn-primary btn-block",
+                          staticClass: "btn btn-lg btn-main btn-block",
                           attrs: { type: "submit", disabled: _vm.loading },
                           on: {
                             click: function($event) {
@@ -63069,11 +63141,11 @@ var render = function() {
                   ])
                 ])
               : _c("div", { staticClass: "col-md-8" }, [
-                  _c(
-                    "div",
-                    { staticClass: "jumbotron jumbotron-fluid text-center" },
-                    [_c("h1", [_vm._v("Empty")])]
-                  )
+                  _c("div", { staticClass: "empty-cart-container" }, [
+                    _c("span", [_vm._v("EMPTY")]),
+                    _vm._v(" "),
+                    _c("i", { staticClass: "fas fa-shopping-cart" })
+                  ])
                 ]),
             _vm._v(" "),
             _c(
@@ -63135,7 +63207,7 @@ var render = function() {
                           ),
                           _vm._v(" "),
                           _c("span", { staticClass: "font-weight-bold" }, [
-                            _vm._v(_vm._s(item.price.total) + "€")
+                            _vm._v(_vm._s(item.price.data.total) + "€")
                           ])
                         ]
                       ),
@@ -63221,9 +63293,7 @@ var render = function() {
             : _vm._e(),
           _vm._v(" "),
           _vm.hasAvailability
-            ? _c("span", { staticClass: "text-success" }, [
-                _vm._v("(AVAILABLE)")
-              ])
+            ? _c("span", { staticClass: "main-color" }, [_vm._v("(AVAILABLE)")])
             : _vm._e()
         ])
       ],
@@ -63331,7 +63401,7 @@ var render = function() {
     _c(
       "button",
       {
-        staticClass: "btn btn-secondary btn-block",
+        staticClass: "btn btn-main btn-block",
         attrs: { disabled: _vm.loading },
         on: { click: _vm.check }
       },
@@ -63434,7 +63504,7 @@ var render = function() {
             ? _c(
                 "button",
                 {
-                  staticClass: "btn btn-outline-secondary btn-block",
+                  staticClass: "btn btn-main-transparent btn-block",
                   attrs: { disabled: _vm.inBasketAlready },
                   on: { click: _vm.addToBasket }
                 },
@@ -63447,7 +63517,7 @@ var render = function() {
           ? _c(
               "button",
               {
-                staticClass: "btn btn-outline-secondary btn-block",
+                staticClass: "btn btn-caution btn-block",
                 on: { click: _vm.removeFromBasket }
               },
               [_vm._v("Remove from basket")]
@@ -63506,9 +63576,9 @@ var render = function() {
               "pt-2 pb-2 border-bottom border-top d-flex justify-content-between"
           },
           [
-            _c("span", [_vm._v(_vm._s(days) + " x $" + _vm._s(price))]),
+            _c("span", [_vm._v(_vm._s(days) + " x " + _vm._s(price) + "€")]),
             _vm._v(" "),
-            _c("span", [_vm._v("$" + _vm._s(days * price))])
+            _c("span", [_vm._v(_vm._s(days * price) + "€")])
           ]
         )
       }),
@@ -63521,7 +63591,7 @@ var render = function() {
         [
           _c("span", [_vm._v("Total")]),
           _vm._v(" "),
-          _c("span", [_vm._v("$" + _vm._s(_vm.price.data.total))])
+          _c("span", [_vm._v(_vm._s(_vm.price.data.total) + "€")])
         ]
       )
     ],
@@ -63552,9 +63622,111 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { attrs: { id: "review-list-container" } }, [
     _c(
-      "h6",
-      { staticClass: "text-uppercase text-secondary font-weight-bolder pt-4" },
-      [_vm._v("Review List")]
+      "div",
+      {
+        staticClass:
+          "d-flex justify-content-between align-items-center mt-4 mb-3"
+      },
+      [
+        _c(
+          "h6",
+          {
+            staticClass:
+              "text-uppercase text-secondary font-weight-bolder p-0 m-0"
+          },
+          [_vm._v("Review List")]
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "dropdown" }, [
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-main dropdown-toggle",
+              attrs: {
+                type: "button",
+                id: "dropdownMenuButton",
+                "data-toggle": "dropdown",
+                "aria-haspopup": "true",
+                "aria-expanded": "false"
+              }
+            },
+            [_vm._v("Sorty by")]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "dropdown-menu",
+              attrs: { "aria-labelledby": "dropdownMenuButton" }
+            },
+            [
+              _c(
+                "span",
+                {
+                  staticClass: "dropdown-item",
+                  on: {
+                    click: function($event) {
+                      return _vm.sortByRating("best")
+                    }
+                  }
+                },
+                [
+                  _c("i", { staticClass: "fas fa-star" }),
+                  _vm._v("Top Rated\n        ")
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "span",
+                {
+                  staticClass: "dropdown-item",
+                  on: {
+                    click: function($event) {
+                      return _vm.sortByRating("worst")
+                    }
+                  }
+                },
+                [
+                  _c("i", { staticClass: "far fa-star" }),
+                  _vm._v("Lowest Rated\n        ")
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "span",
+                {
+                  staticClass: "dropdown-item",
+                  on: {
+                    click: function($event) {
+                      return _vm.sortByDateNewest()
+                    }
+                  }
+                },
+                [
+                  _c("i", { staticClass: "far fa-calendar-plus" }),
+                  _vm._v("Newest\n        ")
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "span",
+                {
+                  staticClass: "dropdown-item",
+                  on: {
+                    click: function($event) {
+                      return _vm.sortByDateOldest()
+                    }
+                  }
+                },
+                [
+                  _c("i", { staticClass: "far fa-calendar-minus" }),
+                  _vm._v("Oldest\n        ")
+                ]
+              )
+            ]
+          )
+        ])
+      ]
     ),
     _vm._v(" "),
     _vm.loading
@@ -63633,7 +63805,9 @@ var render = function() {
       }),
       _vm._v(" "),
       _vm.loading
-        ? _c("div", [_vm._v("Data is loading")])
+        ? _c("div", { staticClass: "loading-text text-center" }, [
+            _vm._v("Data is loading...")
+          ])
         : _c(
             "div",
             [
@@ -63679,7 +63853,7 @@ var render = function() {
                   _c(
                     "button",
                     {
-                      staticClass: "btn btn-secondary py-2 col-md-2",
+                      staticClass: "btn py-2 col-md-2 btn-main-transparent",
                       on: { click: _vm.shuffle }
                     },
                     [_vm._v("Shuffle appartments")]
@@ -63785,7 +63959,7 @@ var render = function() {
                 { staticClass: "d-flex align-items-center" },
                 [
                   _c("star-rating", {
-                    staticClass: "card-text star",
+                    staticClass: "card-text main-color",
                     attrs: { value: _vm.getAverageRating() }
                   }),
                   _vm._v(" "),
@@ -63844,7 +64018,10 @@ var render = function() {
       attrs: { id: "landing" }
     },
     [
-      _c("img", { attrs: { src: "/images/landing/brand.png", alt: "brand" } }),
+      _c("img", {
+        staticClass: "brand-logo",
+        attrs: { src: "/images/landing/brand.png", alt: "brand" }
+      }),
       _vm._v(" "),
       _c("p", [
         _vm._v(_vm._s(_vm.isError ? _vm.errCountryNotFound : _vm.brandData))
@@ -63941,13 +64118,27 @@ var render = function() {
                           ),
                           _vm._v(" "),
                           _c("p", [
-                            _vm._v(
-                              "From " +
-                                _vm._s(_vm.booking.from) +
-                                " to " +
-                                _vm._s(_vm.booking.to)
-                            )
-                          ])
+                            _vm._v("\n              From\n              "),
+                            _c("span", { staticClass: "main-color" }, [
+                              _vm._v(_vm._s(_vm.booking.from))
+                            ]),
+                            _vm._v(" to\n              "),
+                            _c("span", { staticClass: "main-color" }, [
+                              _vm._v(_vm._s(_vm.booking.to))
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("p", [
+                            _vm._v(_vm._s(_vm.booking.bookable.description))
+                          ]),
+                          _vm._v(" "),
+                          _c("img", {
+                            staticClass: "w-100",
+                            attrs: {
+                              src: _vm.booking.bookable.photo_url,
+                              alt: "photo"
+                            }
+                          })
                         ])
                       : _vm._e()
                   ])
@@ -63991,7 +64182,7 @@ var render = function() {
                                 ]),
                                 _vm._v(" "),
                                 _c("star-rating", {
-                                  staticClass: "fa-lg",
+                                  staticClass: "fa-lg main-color",
                                   model: {
                                     value: _vm.review.rating,
                                     callback: function($$v) {
@@ -64060,7 +64251,7 @@ var render = function() {
                             _c(
                               "button",
                               {
-                                staticClass: "btn btn-lg btn-primary btn-block",
+                                staticClass: "btn btn-lg btn-main btn-block",
                                 attrs: { disabled: _vm.sending },
                                 on: {
                                   click: function($event) {
@@ -64225,7 +64416,9 @@ var render = function() {
                         },
                         [
                           _c("div", [
-                            _c("i", { staticClass: "far fa-building" }),
+                            _c("i", {
+                              staticClass: "far fa-building main-color"
+                            }),
                             _vm._v(" "),
                             _c("span", { staticClass: "ml-3" }, [
                               _vm._v(_vm._s(filteredCountry))
@@ -64254,7 +64447,7 @@ var render = function() {
             "button",
             {
               staticClass:
-                "btn d-flex align-items-center justify-content-center",
+                "btn btn-main d-flex align-items-center justify-content-center",
               attrs: { type: "button" },
               on: {
                 click: function($event) {

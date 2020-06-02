@@ -25,7 +25,7 @@
               class="d-flex align-items-center justify-content-between"
             >
               <div>
-                <i class="far fa-building"></i>
+                <i class="far fa-building main-color"></i>
                 <span class="ml-3">{{filteredCountry}}</span>
               </div>
               <img
@@ -41,7 +41,7 @@
         <button
           type="button"
           @click="$emit('search', checkCountry())"
-          class="btn d-flex align-items-center justify-content-center"
+          class="btn btn-main d-flex align-items-center justify-content-center"
         >GO</button>
       </div>
     </div>
@@ -139,9 +139,7 @@ i {
   font-size: 22px;
 }
 .btn {
-  background-color: var(--main-color);
   font-weight: bold;
-  color: white;
   height: 100%;
 }
 .search-blanket {
@@ -164,6 +162,7 @@ i {
   border-bottom: 1px solid var(--main-color);
   padding-left: 16px;
   color: rgb(56, 56, 56);
+  font-weight: 400;
 }
 
 .dropdown li:hover {

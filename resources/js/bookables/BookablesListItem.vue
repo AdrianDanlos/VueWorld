@@ -12,7 +12,7 @@
           class="rating-price-container d-flex justify-content-between align-items-end flex-grow-1 pt-3"
         >
           <div class="d-flex align-items-center">
-            <star-rating :value="getAverageRating()" class="card-text star"></star-rating>
+            <star-rating :value="getAverageRating()" class="card-text main-color"></star-rating>
             <routerLink
               :to="{ name: 'bookable', params: {id}}"
               class="ml-2 review-amount"
@@ -72,7 +72,5 @@ export default {
   color: #3490dc;
   margin-top: 2px;
 }
-.star {
-  color: var(--main-color);
-}
+
 </style>

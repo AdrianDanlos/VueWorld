@@ -30,7 +30,7 @@
 
         <button
           type="submit"
-          class="btn btn-primary btn-lg btn-block"
+          class="btn btn-main btn-lg btn-block"
           @click.prevent="login"
           :disabled="loading"
         >Log-in</button>

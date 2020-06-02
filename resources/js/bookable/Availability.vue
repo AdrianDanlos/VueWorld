@@ -4,7 +4,7 @@
       Check Availability
       <transition name="fade">
         <span v-if="noAvailability" class="text-danger">(NOT AVAILABLE)</span>
-        <span v-if="hasAvailability" class="text-success">(AVAILABLE)</span>
+        <span v-if="hasAvailability" class="main-color">(AVAILABLE)</span>
       </transition>
     </h6>
 
@@ -39,7 +39,7 @@
         <v-errors :errors="errorFor('to')"></v-errors>
       </div>
     </div>
-    <button class="btn btn-secondary btn-block" @click="check" :disabled="loading">
+    <button class="btn btn-main btn-block" @click="check" :disabled="loading">
       <span v-if="!loading">Check!</span>
       <span v-if="loading">
         <i class="fas fa-circle-notch fa-spin"></i> Checking...
@@ -125,4 +125,5 @@ label {
 .invalid-feedback {
   color: #b22222;
 }
+
 </style>

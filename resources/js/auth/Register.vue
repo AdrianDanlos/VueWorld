@@ -56,7 +56,7 @@
 
         <button
           type="submit"
-          class="btn btn-primary btn-lg btn-block"
+          class="btn btn-main btn-lg btn-block"
           :disabled="loading"
           @click.prevent="register"
         >Register</button>

@@ -14,7 +14,13 @@
                   :to="{name: 'bookable', params: { id: booking.bookable.bookable_id}}"
                 >{{ booking.bookable.title }}</router-link>
               </p>
-              <p>From {{ booking.from }} to {{ booking.to }}</p>
+              <p>
+                From
+                <span class="main-color">{{ booking.from }}</span> to
+                <span class="main-color">{{ booking.to }}</span>
+              </p>
+              <p>{{booking.bookable.description}}</p>
+              <img class="w-100" :src="booking.bookable.photo_url" alt="photo" />
             </div>
           </div>
         </div>
@@ -31,7 +37,7 @@
           <div v-else>
             <div class="form-group">
               <label class="text-muted">Select the star rating (1 is worst - 5 is best)</label>
-              <star-rating class="fa-lg" v-model="review.rating"></star-rating>
+              <star-rating class="fa-lg main-color" v-model="review.rating"></star-rating>
             </div>
             <div class="form-group">
               <label for="content" class="text-muted">Describe your expirience with</label>
@@ -47,7 +53,7 @@
             </div>
 
             <button
-              class="btn btn-lg btn-primary btn-block"
+              class="btn btn-lg btn-main btn-block"
               @click.prevent="storeReview"
               :disabled="sending"
             >Submit</button>
@@ -118,6 +124,17 @@ export default {
     },
     twoColumns() {
       return this.loading || !this.alreadyReviewed;
+    }
+  },
+  watch: {
+    success() {
+      if (this.success) {
+        setTimeout(() => {
+          this.$router.push({
+            name: "home"
+          });
+        }, 2000);
+      }
     }
   },
   methods: {

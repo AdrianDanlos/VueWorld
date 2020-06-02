@@ -104,7 +104,7 @@
           <div class="col-md-12 form-group">
             <button
               type="submit"
-              class="btn btn-lg btn-primary btn-block"
+              class="btn btn-lg btn-main btn-block"
               @click.prevent="book"
               :disabled="loading"
             >Book now!</button>
@@ -112,8 +112,9 @@
         </div>
       </div>
       <div class="col-md-8" v-else>
-        <div class="jumbotron jumbotron-fluid text-center">
-          <h1>Empty</h1>
+        <div class="empty-cart-container">
+          <span>EMPTY</span>
+          <i class="fas fa-shopping-cart"></i>
         </div>
       </div>
       <div class="col-md-4">
@@ -133,7 +134,7 @@
                   :to="{name: 'bookable', params: {id: item.bookable.id}}"
                 >{{item.bookable.title}}</router-link>
               </span>
-              <span class="font-weight-bold">{{item.price.total}}€</span>
+              <span class="font-weight-bold">{{item.price.data.total}}€</span>
             </div>
 
             <div class="pt-2 pb-2 d-flex justify-content-between">
@@ -184,7 +185,7 @@ export default {
     ...mapState({
       basket: state => state.basket.items //get basket items
     }),
-    success(){
+    success() {
       return !this.loading && this.itemsInBasket === 0 && this.bookingAttempted;
     }
   },
@@ -193,7 +194,6 @@ export default {
       this.loading = true;
       this.errors = null;
       this.bookingAttempted = false;
-
       try {
         await axios.post(`/api/checkout`, {
           customer: this.customer,
@@ -222,5 +222,21 @@ h6.badge {
 
 a {
   color: black;
+}
+.badge-secondary {
+  background-color: #2cc65b;
+}
+.empty-cart-container {
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #6c757d;
+}
+.empty-cart-container span {
+  font-size: 70px;
+}
+.empty-cart-container i {
+  font-size: 90px;
 }
 </style>

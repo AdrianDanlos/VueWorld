@@ -1,7 +1,7 @@
 <template>
   <div>
     <nav class="navbar navbar-expand-lg bg-white border-bottom navbar-light">
-      <router-link class="navbar-brand mr-auto" :to="{name: 'home'}">LaravelBnb</router-link> <!--Redirects to the component declared with that name in the vue router-->
+      <router-link class="navbar-brand mr-auto" :to="{name: 'home'}"><img class="w-50" src="/images/landing/brand_text.png" alt="brand"></router-link> <!--Redirects to the component declared with that name in the vue router-->
 
       <ul class="navbar-nav">
         <li class="nav-item">
@@ -72,5 +72,11 @@ export default {
 <style scoped>
 #web-container{
   margin-top: 45px;
+}
+.navbar-nav{
+  font-weight: 400;
+}
+.badge-secondary{
+  background-color: #2cc65b;
 }
 </style>

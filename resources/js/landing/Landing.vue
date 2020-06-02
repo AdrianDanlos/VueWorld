@@ -1,6 +1,6 @@
 <template>
   <div id="landing" class="d-flex flex-column justify-content-center align-items-center">
-    <img src="/images/landing/brand.png" alt="brand" />
+    <img class="brand-logo" src="/images/landing/brand.png" alt="brand" />
     <p>{{isError ? errCountryNotFound : brandData}}</p>
     <search-city
       class="w-100"
@@ -11,15 +11,15 @@
 </template>
 
 <script>
-
 export default {
   data() {
     return {
-      brandData: "36,000 properties, 178 countries • Over 13 million verified guest reviews • 24/7 customer service",
+      brandData:
+        "36,000 properties, 178 countries • Over 13 million verified guest reviews • 24/7 customer service",
       errCountryNotFound:
         "Sorry, we cannot find anything that matches your search term.",
       error: false
-    }
+    };
   },
   methods: {
     redirect(country) {
@@ -29,14 +29,13 @@ export default {
           name: "bookablesByCountry",
           params: { country: country }
         });
-      }
-      else{
+      } else {
         this.error = true;
       }
     }
   },
   computed: {
-    isError(){
+    isError() {
       return this.error === true;
     }
   },
@@ -63,6 +62,9 @@ p {
   color: white;
   margin-left: -50px;
   font-weight: 400 !important;
+}
+.brand-logo{
+  margin: 3rem 0;
 }
 
 /deep/ .search-container {
