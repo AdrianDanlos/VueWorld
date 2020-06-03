@@ -58,7 +58,7 @@ body {
 }
 
 .main-color{
-    color: var(--main-color);
+    color: var(--main-color) !important;
 }
 
 .btn-main {
@@ -83,14 +83,14 @@ body {
 }
 
 .btn-caution{
-    color: #a03b39;
-    border-color: #a03b39;
+    color: #B03104;
+    border-color: #B03104;
 }
 
 .btn-caution:hover{
     color: #fff;
-    background-color: #a03b39;
-    border-color: #a03b39;
+    background-color: #B03104;
+    border-color: #B03104;
 }
 
 

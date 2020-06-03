@@ -7,10 +7,10 @@
   >
     <div id="landing" class="d-flex flex-column justify-content-center align-items-center">
       <img class="brand-logo" src="/images/landing/brand.png" alt="brand" />
-      <p>{{isError ? errCountryNotFound : brandData}}</p>
+      <p class="text-center px-4">{{isError ? errCountryNotFound : brandData}}</p>
       <search-city
-        class="w-100"
-        :searchLayout="{inputSize: 'col-md-6 offset-md-3', buttonSize: 'col-md-3'}"
+        class="w-100 px-4"
+        :searchLayout="{inputSize: 'col-12 col-sm-10 col-lg-6 mb-4 mb-sm-0', buttonSize: 'col-12 col-sm-2 col-md-1'}"
         @search="redirect($event)"
       ></search-city>
     </div>
@@ -67,11 +67,18 @@ export default {
 }
 p {
   color: white;
-  margin-left: -50px;
   font-weight: 400 !important;
 }
 .brand-logo {
   margin: 3rem 0;
+}
+
+.custom-appear-class {
+  opacity: 0;
+}
+.custom-appear-to-class {
+  transition-duration: 1s;
+  opacity: 1;
 }
 
 /deep/ .search-container {
@@ -82,12 +89,15 @@ p {
   border: 6px solid rgba(0, 0, 0, 0.5);
   height: 60px;
   font-size: 1.2rem;
+  color:white;
+  background-color: rgba(255,255,255,0.2);
 }
 /deep/ #search-country-input::placeholder {
   font-size: 1.2rem;
+  font-weight: 300 !important;
+  color: white;
 }
 /deep/ .btn {
-  width: 60px;
   font-size: 1.1rem;
 }
 /deep/ .dropdown {
@@ -96,7 +106,7 @@ p {
   left: 6px;
 }
 /deep/ .dropdown li {
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(255, 255, 255, 0.9);
   font-size: 1.2rem;
   height: 48px;
 }
@@ -104,11 +114,17 @@ p {
   width: 70px;
 }
 
-.custom-appear-class {
-  opacity: 0;
+/deep/ .btn-go-container {
+  width: 70px;
 }
-.custom-appear-to-class {
-  transition-duration: 1s;
-  opacity: 1;
+
+@media (max-width: 575px) {
+  /deep/ .btn-go-container {
+    width: 100%;
+    height: 48px;
+  }
+  /deep/ .dropdown li {
+    background-color: white;
+  }
 }
 </style>

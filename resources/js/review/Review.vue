@@ -35,7 +35,7 @@
           <i class="fas fa-dizzy"></i>
         </div>
         <div v-else>
-          <div class="form-group">
+          <div class="form-group mt-4 mt-md-0">
             <label class="text-muted">Select the star rating (1 is worst - 5 is best)</label>
             <star-rating class="fa-lg main-color" v-model="review.rating"></star-rating>
           </div>
@@ -181,5 +181,16 @@ export default {
 .bookingNoExist span {
   font-size: 3rem;
   margin-right: 1rem;
+  text-align: center;
+}
+@media (max-width: 575px) {
+  .bookingNoExist,
+  .alreadyReviewed {
+    flex-direction: column;
+  }
+  .alreadyReviewed span,
+  .bookingNoExist span {
+    margin-bottom: 10px;
+  }
 }
 </style>

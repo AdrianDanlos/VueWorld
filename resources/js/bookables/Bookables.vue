@@ -9,24 +9,39 @@
     <div v-else>
       <div class="info-bar row mb-3 px-3">
         <div
-          class="d-flex align-items-center justify-content-center country-container py-2 col-md-3"
+          class="country-info-container col-12 col-md-6 col-lg-3 order-2 order-sm-1 order-lg-1 px-0 pr-sm-2"
         >
-          <i class="fas fa-map-marker-alt"></i>
-          <span>{{bookables[0].city}},</span>
-          <span>{{bookables[0].country}}</span>
-          <img class="countryFlag" :src="countryFlag" alt="countryFlag" />
+          <div
+            class="d-flex align-items-center justify-content-center country-container h-100 py-2"
+          >
+            <i class="fas fa-map-marker-alt"></i>
+            <span>{{bookables[0].city}},</span>
+            <span>{{bookables[0].country}}</span>
+            <img class="countryFlag" :src="countryFlag" alt="countryFlag" />
+          </div>
         </div>
         <search-city
-          class="search-city col-md-7 position-static"
-          :searchLayout="{inputSize: 'col-md-11', buttonSize: 'col-md-1'}"
+          class="search-city col-12 col-lg-7 position-static order-3 order-lg-2"
+          :searchLayout="{inputSize: 'col-10', inputMargin: 'mt-3 mt-lg-0', buttonSize: 'col-2'}"
           @search="getBookablesByCountry($event)"
         ></search-city>
-        <button class="btn py-2 col-md-2 btn-main-transparent" @click="shuffle">Shuffle appartments</button>
+        <div
+          class="shuffle-btn-container d-none d-md-block order-1 order-md-2 order-lg-3 col-12 col-md-6 col-lg-2 px-0 pl-md-2"
+        >
+          <button
+            class="btn full-text py-2 btn-main-transparent w-100 h-100"
+            @click="shuffle"
+          >Shuffle appartments</button>
+          <button
+            class="btn short-text py-2 btn-main-transparent w-100 h-100"
+            @click="shuffle"
+          >Shuffle</button>
+        </div>
       </div>
 
       <transition-group class="row d-flex flex-wrap" name="bookable" tag="div">
         <div
-          class="col-4 d-flex align-items-stretch mb-3"
+          class="col-12 col-md-6 col-lg-4 d-flex align-items-stretch mb-3"
           v-for="(bookable) in bookables"
           :key="bookable.id"
         >
@@ -52,14 +67,14 @@ export default {
   data() {
     //Fetching data from the server. Constantly rerendering components as data changes
     return {
+      //lenght -> amount of bookables we have
       bookables: Array.apply(null, { length: 30 }).map(function(_, index) {
         return {
           id: index,
-          number: (index % 3) + 1
+          number: (index % 3) + 1 //Divide by amount of bookables per column
         };
       }),
       loading: false,
-      columns: 3, //Amount of bookables we want for each row.
       countryFlag: "https://restcountries.eu/data/chn.svg",
       errAxiosCall:
         "We had a problem retrieving our bookables. Please, try again later.",
@@ -67,17 +82,7 @@ export default {
         "Sorry, we cannot find anything that matches your search term."
     };
   },
-  computed: {
-    rows() {
-      return this.bookables === null
-        ? 0
-        : Math.ceil(this.bookables.length / this.columns); //if we have bookables return amount of rows we need
-    }
-  },
   methods: {
-    bookablesInRow(row) {
-      return this.bookables.slice((row - 1) * this.columns, row * this.columns); //gets array of bookables for this row
-    },
     shuffle: function() {
       this.bookables = _.shuffle(this.bookables);
     },
@@ -155,7 +160,7 @@ export default {
 }
 
 .search-city {
-  padding: 0 40px;
+  padding: 0;
 }
 .loading-text {
   font-size: 2.2rem;
@@ -164,10 +169,33 @@ export default {
 .bookable-move {
   transition: transform 1s;
 }
+.short-text {
+  display: none;
+}
+
+@media (max-width: 1200px) {
+  .short-text {
+    display: block;
+  }
+  .full-text {
+    display: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .country-info-container,
+  .shuffle-btn-container {
+    height: 50px;
+  }
+}
 
 /deep/ .info-bar #search-country-input {
   border: 1px solid rgba(0, 0, 0, 0.125);
   height: 50px;
+}
+
+/deep/ #search-country-input {
+  background-color: white;
 }
 
 /deep/ .info-bar .search-container {

@@ -2,7 +2,7 @@
   <div id="review-list-container">
     <div class="d-flex justify-content-between align-items-center mt-4 mb-3">
       <h6 class="text-uppercase text-secondary font-weight-bolder p-0 m-0">Review List</h6>
-      <div class="dropdown">
+      <div class="dropdown d-none d-md-block">
         <button
           class="btn btn-main dropdown-toggle"
           type="button"
@@ -10,7 +10,7 @@
           data-toggle="dropdown"
           aria-haspopup="true"
           aria-expanded="false"
-        >Sorty by</button>
+        >Sort by</button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
           <span class="dropdown-item" @click="sortByRating('best')">
             <i class="fas fa-star"></i>Top Rated
@@ -62,19 +62,27 @@ export default {
   },
   methods: {
     sortByRating(order) {
-      console.log(this.reviews)
+      console.log(this.reviews);
       this.reviews.sort(function(a, b) {
-        return order === 'best' ? b.rating - a.rating : a.rating - b.rating;
+        return order === "best" ? b.rating - a.rating : a.rating - b.rating;
       });
     },
-    sortByDateNewest(){
+    sortByDateNewest() {
       this.reviews.sort(function(a, b) {
-        return (b.created_at < a.created_at) ? -1 : ((b.created_at > a.created_at) ? 1 : 0);
+        return b.created_at < a.created_at
+          ? -1
+          : b.created_at > a.created_at
+          ? 1
+          : 0;
       });
     },
-    sortByDateOldest(){
+    sortByDateOldest() {
       this.reviews.sort(function(a, b) {
-        return (a.created_at < b.created_at) ? -1 : ((a.created_at > b.created_at) ? 1 : 0);
+        return a.created_at < b.created_at
+          ? -1
+          : a.created_at > b.created_at
+          ? 1
+          : 0;
       });
     }
   },
@@ -84,7 +92,6 @@ export default {
       .get(`/api/bookables/${this.bookableId}/reviews`)
       .then(response => (this.reviews = response.data))
       .then(() => (this.loading = false));
-      
 
     // axios.get('https://randomuser.me/api/').then(response => console.log(response))
   }
@@ -114,5 +121,6 @@ export default {
 .dropdown-item i {
   margin-right: 10px;
 }
+
 </style>
 

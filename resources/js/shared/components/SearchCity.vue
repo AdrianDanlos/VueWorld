@@ -1,9 +1,9 @@
 <template>
   <div>
     <div class="search-blanket" v-if="modal" @click="modal=false"></div>
-    <div class="search-container d-flex justify-content-center row mx-0">
+    <div class="search-container justify-content-center row mx-0" :class="[searchLayout.inputPadding, searchLayout.inputMargin]">
       <div
-        class="position-relative d-flex justify-content-start p-0"
+        class="position-relative d-flex justify-content-start p-0 pr-2 p-sm-0"
         :class="searchLayout.inputSize"
       >
         <input
@@ -14,7 +14,7 @@
           class="w-100"
           type="text"
           autocomplete="search"
-          placeholder="Where do you want to go?"
+          placeholder="Find your dream place"
         />
         <div class="dropdown position-absolute" v-if="filteredCountries && modal">
           <ul>
@@ -37,11 +37,11 @@
           </ul>
         </div>
       </div>
-      <div class="pl-1" :class="searchLayout.buttonSize">
+      <div class="btn-go-container px-0 pl-sm-1" :class="searchLayout.buttonSize">
         <button
           type="button"
           @click="$emit('search', checkCountry())"
-          class="btn btn-main d-flex align-items-center justify-content-center"
+          class="btn btn-main d-flex align-items-center justify-content-center w-100"
         >GO</button>
       </div>
     </div>
@@ -117,7 +117,6 @@ export default {
 input {
   border-radius: 5px;
   background: url("/images/searchBar/search.png") no-repeat;
-  background-color: rgba(255, 255, 255, 0.8);
   background-clip: padding-box;
   background-position: left 5px top 3px;
   background-size: 40px 40px;
@@ -161,7 +160,7 @@ i {
 .dropdown li {
   border-bottom: 1px solid var(--main-color);
   padding-left: 16px;
-  color: rgb(56, 56, 56);
+  color: rgb(44, 44, 44);
   font-weight: 400;
 }
 
@@ -179,4 +178,9 @@ i {
 .dropdownFlag {
   opacity: 0.7;
 }
+.btn-go-container{
+  z-index: 1;
+}
+
+
 </style>

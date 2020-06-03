@@ -118,12 +118,19 @@
         </div>
       </div>
       <div class="col-md-4">
-        <div class="d-flex justify-content-between">
+        <div class="d-flex justify-content-between align-items-center border-bottom">
           <h6 class="text-uppercase text-secondary font-weight-bolder">Your cart</h6>
           <h6 class="badge badge-secondary text-uppercase">
             <span v-if="itemsInBasket">Items {{itemsInBasket}}</span>
             <span v-else>Empty</span>
           </h6>
+        </div>
+        <div class="mt-3" v-if="!itemsInBasket">
+          <p>Why don't you take a look at our latest offers? Indonesia, Philipines, or maybe Tanzania?</p>
+          <router-link class="offers-link main-color mr-2" :to="{name:'home'}">
+            You choose!
+            <i class="fas fa-luggage-cart"></i>
+          </router-link>
         </div>
 
         <transition-group name="fade" tag="div">
@@ -222,7 +229,7 @@ export default {
         }, 2000);
       }
     }
-  },
+  }
 };
 </script>
 
@@ -233,21 +240,25 @@ h6.badge {
 
 a {
   color: black;
+  text-decoration: none;
 }
 .badge-secondary {
-  background-color: #2cc65b;
+  background-color: var(--main-color);
 }
 .empty-cart-container {
   height: 300px;
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid #6c757d;
 }
 .empty-cart-container span {
-  font-size: 70px;
+  font-size: 60px;
 }
 .empty-cart-container i {
-  font-size: 90px;
+  font-size: 80px;
+}
+.offers-link {
+  font-weight: 500;
+  font-size: 1rem;
 }
 </style>

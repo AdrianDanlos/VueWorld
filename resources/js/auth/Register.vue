@@ -1,6 +1,6 @@
 <template>
-  <div class="w-50 m-auto">
-    <div class="card card-body">
+  <div class="row justify-content-center m-auto">
+    <div class="card card-body col-11 col-md-9 col-lg-6">
       <form>
         <div class="form-group">
           <label for="name">Name</label>
