@@ -2,7 +2,7 @@
   <div>
     <success v-if="success">You've left a review, thank you very much!</success>
     <fatal-error v-if="error"></fatal-error>
-    <div v-if="loading">Loading...</div>
+    <loading v-if="loading"></loading>
     <div class="row" v-if="!success && !error && !loading">
       <div :class="[{'col-md-4': twoColumns}, {'d-none': oneColumn}]">
         <div class="card">
@@ -86,7 +86,7 @@ export default {
     };
   },
   async created() {
-    this.review.id = this.$route.params.id;
+    this.review.id = this.$route.params.reviewKey;
     this.loading = true;
 
     // 1. If review already exists (in reviews table by id)

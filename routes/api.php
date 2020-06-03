@@ -34,3 +34,4 @@ Route::post('checkout', 'Api\CheckoutController')->name('checkout');
 Route::get('bookables/countries/{country}', 'Api\BookableCountryController');
 
 
+

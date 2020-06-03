@@ -9,7 +9,7 @@
             <article>{{ bookable.description }}</article>
             <div :style="{ backgroundImage: 'url(' + bookable.photo_url + ')' }" id="photo"></div>
           </div>
-          <div v-else>Loading...</div>
+          <loading v-else></loading>
         </div>
       </div>
       <review-list :bookable-id="this.$route.params.id"></review-list>
@@ -71,8 +71,6 @@ export default {
       this.bookable = result.data;
       this.loading = false;
     });
-
-    
   },
   computed: {
     ...mapState({
@@ -81,7 +79,7 @@ export default {
     inBasketAlready() {
       if (null === this.bookable) {
         return false;
-      } 
+      }
       return this.$store.getters.inBasketAlready(this.bookable.id);
     }
   },

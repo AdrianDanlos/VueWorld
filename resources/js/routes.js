@@ -24,7 +24,7 @@ const routes = [{
         name: "bookable",
     },
     {
-        path: "/review/:id",
+        path: "/review/:reviewKey",
         component: Review,
         name: "review",
     },

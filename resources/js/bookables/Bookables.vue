@@ -5,7 +5,7 @@
       :errorLayout="'offset-md-3 col-md-9'"
       :errors="[errors]"
     ></v-errors>
-    <div v-if="loading" class="loading-text text-center">Data is loading...</div>
+    <loading v-if="loading"></loading>
     <div v-else>
       <div class="info-bar row mb-3 px-3">
         <div
@@ -161,9 +161,6 @@ export default {
 
 .search-city {
   padding: 0;
-}
-.loading-text {
-  font-size: 2.2rem;
 }
 
 .bookable-move {

@@ -2,7 +2,7 @@
   <div>
     <nav class="navbar navbar-expand-lg bg-white border-bottom navbar-light">
       <router-link class="d-flex navbar-brand mr-auto" :to="{name: 'home'}">
-        <img class="navbar-logo" src="/images/landing/brand_text.png" alt="brand" />
+        <img class="navbar-logo" src="/images/navbar/brand_text.png" alt="brand" />
       </router-link>
       <!--Redirects to the component declared with that name in the vue router-->
 

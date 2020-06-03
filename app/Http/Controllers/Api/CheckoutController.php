@@ -54,6 +54,11 @@ class CheckoutController extends Controller
             return $booking;
         });
 
-        return $bookings;
+        //Return the review keys
+        $reviewKeys = [];
+        foreach($bookings as $booking){
+            array_push($reviewKeys, $booking->review_key);
+        } 
+        return $reviewKeys;
     }
 }

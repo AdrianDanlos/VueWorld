@@ -1,6 +1,15 @@
 <template>
   <div>
-    <success v-if="success">Congratulations on your purchase!</success>
+    <div v-if="success">
+      <success>Congratulations on your purchase!</success>
+      <hr>
+      <div class="review-info d-flex flex-column align-items-center justify-content-center">
+        <p class="text-secondary">Dont forget to review your stay after your fantastic trip.</p>
+        <div v-for="(reviewKey,index) in reviewKeys" :key="index">
+          <router-link target="_blank" class="text-secondary main-color" :to="{name:'review', params: {reviewKey}}">Review my booking nº {{index + 1}}<i class="fas fa-long-arrow-alt-right ml-2"></i></router-link>
+        </div>
+      </div>
+    </div>
     <div class="row" v-else>
       <div class="col-md-8" v-if="itemsInBasket">
         <div class="row">
@@ -184,7 +193,8 @@ export default {
         country: null,
         state: null,
         zip: null
-      }
+      },
+      reviewKeys: null
     };
   },
   computed: {
@@ -202,14 +212,16 @@ export default {
       this.errors = null;
       this.bookingAttempted = false;
       try {
-        await axios.post(`/api/checkout`, {
-          customer: this.customer,
-          bookings: this.basket.map(basketItem => ({
-            bookable_id: basketItem.bookable.id,
-            from: basketItem.dates.from,
-            to: basketItem.dates.to
-          }))
-        });
+        this.reviewKeys = (
+          await axios.post(`/api/checkout`, {
+            customer: this.customer,
+            bookings: this.basket.map(basketItem => ({
+              bookable_id: basketItem.bookable.id,
+              from: basketItem.dates.from,
+              to: basketItem.dates.to
+            }))
+          })
+        ).data;
         this.$store.dispatch("clearBasket");
       } catch (error) {
         this.errors = error.response && error.response.data.errors;
@@ -220,15 +232,16 @@ export default {
     }
   },
   watch: {
-    success() {
-      if (this.success) {
-        setTimeout(() => {
-          this.$router.push({
-            name: "home"
-          });
-        }, 2000);
-      }
-    }
+    //REDIRECT AFTER PURCHASE
+    // success() {
+    //   if (this.success) {
+    //     setTimeout(() => {
+    //       this.$router.push({
+    //         name: "home"
+    //       });
+    //     }, 6000);
+    //   }
+    // }
   }
 };
 </script>
@@ -242,11 +255,14 @@ a {
   color: black;
   text-decoration: none;
 }
+a:hover, a:active, a:visited{
+  color: var(--main-color-darker) !important;
+}
 .badge-secondary {
   background-color: var(--main-color);
 }
 .empty-cart-container {
-  height: 300px;
+  height: 200px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -260,5 +276,8 @@ a {
 .offers-link {
   font-weight: 500;
   font-size: 1rem;
+}
+.review-info{
+  font-size: 1.1rem;
 }
 </style>

@@ -27,7 +27,7 @@
         </div>
       </div>
     </div>
-    <div v-if="loading">Loading...</div>
+    <loading v-if="loading"></loading>
     <div v-else>
       <div class="border-bottom d-none d-md-block" v-for="(review, index) in reviews" :key="index">
         <div class="row pt-4">

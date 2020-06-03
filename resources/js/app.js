@@ -10,6 +10,7 @@ import StarRating from "./shared/components/StarRating";
 import SearchCity from "./shared/components/SearchCity";
 import Success from "./shared/components/Success";
 import ValidationErrors from "./shared/components/ValidationErrors";
+import Loading from "./shared/components/Loading"
 import storeDefinition from "./store";
 
 // Global registration of components here
@@ -27,6 +28,7 @@ Vue.component("fatal-error", FatalError);
 Vue.component("success", Success);
 Vue.component("v-errors", ValidationErrors);
 Vue.component("search-city", SearchCity);
+Vue.component("loading", Loading);
 
 const store = new Vuex.Store(storeDefinition);
 
