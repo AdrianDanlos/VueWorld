@@ -1,7 +1,10 @@
 <template>
   <div>
     <div class="search-blanket" v-if="modal" @click="modal=false"></div>
-    <div class="search-container justify-content-center row mx-0" :class="[searchLayout.inputPadding, searchLayout.inputMargin]">
+    <div
+      class="search-container justify-content-center row mx-0"
+      :class="[searchLayout.inputPadding, searchLayout.inputMargin]"
+    >
       <div
         class="position-relative d-flex justify-content-start p-0 pr-2 p-sm-0"
         :class="searchLayout.inputSize"
@@ -20,17 +23,17 @@
           <ul>
             <li
               v-for="filteredCountry in filteredCountries"
-              :key="filteredCountry"
-              @mousedown="setCountry(filteredCountry)"
+              :key="filteredCountry.name"
+              @mousedown="setCountry(filteredCountry.name)"
               class="d-flex align-items-center justify-content-between"
             >
               <div>
                 <i class="far fa-building main-color"></i>
-                <span class="ml-3">{{filteredCountry}}</span>
+                <span class="ml-3">{{filteredCountry.name}}</span>
               </div>
               <img
                 class="dropdownFlag"
-                src="https://restcountries.eu/data/fra.svg"
+                :src="filteredCountry.flag"
                 alt="dropdownFlag"
               />
             </li>
@@ -57,18 +60,10 @@ export default {
     return {
       country: "",
       countries: [
-        "China",
-        "Indonesia",
-        "France",
-        "Uganda",
-        "Somalia",
-        "Monaco",
-        "Mongolia",
-        "Montenegro",
-        "Egypt",
-        "Spain",
-        "Italy"
+        { flag: "https://restcountries.eu/data/fra.svg", name: "France" },
+        { flag: "https://restcountries.eu/data/afg.svg", name: "Afghanistan" }
       ],
+      // countries: [],
       filteredCountries: [],
       modal: false
     };
@@ -76,15 +71,17 @@ export default {
   methods: {
     filterCountries() {
       if (0 === this.country.length) {
-        this.filteredCountries = this.countries;
+        this.filteredCountries = this.countries.map(country => {
+          return country.name;
+        });
       }
       this.filteredCountries = [];
       this.countries.forEach(country => {
         if (
           this.filteredCountries.length <= 4 &&
-          country.toLowerCase().startsWith(this.country.toLowerCase())
+          country.name.toLowerCase().startsWith(this.country.toLowerCase())
         ) {
-          this.filteredCountries.push(country);
+          this.filteredCountries.push({name: country.name, flag: country.flag});
         }
       });
     },
@@ -95,12 +92,19 @@ export default {
     checkCountry() {
       if (
         this.filteredCountries.length &&
-        this.country.toLowerCase() === this.filteredCountries[0].toLowerCase()
+        this.country.toLowerCase() === this.filteredCountries[0].name.toLowerCase()
       ) {
         return this.country;
       }
       return null;
-    },
+    }
+  },
+  async created() {
+    try {
+      this.countries = (await axios.get('https://restcountries.eu/rest/v2/all?fields=name;flag;')).data;
+    } catch (error) {
+      
+    }
   },
   mounted() {
     this.filterCountries();
@@ -178,9 +182,7 @@ i {
 .dropdownFlag {
   opacity: 0.7;
 }
-.btn-go-container{
+.btn-go-container {
   z-index: 1;
 }
-
-
 </style>

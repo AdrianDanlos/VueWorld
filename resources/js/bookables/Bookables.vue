@@ -106,13 +106,14 @@ export default {
           this.bookables = (
             await axios.get(`/api/bookables/countries/${country}`)
           ).data;
-          console.log(this.bookables);
-          // this.countryFlag = (
-          //   await axios.get(
-          //     `https://restcountries.eu/rest/v2/name/${this.$route.params.country}?fields=flag;`
-          //   )
-          // ).data[0].flag;
+          this.countryFlag = (
+            await axios.get(
+              `https://restcountries.eu/rest/v2/name/${this.$route.params.country}?fields=flag;`
+            )
+          ).data.flag;
         } catch (error) {}
+
+        console.log(this.bookables);
 
         if (!this.bookables.length) {
           this.errors = this.errAxiosCall;

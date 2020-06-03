@@ -3210,7 +3210,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context.prev = _context.next) {
               case 0:
                 if (!country) {
-                  _context.next = 17;
+                  _context.next = 20;
                   break;
                 }
 
@@ -3235,37 +3235,38 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 7:
                 _this.bookables = _context.sent.data;
-                console.log(_this.bookables); // this.countryFlag = (
-                //   await axios.get(
-                //     `https://restcountries.eu/rest/v2/name/${this.$route.params.country}?fields=flag;`
-                //   )
-                // ).data[0].flag;
+                _context.next = 10;
+                return axios.get("https://restcountries.eu/rest/v2/name/".concat(_this.$route.params.country, "?fields=flag;"));
 
-                _context.next = 13;
+              case 10:
+                _this.countryFlag = _context.sent.data.flag;
+                _context.next = 15;
                 break;
 
-              case 11:
-                _context.prev = 11;
+              case 13:
+                _context.prev = 13;
                 _context.t0 = _context["catch"](4);
 
-              case 13:
+              case 15:
+                console.log(_this.bookables);
+
                 if (!_this.bookables.length) {
                   _this.errors = _this.errAxiosCall;
                 }
 
                 _this.loading = false;
-                _context.next = 18;
+                _context.next = 21;
                 break;
 
-              case 17:
+              case 20:
                 _this.errors = _this.errCountryNotFound;
 
-              case 18:
+              case 21:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[4, 11]]);
+        }, _callee, null, [[4, 13]]);
       }))();
     }
   },
@@ -3639,6 +3640,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
 //
 //
 //
@@ -3696,7 +3708,14 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       country: "",
-      countries: ["China", "Indonesia", "France", "Uganda", "Somalia", "Monaco", "Mongolia", "Montenegro", "Egypt", "Spain", "Italy"],
+      countries: [{
+        flag: "https://restcountries.eu/data/fra.svg",
+        name: "France"
+      }, {
+        flag: "https://restcountries.eu/data/afg.svg",
+        name: "Afghanistan"
+      }],
+      // countries: [],
       filteredCountries: [],
       modal: false
     };
@@ -3706,13 +3725,18 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       if (0 === this.country.length) {
-        this.filteredCountries = this.countries;
+        this.filteredCountries = this.countries.map(function (country) {
+          return country.name;
+        });
       }
 
       this.filteredCountries = [];
       this.countries.forEach(function (country) {
-        if (_this.filteredCountries.length <= 4 && country.toLowerCase().startsWith(_this.country.toLowerCase())) {
-          _this.filteredCountries.push(country);
+        if (_this.filteredCountries.length <= 4 && country.name.toLowerCase().startsWith(_this.country.toLowerCase())) {
+          _this.filteredCountries.push({
+            name: country.name,
+            flag: country.flag
+          });
         }
       });
     },
@@ -3721,12 +3745,41 @@ __webpack_require__.r(__webpack_exports__);
       this.modal = false;
     },
     checkCountry: function checkCountry() {
-      if (this.filteredCountries.length && this.country.toLowerCase() === this.filteredCountries[0].toLowerCase()) {
+      if (this.filteredCountries.length && this.country.toLowerCase() === this.filteredCountries[0].name.toLowerCase()) {
         return this.country;
       }
 
       return null;
     }
+  },
+  created: function created() {
+    var _this2 = this;
+
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.prev = 0;
+              _context.next = 3;
+              return axios.get('https://restcountries.eu/rest/v2/all?fields=name;flag;');
+
+            case 3:
+              _this2.countries = _context.sent.data;
+              _context.next = 8;
+              break;
+
+            case 6:
+              _context.prev = 6;
+              _context.t0 = _context["catch"](0);
+
+            case 8:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, null, [[0, 6]]);
+    }))();
   },
   mounted: function mounted() {
     this.filterCountries();
@@ -8571,7 +8624,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\ninput[data-v-62f66040] {\r\n  border-radius: 5px;\r\n  background: url(\"/images/searchBar/search.png\") no-repeat;\r\n  background-clip: padding-box;\r\n  background-position: left 5px top 3px;\r\n  background-size: 40px 40px;\r\n  padding-left: 60px;\r\n  caret-color: #6c757d;\r\n  color: rgb(56, 56, 56);\n}\ninput[data-v-62f66040]:focus,\r\ninput[data-v-62f66040]:active {\r\n  outline: none;\n}\ninput[data-v-62f66040]:focus::-webkit-input-placeholder {\r\n  color: transparent;\n}\ninput[data-v-62f66040]:focus::-moz-placeholder {\r\n  color: transparent;\n}\ninput[data-v-62f66040]:focus:-ms-input-placeholder {\r\n  color: transparent;\n}\ninput[data-v-62f66040]:focus::-ms-input-placeholder {\r\n  color: transparent;\n}\ninput[data-v-62f66040]:focus::placeholder {\r\n  color: transparent;\n}\ninput[data-v-62f66040]::-webkit-input-placeholder {\r\n  color: rgb(56, 56, 56);\n}\ninput[data-v-62f66040]::-moz-placeholder {\r\n  color: rgb(56, 56, 56);\n}\ninput[data-v-62f66040]:-ms-input-placeholder {\r\n  color: rgb(56, 56, 56);\n}\ninput[data-v-62f66040]::-ms-input-placeholder {\r\n  color: rgb(56, 56, 56);\n}\ninput[data-v-62f66040]::placeholder {\r\n  color: rgb(56, 56, 56);\n}\ni[data-v-62f66040] {\r\n  font-size: 22px;\n}\n.btn[data-v-62f66040] {\r\n  font-weight: bold;\r\n  height: 100%;\n}\n.search-blanket[data-v-62f66040] {\r\n  width: 100%;\r\n  height: 100vh;\r\n  position: absolute;\r\n  top: 0;\r\n  left: 0;\r\n  background: transparent;\n}\n.dropdown[data-v-62f66040] {\r\n  z-index: 1;\n}\n.dropdown ul[data-v-62f66040] {\r\n  list-style: none;\r\n  padding: 0;\n}\n.dropdown li[data-v-62f66040] {\r\n  border-bottom: 1px solid var(--main-color);\r\n  padding-left: 16px;\r\n  color: rgb(44, 44, 44);\r\n  font-weight: 400;\n}\n.dropdown li[data-v-62f66040]:hover {\r\n  cursor: pointer;\r\n  background-color: var(--main-color);\r\n  color: white;\n}\n.dropdown li i[data-v-62f66040] {\r\n  color: var(--main-color);\n}\n.dropdown li:hover i[data-v-62f66040] {\r\n  color: white;\n}\n.dropdownFlag[data-v-62f66040] {\r\n  opacity: 0.7;\n}\n.btn-go-container[data-v-62f66040]{\r\n  z-index: 1;\n}\r\n\r\n\r\n", ""]);
+exports.push([module.i, "\ninput[data-v-62f66040] {\r\n  border-radius: 5px;\r\n  background: url(\"/images/searchBar/search.png\") no-repeat;\r\n  background-clip: padding-box;\r\n  background-position: left 5px top 3px;\r\n  background-size: 40px 40px;\r\n  padding-left: 60px;\r\n  caret-color: #6c757d;\r\n  color: rgb(56, 56, 56);\n}\ninput[data-v-62f66040]:focus,\r\ninput[data-v-62f66040]:active {\r\n  outline: none;\n}\ninput[data-v-62f66040]:focus::-webkit-input-placeholder {\r\n  color: transparent;\n}\ninput[data-v-62f66040]:focus::-moz-placeholder {\r\n  color: transparent;\n}\ninput[data-v-62f66040]:focus:-ms-input-placeholder {\r\n  color: transparent;\n}\ninput[data-v-62f66040]:focus::-ms-input-placeholder {\r\n  color: transparent;\n}\ninput[data-v-62f66040]:focus::placeholder {\r\n  color: transparent;\n}\ninput[data-v-62f66040]::-webkit-input-placeholder {\r\n  color: rgb(56, 56, 56);\n}\ninput[data-v-62f66040]::-moz-placeholder {\r\n  color: rgb(56, 56, 56);\n}\ninput[data-v-62f66040]:-ms-input-placeholder {\r\n  color: rgb(56, 56, 56);\n}\ninput[data-v-62f66040]::-ms-input-placeholder {\r\n  color: rgb(56, 56, 56);\n}\ninput[data-v-62f66040]::placeholder {\r\n  color: rgb(56, 56, 56);\n}\ni[data-v-62f66040] {\r\n  font-size: 22px;\n}\n.btn[data-v-62f66040] {\r\n  font-weight: bold;\r\n  height: 100%;\n}\n.search-blanket[data-v-62f66040] {\r\n  width: 100%;\r\n  height: 100vh;\r\n  position: absolute;\r\n  top: 0;\r\n  left: 0;\r\n  background: transparent;\n}\n.dropdown[data-v-62f66040] {\r\n  z-index: 1;\n}\n.dropdown ul[data-v-62f66040] {\r\n  list-style: none;\r\n  padding: 0;\n}\n.dropdown li[data-v-62f66040] {\r\n  border-bottom: 1px solid var(--main-color);\r\n  padding-left: 16px;\r\n  color: rgb(44, 44, 44);\r\n  font-weight: 400;\n}\n.dropdown li[data-v-62f66040]:hover {\r\n  cursor: pointer;\r\n  background-color: var(--main-color);\r\n  color: white;\n}\n.dropdown li i[data-v-62f66040] {\r\n  color: var(--main-color);\n}\n.dropdown li:hover i[data-v-62f66040] {\r\n  color: white;\n}\n.dropdownFlag[data-v-62f66040] {\r\n  opacity: 0.7;\n}\n.btn-go-container[data-v-62f66040] {\r\n  z-index: 1;\n}\r\n", ""]);
 
 // exports
 
@@ -64655,12 +64708,12 @@ var render = function() {
                       return _c(
                         "li",
                         {
-                          key: filteredCountry,
+                          key: filteredCountry.name,
                           staticClass:
                             "d-flex align-items-center justify-content-between",
                           on: {
                             mousedown: function($event) {
-                              return _vm.setCountry(filteredCountry)
+                              return _vm.setCountry(filteredCountry.name)
                             }
                           }
                         },
@@ -64671,14 +64724,14 @@ var render = function() {
                             }),
                             _vm._v(" "),
                             _c("span", { staticClass: "ml-3" }, [
-                              _vm._v(_vm._s(filteredCountry))
+                              _vm._v(_vm._s(filteredCountry.name))
                             ])
                           ]),
                           _vm._v(" "),
                           _c("img", {
                             staticClass: "dropdownFlag",
                             attrs: {
-                              src: "https://restcountries.eu/data/fra.svg",
+                              src: filteredCountry.flag,
                               alt: "dropdownFlag"
                             }
                           })
