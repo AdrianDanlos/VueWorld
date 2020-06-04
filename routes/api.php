@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::mixin(new \Laravel\Ui\AuthRouteMethods());
+Route::auth(['verify' => true]);
 
 // Route::get('bookables', 'Api\BookableController@index');
 // Route::get('bookable/{id}', 'Api\BookableController@show');
