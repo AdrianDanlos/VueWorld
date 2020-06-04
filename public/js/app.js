@@ -8510,7 +8510,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n#review-list-container[data-v-62084ff4] {\n  /* padding: 1.25rem; */\n}\n.dropdown-menu[data-v-62084ff4] {\n  padding: 0;\n}\n.dropdown-item[data-v-62084ff4] {\n  padding: 0.55rem 1.5rem;\n  border-bottom: 1px solid rgb(219, 219, 219);\n  font-weight: 300;\n}\n.dropdown-item[data-v-62084ff4]:hover {\n  cursor: pointer;\n}\n.dropdown-item i[data-v-62084ff4] {\n  margin-right: 10px;\n}\n\n", ""]);
+exports.push([module.i, "\n.dropdown-menu[data-v-62084ff4] {\n  padding: 0;\n}\n.dropdown-item[data-v-62084ff4] {\n  padding: 0.55rem 1.5rem;\n  border-bottom: 1px solid rgb(219, 219, 219);\n  font-weight: 300;\n}\n.dropdown-item[data-v-62084ff4]:hover {\n  cursor: pointer;\n}\n.dropdown-item i[data-v-62084ff4] {\n  margin-right: 10px;\n}\n\n", ""]);
 
 // exports
 

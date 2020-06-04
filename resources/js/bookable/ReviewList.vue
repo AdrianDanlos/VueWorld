@@ -104,9 +104,6 @@ export default {
 </script>
 
 <style scoped>
-#review-list-container {
-  /* padding: 1.25rem; */
-}
 .dropdown-menu {
   padding: 0;
 }
