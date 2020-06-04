@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,10 +14,7 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
-// Route::mixin(new \Laravel\Ui\AuthRouteMethods());
-// Route::auth(['verify' => true]);
-
+URL::forceSchema('https');
 // Route::get('bookables', 'Api\BookableController@index');
 // Route::get('bookable/{id}', 'Api\BookableController@show');
 
