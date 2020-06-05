@@ -22,6 +22,8 @@ class BookableByCountryResource extends JsonResource
             'price' => $this->price,
             'country' => $this->country,
             'city' => $this->city,
+            'country_code' => $this->country_code,
+            'country_flag' => $this->country_flag,
             'reviews' => BookableByCountryReviewResource::collection($this->reviews),
         ];
     }

@@ -12,18 +12,19 @@
           class="country-info-container col-12 col-md-6 col-lg-3 order-2 order-sm-1 order-lg-1 px-0 pr-sm-2"
         >
           <div
-            class="d-flex align-items-center justify-content-center country-container h-100 py-2"
+            class="d-flex align-items-center justify-content-center position-relative country-container h-100 py-2"
           >
             <i class="fas fa-map-marker-alt"></i>
             <span>{{bookables[0].city}},</span>
-            <span>{{bookables[0].country}}</span>
-            <img class="countryFlag" :src="countryFlag" alt="countryFlag" />
+            <span>{{getCountryCodeIfTooLong()}}</span>
+            <img class="countryFlag" :src="bookables[0].flag" alt />
           </div>
         </div>
         <search-city
           class="search-city col-12 col-lg-7 position-static order-3 order-lg-2"
           :searchLayout="{inputSize: 'col-10', inputMargin: 'mt-3 mt-lg-0', buttonSize: 'col-2'}"
           @search="getBookablesByCountry($event)"
+          @current-flag="setFlag($event)"
         ></search-city>
         <div
           class="shuffle-btn-container d-none d-md-block order-1 order-md-2 order-lg-3 col-12 col-md-6 col-lg-2 px-0 pl-md-2"
@@ -75,7 +76,6 @@ export default {
         };
       }),
       loading: false,
-      countryFlag: "https://restcountries.eu/data/chn.svg",
       errAxiosCall:
         "We had a problem retrieving our bookables. Please, try again later.",
       errCountryNotFound:
@@ -89,7 +89,9 @@ export default {
     async getBookablesByCountry(country) {
       if (country) {
         //Update URL
-        if (this.$route.path !== `/bookables/${country}`) {
+        let regexp = new RegExp(`\/bookables\/${this.country}.*`);
+
+        if (regexp.test(this.$route.path)) {
           this.$router.push({
             name: "bookablesByCountry",
             params: { country: country }
@@ -106,14 +108,7 @@ export default {
           this.bookables = (
             await axios.get(`/api/bookables/countries/${country}`)
           ).data;
-          this.countryFlag = (
-            await axios.get(
-              `https://restcountries.eu/rest/v2/name/${this.$route.params.country}?fields=flag;`
-            )
-          ).data.flag;
         } catch (error) {}
-
-        console.log(this.bookables);
 
         if (!this.bookables.length) {
           this.errors = this.errAxiosCall;
@@ -122,6 +117,11 @@ export default {
       } else {
         this.errors = this.errCountryNotFound;
       }
+    },
+    getCountryCodeIfTooLong() {
+      return this.bookables[0].country.length > 15
+        ? this.bookables[0].country_code
+        : this.bookables[0].country;
     }
   },
   created() {
@@ -154,7 +154,8 @@ export default {
 }
 .countryFlag {
   width: 40px;
-  border-radius: 3px;
+  border-radius: 2px;
+  border: 1px solid #f6f6f6;
 }
 .error-container {
   height: 20px;
@@ -187,33 +188,41 @@ export default {
   }
 }
 
-/deep/ .info-bar #search-country-input {
+::v-deep .info-bar #search-country-input {
   border: 1px solid rgba(0, 0, 0, 0.125);
-  height: 50px;
+  height: 48px;
 }
 
-/deep/ #search-country-input {
+::v-deep #search-country-input {
   background-color: white;
 }
 
-/deep/ .info-bar .search-container {
+::v-deep .info-bar .search-container {
   flex-grow: 1;
 }
-/deep/ .dropdown {
+::v-deep .dropdown {
   width: 100%;
   top: 50px;
   left: 0;
 }
-/deep/ .dropdown li {
+::v-deep .dropdown li {
   background-color: white;
-  height: 50px;
-}
-/deep/ .dropdownFlag {
-  width: 74px;
 }
 
-/deep/ .invalid-feedback {
+::v-deep .dropdown ul {
+  margin-top: -2px;
+}
+
+::v-deep .invalid-feedback {
   display: block;
   padding-left: 40px;
 }
+
+::v-deep .flag-loader {
+  width: 190px;
+  position: absolute;
+  top: -42px;
+  left: 133px;
+}
+
 </style>

@@ -62,7 +62,6 @@ export default {
   },
   methods: {
     sortByRating(order) {
-      console.log(this.reviews);
       this.reviews.sort(function(a, b) {
         return order === "best" ? b.rating - a.rating : a.rating - b.rating;
       });

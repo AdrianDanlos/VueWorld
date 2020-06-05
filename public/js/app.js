@@ -3059,7 +3059,6 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     sortByRating: function sortByRating(order) {
-      console.log(this.reviews);
       this.reviews.sort(function (a, b) {
         return order === "best" ? b.rating - a.rating : a.rating - b.rating;
       });
@@ -3168,6 +3167,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 //We import and declare ('export component') BookablesListItem component locally in this parent component (Bookables).
 //To delcare a component globally we would do it in the app.js.
 
@@ -3192,7 +3192,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         };
       }),
       loading: false,
-      countryFlag: "https://restcountries.eu/data/chn.svg",
       errAxiosCall: "We had a problem retrieving our bookables. Please, try again later.",
       errCountryNotFound: "Sorry, we cannot find anything that matches your search term."
     };
@@ -3205,17 +3204,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var regexp;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 if (!country) {
-                  _context.next = 20;
+                  _context.next = 17;
                   break;
                 }
 
                 //Update URL
-                if (_this.$route.path !== "/bookables/".concat(country)) {
+                regexp = new RegExp("/bookables/".concat(_this.country, ".*"));
+
+                if (regexp.test(_this.$route.path)) {
                   _this.$router.push({
                     name: "bookablesByCountry",
                     params: {
@@ -3229,45 +3231,41 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _this.errors = ""; //fetching data from the server
                 //axios returns a promise object -> console.log(axios.get('api/bookables'))
 
-                _context.prev = 4;
-                _context.next = 7;
+                _context.prev = 5;
+                _context.next = 8;
                 return axios.get("/api/bookables/countries/".concat(country));
 
-              case 7:
+              case 8:
                 _this.bookables = _context.sent.data;
-                _context.next = 10;
-                return axios.get("https://restcountries.eu/rest/v2/name/".concat(_this.$route.params.country, "?fields=flag;"));
-
-              case 10:
-                _this.countryFlag = _context.sent.data.flag;
-                _context.next = 15;
+                _context.next = 13;
                 break;
 
+              case 11:
+                _context.prev = 11;
+                _context.t0 = _context["catch"](5);
+
               case 13:
-                _context.prev = 13;
-                _context.t0 = _context["catch"](4);
-
-              case 15:
-                console.log(_this.bookables);
-
                 if (!_this.bookables.length) {
                   _this.errors = _this.errAxiosCall;
                 }
 
                 _this.loading = false;
-                _context.next = 21;
+                _context.next = 18;
                 break;
 
-              case 20:
+              case 17:
                 _this.errors = _this.errCountryNotFound;
 
-              case 21:
+              case 18:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[4, 13]]);
+        }, _callee, null, [[5, 11]]);
       }))();
+    },
+    getCountryCodeIfTooLong: function getCountryCodeIfTooLong() {
+      return this.bookables[0].country.length > 15 ? this.bookables[0].country_code : this.bookables[0].country;
     }
   },
   created: function created() {
@@ -3699,8 +3697,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     searchLayout: Object
@@ -3709,13 +3705,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     return {
       country: "",
       countries: [{
-        flag: "https://restcountries.eu/data/fra.svg",
-        name: "France"
-      }, {
         flag: "https://restcountries.eu/data/afg.svg",
         name: "Afghanistan"
+      }, {
+        flag: "https://restcountries.eu/data/alb.svg",
+        name: "Albania"
+      }, {
+        flag: "https://restcountries.eu/data/dza.svg",
+        name: "Algeria"
+      }, {
+        flag: "https://restcountries.eu/data/and.svg",
+        name: "Andorra"
+      }, {
+        flag: "https://restcountries.eu/data/ago.svg",
+        name: "Angola"
       }],
-      // countries: [],
       filteredCountries: [],
       modal: false
     };
@@ -3761,28 +3765,29 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           switch (_context.prev = _context.next) {
             case 0:
               _context.prev = 0;
-              _context.next = 3;
-              return axios.get('https://restcountries.eu/rest/v2/all?fields=name;flag;');
 
-            case 3:
+              _this2.filterCountries();
+
+              _context.next = 4;
+              return axios.get("/api/countries");
+
+            case 4:
               _this2.countries = _context.sent.data;
-              _context.next = 8;
+              console.log("Ready");
+              _context.next = 10;
               break;
 
-            case 6:
-              _context.prev = 6;
+            case 8:
+              _context.prev = 8;
               _context.t0 = _context["catch"](0);
 
-            case 8:
+            case 10:
             case "end":
               return _context.stop();
           }
         }
-      }, _callee, null, [[0, 6]]);
+      }, _callee, null, [[0, 8]]);
     }))();
-  },
-  mounted: function mounted() {
-    this.filterCountries();
   },
   watch: {
     country: function country() {
@@ -8529,7 +8534,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.flip-list-move[data-v-7a867923] {\n  transition: transform 1s;\n}\n*[data-v-7a867923]:focus {\n  outline: 0 !important;\n  box-shadow: none;\n}\n.country-container[data-v-7a867923] {\n  background-color: white;\n  border: 1px solid rgba(0, 0, 0, 0.125);\n  border-radius: 0.25rem;\n}\n.country-container span[data-v-7a867923] {\n  margin: 2px;\n}\n.country-container i[data-v-7a867923] {\n  margin-right: 10px;\n}\n.country-container img[data-v-7a867923] {\n  margin-left: 10px;\n}\n.countryFlag[data-v-7a867923] {\n  width: 40px;\n  border-radius: 3px;\n}\n.error-container[data-v-7a867923] {\n  height: 20px;\n}\n.search-city[data-v-7a867923] {\n  padding: 0;\n}\n.bookable-move[data-v-7a867923] {\n  transition: transform 1s;\n}\n.short-text[data-v-7a867923] {\n  display: none;\n}\n@media (max-width: 1200px) {\n.short-text[data-v-7a867923] {\n    display: block;\n}\n.full-text[data-v-7a867923] {\n    display: none;\n}\n}\n@media (max-width: 767px) {\n.country-info-container[data-v-7a867923],\n  .shuffle-btn-container[data-v-7a867923] {\n    height: 50px;\n}\n}\n[data-v-7a867923] .info-bar #search-country-input {\n  border: 1px solid rgba(0, 0, 0, 0.125);\n  height: 50px;\n}\n[data-v-7a867923] #search-country-input {\n  background-color: white;\n}\n[data-v-7a867923] .info-bar .search-container {\n  flex-grow: 1;\n}\n[data-v-7a867923] .dropdown {\n  width: 100%;\n  top: 50px;\n  left: 0;\n}\n[data-v-7a867923] .dropdown li {\n  background-color: white;\n  height: 50px;\n}\n[data-v-7a867923] .dropdownFlag {\n  width: 74px;\n}\n[data-v-7a867923] .invalid-feedback {\n  display: block;\n  padding-left: 40px;\n}\n", ""]);
+exports.push([module.i, "\n.flip-list-move[data-v-7a867923] {\n  transition: transform 1s;\n}\n*[data-v-7a867923]:focus {\n  outline: 0 !important;\n  box-shadow: none;\n}\n.country-container[data-v-7a867923] {\n  background-color: white;\n  border: 1px solid rgba(0, 0, 0, 0.125);\n  border-radius: 0.25rem;\n}\n.country-container span[data-v-7a867923] {\n  margin: 2px;\n}\n.country-container i[data-v-7a867923] {\n  margin-right: 10px;\n}\n.country-container img[data-v-7a867923] {\n  margin-left: 10px;\n}\n.countryFlag[data-v-7a867923] {\n  width: 40px;\n  border-radius: 2px;\n  border: 1px solid #f6f6f6;\n}\n.error-container[data-v-7a867923] {\n  height: 20px;\n}\n.search-city[data-v-7a867923] {\n  padding: 0;\n}\n.bookable-move[data-v-7a867923] {\n  transition: transform 1s;\n}\n.short-text[data-v-7a867923] {\n  display: none;\n}\n@media (max-width: 1200px) {\n.short-text[data-v-7a867923] {\n    display: block;\n}\n.full-text[data-v-7a867923] {\n    display: none;\n}\n}\n@media (max-width: 767px) {\n.country-info-container[data-v-7a867923],\n  .shuffle-btn-container[data-v-7a867923] {\n    height: 50px;\n}\n}\n[data-v-7a867923] .info-bar #search-country-input {\n  border: 1px solid rgba(0, 0, 0, 0.125);\n  height: 48px;\n}\n[data-v-7a867923] #search-country-input {\n  background-color: white;\n}\n[data-v-7a867923] .info-bar .search-container {\n  flex-grow: 1;\n}\n[data-v-7a867923] .dropdown {\n  width: 100%;\n  top: 50px;\n  left: 0;\n}\n[data-v-7a867923] .dropdown li {\n  background-color: white;\n}\n[data-v-7a867923] .dropdown ul {\n  margin-top: -2px;\n}\n[data-v-7a867923] .invalid-feedback {\n  display: block;\n  padding-left: 40px;\n}\n[data-v-7a867923] .flag-loader {\n  width: 190px;\n  position: absolute;\n  top: -42px;\n  left: 133px;\n}\n\n", ""]);
 
 // exports
 
@@ -8567,7 +8572,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n#landing[data-v-6cb9731e] {\n  background: url(\"/images/landing/indonesia.jpg\");\n  background-repeat: no-repeat;\n  background-attachment: fixed;\n  background-position: center;\n  background-size: cover;\n  width: 100%;\n  height: 100vh;\n}\np[data-v-6cb9731e] {\n  color: white;\n  font-weight: 400 !important;\n}\n.brand-logo[data-v-6cb9731e] {\n  margin: 3rem 0;\n}\n.custom-appear-class[data-v-6cb9731e] {\n  opacity: 0;\n}\n.custom-appear-to-class[data-v-6cb9731e] {\n  transition-duration: 1s;\n  opacity: 1;\n}\n[data-v-6cb9731e] .search-container {\n  margin-bottom: 40vh;\n  width: 100%;\n}\n[data-v-6cb9731e] #search-country-input {\n  border: 6px solid rgba(0, 0, 0, 0.5);\n  height: 60px;\n  font-size: 1.2rem;\n  color:white;\n  background-color: rgba(255,255,255,0.2);\n}\n[data-v-6cb9731e] #search-country-input::-webkit-input-placeholder {\n  font-size: 1.2rem;\n  font-weight: 300 !important;\n  color: white;\n}\n[data-v-6cb9731e] #search-country-input::-moz-placeholder {\n  font-size: 1.2rem;\n  font-weight: 300 !important;\n  color: white;\n}\n[data-v-6cb9731e] #search-country-input:-ms-input-placeholder {\n  font-size: 1.2rem;\n  font-weight: 300 !important;\n  color: white;\n}\n[data-v-6cb9731e] #search-country-input::-ms-input-placeholder {\n  font-size: 1.2rem;\n  font-weight: 300 !important;\n  color: white;\n}\n[data-v-6cb9731e] #search-country-input::placeholder {\n  font-size: 1.2rem;\n  font-weight: 300 !important;\n  color: white;\n}\n[data-v-6cb9731e] .btn {\n  font-size: 1.1rem;\n}\n[data-v-6cb9731e] .dropdown {\n  width: calc(100% - (6px * 2)); /*100% - border width*/\n  top: 55px;\n  left: 6px;\n}\n[data-v-6cb9731e] .dropdown li {\n  background-color: rgba(255, 255, 255, 0.9);\n  font-size: 1.2rem;\n  height: 48px;\n}\n[data-v-6cb9731e] .dropdownFlag {\n  width: 70px;\n}\n[data-v-6cb9731e] .btn-go-container {\n  width: 70px;\n}\n@media (max-width: 575px) {\n[data-v-6cb9731e] .btn-go-container {\n    width: 100%;\n    height: 48px;\n}\n[data-v-6cb9731e] .dropdown li {\n    background-color: white;\n}\n}\n", ""]);
+exports.push([module.i, "\n#landing[data-v-6cb9731e] {\n  background: url(\"/images/landing/indonesia.jpg\");\n  background-repeat: no-repeat;\n  background-attachment: fixed;\n  background-position: center;\n  background-size: cover;\n  width: 100%;\n  height: 100vh;\n}\np[data-v-6cb9731e] {\n  color: white;\n  font-weight: 400 !important;\n}\n.brand-logo[data-v-6cb9731e] {\n  margin: 3rem 0;\n}\n.custom-appear-class[data-v-6cb9731e] {\n  opacity: 0;\n}\n.custom-appear-to-class[data-v-6cb9731e] {\n  transition-duration: 1s;\n  opacity: 1;\n}\n[data-v-6cb9731e] .search-container {\n  margin-bottom: 40vh;\n  width: 100%;\n}\n[data-v-6cb9731e] #search-country-input {\n  border: 6px solid rgba(0, 0, 0, 0.5);\n  height: 60px;\n  font-size: 1.2rem;\n  color: white;\n  background-color: rgba(255, 255, 255, 0.2);\n}\n[data-v-6cb9731e] #search-country-input::-webkit-input-placeholder {\n  font-size: 1.2rem;\n  font-weight: 300 !important;\n  color: white;\n}\n[data-v-6cb9731e] #search-country-input::-moz-placeholder {\n  font-size: 1.2rem;\n  font-weight: 300 !important;\n  color: white;\n}\n[data-v-6cb9731e] #search-country-input:-ms-input-placeholder {\n  font-size: 1.2rem;\n  font-weight: 300 !important;\n  color: white;\n}\n[data-v-6cb9731e] #search-country-input::-ms-input-placeholder {\n  font-size: 1.2rem;\n  font-weight: 300 !important;\n  color: white;\n}\n[data-v-6cb9731e] #search-country-input::placeholder {\n  font-size: 1.2rem;\n  font-weight: 300 !important;\n  color: white;\n}\n[data-v-6cb9731e] .btn {\n  font-size: 1.1rem;\n}\n[data-v-6cb9731e] .dropdown {\n  width: calc(100% - (6px * 2)); /*100% - border width*/\n  top: 55px;\n  left: 6px;\n}\n[data-v-6cb9731e] .dropdown li {\n  background-color: rgba(255, 255, 255, 0.9);\n  font-size: 1.2rem;\n}\n[data-v-6cb9731e] .btn-go-container {\n  width: 70px;\n}\n@media (max-width: 575px) {\n[data-v-6cb9731e] .btn-go-container {\n    width: 100%;\n    height: 48px;\n}\n[data-v-6cb9731e] .dropdown li {\n    background-color: white;\n}\n}\n", ""]);
 
 // exports
 
@@ -8624,7 +8629,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\ninput[data-v-62f66040] {\r\n  border-radius: 5px;\r\n  background: url(\"/images/searchBar/search.png\") no-repeat;\r\n  background-clip: padding-box;\r\n  background-position: left 5px top 3px;\r\n  background-size: 40px 40px;\r\n  padding-left: 60px;\r\n  caret-color: #6c757d;\r\n  color: rgb(56, 56, 56);\n}\ninput[data-v-62f66040]:focus,\r\ninput[data-v-62f66040]:active {\r\n  outline: none;\n}\ninput[data-v-62f66040]:focus::-webkit-input-placeholder {\r\n  color: transparent;\n}\ninput[data-v-62f66040]:focus::-moz-placeholder {\r\n  color: transparent;\n}\ninput[data-v-62f66040]:focus:-ms-input-placeholder {\r\n  color: transparent;\n}\ninput[data-v-62f66040]:focus::-ms-input-placeholder {\r\n  color: transparent;\n}\ninput[data-v-62f66040]:focus::placeholder {\r\n  color: transparent;\n}\ninput[data-v-62f66040]::-webkit-input-placeholder {\r\n  color: rgb(56, 56, 56);\n}\ninput[data-v-62f66040]::-moz-placeholder {\r\n  color: rgb(56, 56, 56);\n}\ninput[data-v-62f66040]:-ms-input-placeholder {\r\n  color: rgb(56, 56, 56);\n}\ninput[data-v-62f66040]::-ms-input-placeholder {\r\n  color: rgb(56, 56, 56);\n}\ninput[data-v-62f66040]::placeholder {\r\n  color: rgb(56, 56, 56);\n}\ni[data-v-62f66040] {\r\n  font-size: 22px;\n}\n.btn[data-v-62f66040] {\r\n  font-weight: bold;\r\n  height: 100%;\n}\n.search-blanket[data-v-62f66040] {\r\n  width: 100%;\r\n  height: 100vh;\r\n  position: absolute;\r\n  top: 0;\r\n  left: 0;\r\n  background: transparent;\n}\n.dropdown[data-v-62f66040] {\r\n  z-index: 1;\n}\n.dropdown ul[data-v-62f66040] {\r\n  list-style: none;\r\n  padding: 0;\n}\n.dropdown li[data-v-62f66040] {\r\n  border-bottom: 1px solid var(--main-color);\r\n  padding-left: 16px;\r\n  color: rgb(44, 44, 44);\r\n  font-weight: 400;\n}\n.dropdown li[data-v-62f66040]:hover {\r\n  cursor: pointer;\r\n  background-color: var(--main-color);\r\n  color: white;\n}\n.dropdown li i[data-v-62f66040] {\r\n  color: var(--main-color);\n}\n.dropdown li:hover i[data-v-62f66040] {\r\n  color: white;\n}\n.dropdownFlag[data-v-62f66040] {\r\n  opacity: 0.7;\n}\n.btn-go-container[data-v-62f66040] {\r\n  z-index: 1;\n}\r\n", ""]);
+exports.push([module.i, "\ninput[data-v-62f66040] {\r\n  border-radius: 5px;\r\n  background: url(\"/images/searchBar/search.png\") no-repeat;\r\n  background-clip: padding-box;\r\n  background-position: left 5px top 3px;\r\n  background-size: 40px 40px;\r\n  padding-left: 60px;\r\n  caret-color: #6c757d;\r\n  color: rgb(56, 56, 56);\n}\ninput[data-v-62f66040]:focus,\r\ninput[data-v-62f66040]:active {\r\n  outline: none;\n}\ninput[data-v-62f66040]:focus::-webkit-input-placeholder {\r\n  color: transparent;\n}\ninput[data-v-62f66040]:focus::-moz-placeholder {\r\n  color: transparent;\n}\ninput[data-v-62f66040]:focus:-ms-input-placeholder {\r\n  color: transparent;\n}\ninput[data-v-62f66040]:focus::-ms-input-placeholder {\r\n  color: transparent;\n}\ninput[data-v-62f66040]:focus::placeholder {\r\n  color: transparent;\n}\ninput[data-v-62f66040]::-webkit-input-placeholder {\r\n  color: rgb(56, 56, 56);\n}\ninput[data-v-62f66040]::-moz-placeholder {\r\n  color: rgb(56, 56, 56);\n}\ninput[data-v-62f66040]:-ms-input-placeholder {\r\n  color: rgb(56, 56, 56);\n}\ninput[data-v-62f66040]::-ms-input-placeholder {\r\n  color: rgb(56, 56, 56);\n}\ninput[data-v-62f66040]::placeholder {\r\n  color: rgb(56, 56, 56);\n}\ni[data-v-62f66040] {\r\n  font-size: 22px;\n}\n.btn[data-v-62f66040] {\r\n  font-weight: bold;\r\n  height: 100%;\n}\n.search-blanket[data-v-62f66040] {\r\n  width: 100%;\r\n  height: 100vh;\r\n  position: absolute;\r\n  top: 0;\r\n  left: 0;\r\n  background: transparent;\n}\n.dropdown[data-v-62f66040] {\r\n  z-index: 1;\n}\n.dropdown ul[data-v-62f66040] {\r\n  list-style: none;\r\n  padding: 0;\n}\n.dropdown li[data-v-62f66040] {\r\n  border-bottom: 1px solid var(--main-color);\r\n  padding-left: 16px;\r\n  color: rgb(44, 44, 44);\r\n  font-weight: 400;\r\n  height: 48px;\n}\n.dropdown li[data-v-62f66040]:hover {\r\n  cursor: pointer;\r\n  background-color: var(--main-color);\r\n  color: white;\n}\n.dropdown li i[data-v-62f66040] {\r\n  color: var(--main-color);\n}\n.dropdown li:hover i[data-v-62f66040] {\r\n  color: white !important;\n}\n.flag-container[data-v-62f66040] {\r\n  width: 85px;\r\n  height: 48px;\n}\n.dropdownFlag[data-v-62f66040] {\r\n  height: 100%;\r\n  width: 100%;\r\n  -o-object-fit: cover;\r\n     object-fit: cover;\r\n  opacity: 0.7;\n}\n.btn-go-container[data-v-62f66040] {\r\n  z-index: 1;\n}\r\n", ""]);
 
 // exports
 
@@ -64054,7 +64059,7 @@ var render = function() {
                         "div",
                         {
                           staticClass:
-                            "d-flex align-items-center justify-content-center country-container h-100 py-2"
+                            "d-flex align-items-center justify-content-center position-relative country-container h-100 py-2"
                         },
                         [
                           _c("i", { staticClass: "fas fa-map-marker-alt" }),
@@ -64064,12 +64069,12 @@ var render = function() {
                           ]),
                           _vm._v(" "),
                           _c("span", [
-                            _vm._v(_vm._s(_vm.bookables[0].country))
+                            _vm._v(_vm._s(_vm.getCountryCodeIfTooLong()))
                           ]),
                           _vm._v(" "),
                           _c("img", {
                             staticClass: "countryFlag",
-                            attrs: { src: _vm.countryFlag, alt: "countryFlag" }
+                            attrs: { src: _vm.bookables[0].flag, alt: "" }
                           })
                         ]
                       )
@@ -64089,6 +64094,9 @@ var render = function() {
                     on: {
                       search: function($event) {
                         return _vm.getBookablesByCountry($event)
+                      },
+                      "current-flag": function($event) {
+                        return _vm.setFlag($event)
                       }
                     }
                   }),
@@ -64600,17 +64608,18 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", [
-      _c(
-        "div",
-        { staticClass: "d-flex align-items-center justify-content-center" },
-        [
-          _c("img", {
-            attrs: { src: "/images/general/loading.gif", alt: "loading" }
-          })
-        ]
-      )
-    ])
+    return _c(
+      "div",
+      {
+        staticClass:
+          "d-flex align-items-center justify-content-center loading-container"
+      },
+      [
+        _c("img", {
+          attrs: { src: "/images/general/loading.gif", alt: "loading" }
+        })
+      ]
+    )
   }
 ]
 render._withStripped = true
@@ -64728,13 +64737,15 @@ var render = function() {
                             ])
                           ]),
                           _vm._v(" "),
-                          _c("img", {
-                            staticClass: "dropdownFlag",
-                            attrs: {
-                              src: filteredCountry.flag,
-                              alt: "dropdownFlag"
-                            }
-                          })
+                          _c("div", { staticClass: "flag-container" }, [
+                            _c("img", {
+                              staticClass: "dropdownFlag",
+                              attrs: {
+                                src: filteredCountry.flag,
+                                alt: "dropdownFlag"
+                              }
+                            })
+                          ])
                         ]
                       )
                     }),

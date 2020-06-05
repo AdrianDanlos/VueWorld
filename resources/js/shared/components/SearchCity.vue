@@ -31,11 +31,9 @@
                 <i class="far fa-building main-color"></i>
                 <span class="ml-3">{{filteredCountry.name}}</span>
               </div>
-              <img
-                class="dropdownFlag"
-                :src="filteredCountry.flag"
-                alt="dropdownFlag"
-              />
+              <div class="flag-container">
+                <img class="dropdownFlag" :src="filteredCountry.flag" alt="dropdownFlag" />
+              </div>
             </li>
           </ul>
         </div>
@@ -60,10 +58,12 @@ export default {
     return {
       country: "",
       countries: [
-        { flag: "https://restcountries.eu/data/fra.svg", name: "France" },
-        { flag: "https://restcountries.eu/data/afg.svg", name: "Afghanistan" }
+        { flag: "https://restcountries.eu/data/afg.svg", name: "Afghanistan" },
+        { flag: "https://restcountries.eu/data/alb.svg", name: "Albania" },
+        { flag: "https://restcountries.eu/data/dza.svg", name: "Algeria" },
+        { flag: "https://restcountries.eu/data/and.svg", name: "Andorra" },
+        { flag: "https://restcountries.eu/data/ago.svg", name: "Angola" }
       ],
-      // countries: [],
       filteredCountries: [],
       modal: false
     };
@@ -81,7 +81,10 @@ export default {
           this.filteredCountries.length <= 4 &&
           country.name.toLowerCase().startsWith(this.country.toLowerCase())
         ) {
-          this.filteredCountries.push({name: country.name, flag: country.flag});
+          this.filteredCountries.push({
+            name: country.name,
+            flag: country.flag
+          });
         }
       });
     },
@@ -92,7 +95,8 @@ export default {
     checkCountry() {
       if (
         this.filteredCountries.length &&
-        this.country.toLowerCase() === this.filteredCountries[0].name.toLowerCase()
+        this.country.toLowerCase() ===
+          this.filteredCountries[0].name.toLowerCase()
       ) {
         return this.country;
       }
@@ -101,13 +105,10 @@ export default {
   },
   async created() {
     try {
-      this.countries = (await axios.get('https://restcountries.eu/rest/v2/all?fields=name;flag;')).data;
-    } catch (error) {
-      
-    }
-  },
-  mounted() {
-    this.filterCountries();
+      this.filterCountries();
+      this.countries = (await axios.get("/api/countries")).data;
+      console.log("Ready");
+    } catch (error) {}
   },
   watch: {
     country() {
@@ -166,6 +167,7 @@ i {
   padding-left: 16px;
   color: rgb(44, 44, 44);
   font-weight: 400;
+  height: 48px;
 }
 
 .dropdown li:hover {
@@ -177,11 +179,19 @@ i {
   color: var(--main-color);
 }
 .dropdown li:hover i {
-  color: white;
+  color: white !important;
+}
+.flag-container {
+  width: 85px;
+  height: 48px;
 }
 .dropdownFlag {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
   opacity: 0.7;
 }
+
 .btn-go-container {
   z-index: 1;
 }

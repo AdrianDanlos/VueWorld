@@ -81,49 +81,45 @@ p {
   opacity: 1;
 }
 
-/deep/ .search-container {
+::v-deep .search-container {
   margin-bottom: 40vh;
   width: 100%;
 }
-/deep/ #search-country-input {
+::v-deep #search-country-input {
   border: 6px solid rgba(0, 0, 0, 0.5);
   height: 60px;
   font-size: 1.2rem;
-  color:white;
-  background-color: rgba(255,255,255,0.2);
+  color: white;
+  background-color: rgba(255, 255, 255, 0.2);
 }
-/deep/ #search-country-input::placeholder {
+::v-deep #search-country-input::placeholder {
   font-size: 1.2rem;
   font-weight: 300 !important;
   color: white;
 }
-/deep/ .btn {
+::v-deep .btn {
   font-size: 1.1rem;
 }
-/deep/ .dropdown {
+::v-deep .dropdown {
   width: calc(100% - (6px * 2)); /*100% - border width*/
   top: 55px;
   left: 6px;
 }
-/deep/ .dropdown li {
+::v-deep .dropdown li {
   background-color: rgba(255, 255, 255, 0.9);
   font-size: 1.2rem;
-  height: 48px;
-}
-/deep/ .dropdownFlag {
-  width: 70px;
 }
 
-/deep/ .btn-go-container {
+::v-deep .btn-go-container {
   width: 70px;
 }
 
 @media (max-width: 575px) {
-  /deep/ .btn-go-container {
+  ::v-deep .btn-go-container {
     width: 100%;
     height: 48px;
   }
-  /deep/ .dropdown li {
+  ::v-deep .dropdown li {
     background-color: white;
   }
 }
