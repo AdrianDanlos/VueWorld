@@ -89,8 +89,8 @@ export default {
     async getBookablesByCountry(country) {
       if (country) {
         //Update URL
-        let regexp = new RegExp(`\/bookables\/${this.country}.*`);
-        if (regexp.test(this.$route.path)) {
+        let regexp = new RegExp(`\/bookables\/${country}.*`);
+        if (!regexp.test(this.$route.path)) {
           this.$router.push({
             name: "bookablesByCountry",
             params: { country: country }

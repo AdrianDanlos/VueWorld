@@ -3223,9 +3223,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 }
 
                 //Update URL
-                regexp = new RegExp("/bookables/".concat(_this.country, ".*"));
+                regexp = new RegExp("/bookables/".concat(country, ".*"));
 
-                if (regexp.test(_this.$route.path)) {
+                if (!regexp.test(_this.$route.path)) {
                   _this.$router.push({
                     name: "bookablesByCountry",
                     params: {
@@ -8561,7 +8561,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n#photo[data-v-ca153ad8] {\n  width: 100%;\n  background-size: cover;\n  margin-bottom: 1rem;\n}\n/* Trick to give the image resonsive height*/\n#photo[data-v-ca153ad8]:after {\n  content: \"\";\n  display: block;\n  padding-bottom: 70%;\n}\n.card-body[data-v-ca153ad8] {\n  position: relative;\n}\n.review-amount[data-v-ca153ad8] {\n  color: #3490dc;\n  margin-top: 2px;\n}\n\n", ""]);
+exports.push([module.i, "\n#photo[data-v-ca153ad8] {\n  width: 100%;\n  background-size: cover;\n  margin-bottom: 1rem;\n}\n/* Trick to give the image resonsive height*/\n#photo[data-v-ca153ad8]:after {\n  content: \"\";\n  display: block;\n  padding-bottom: 70%;\n}\n.card-body[data-v-ca153ad8] {\n  position: relative;\n}\n.review-amount[data-v-ca153ad8] {\n  color: #3490dc;\n  margin-top: 2px;\n}\n", ""]);
 
 // exports
 
@@ -64217,15 +64217,15 @@ var render = function() {
         "div",
         { staticClass: "card-body d-flex flex-column" },
         [
-          _c("div", {
-            style: { backgroundImage: "url(" + _vm.photo_url + ")" },
-            attrs: { id: "photo" }
-          }),
-          _vm._v(" "),
           _c(
             "routerLink",
             { attrs: { to: { name: "bookable", params: { id: _vm.id } } } },
             [
+              _c("div", {
+                style: { backgroundImage: "url(" + _vm.photo_url + ")" },
+                attrs: { id: "photo" }
+              }),
+              _vm._v(" "),
               _c("h5", { staticClass: "card-title" }, [
                 _vm._v(_vm._s(_vm.title))
               ])

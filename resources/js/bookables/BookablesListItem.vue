@@ -2,9 +2,9 @@
   <div>
     <div class="card w-100 h-100">
       <div class="card-body d-flex flex-column">
-        <div :style="{ backgroundImage: 'url(' + photo_url + ')' }" id="photo"></div>
         <!--Redirects to the component declared with that name in the vue router-->
         <routerLink :to="{ name: 'bookable', params: {id} }">
+          <div :style="{ backgroundImage: 'url(' + photo_url + ')' }" id="photo"></div>
           <h5 class="card-title">{{ title }}</h5>
         </routerLink>
         <p class="card-text">{{ description }}</p>
@@ -72,5 +72,4 @@ export default {
   color: #3490dc;
   margin-top: 2px;
 }
-
 </style>
