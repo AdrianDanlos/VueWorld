@@ -3046,6 +3046,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 //import moment from 'moment';
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
@@ -3079,10 +3086,11 @@ __webpack_require__.r(__webpack_exports__);
 
     this.loading = true;
     axios.get("/api/bookables/".concat(this.bookableId, "/reviews")).then(function (response) {
-      return _this.reviews = response.data;
+      console.log(response.data);
+      _this.reviews = response.data;
     }).then(function () {
       return _this.loading = false;
-    }); // axios.get('https://randomuser.me/api/').then(response => console.log(response))
+    });
   } // filters: {
   //   fromNow(value){
   //     return moment(value).fromNow();
@@ -8515,7 +8523,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.dropdown-menu[data-v-62084ff4] {\n  padding: 0;\n}\n.dropdown-item[data-v-62084ff4] {\n  padding: 0.55rem 1.5rem;\n  border-bottom: 1px solid rgb(219, 219, 219);\n  font-weight: 300;\n}\n.dropdown-item[data-v-62084ff4]:hover {\n  cursor: pointer;\n}\n.dropdown-item i[data-v-62084ff4] {\n  margin-right: 10px;\n}\n\n", ""]);
+exports.push([module.i, "\n.dropdown-menu[data-v-62084ff4] {\n  padding: 0;\n}\n.dropdown-item[data-v-62084ff4] {\n  padding: 0.55rem 1.5rem;\n  border-bottom: 1px solid rgb(219, 219, 219);\n  font-weight: 300;\n}\n.dropdown-item[data-v-62084ff4]:hover {\n  cursor: pointer;\n}\n.dropdown-item i[data-v-62084ff4] {\n  margin-right: 10px;\n}\n", ""]);
 
 // exports
 
@@ -8769,7 +8777,7 @@ function toComment(sourceMap) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
- * jQuery JavaScript Library v3.5.1
+ * jQuery JavaScript Library v3.5.0
  * https://jquery.com/
  *
  * Includes Sizzle.js
@@ -8779,7 +8787,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
  * Released under the MIT license
  * https://jquery.org/license
  *
- * Date: 2020-05-04T22:49Z
+ * Date: 2020-04-10T15:07Z
  */
 ( function( global, factory ) {
 
@@ -8917,7 +8925,7 @@ function toType( obj ) {
 
 
 var
-	version = "3.5.1",
+	version = "3.5.0",
 
 	// Define a local copy of jQuery
 	jQuery = function( selector, context ) {
@@ -13014,7 +13022,7 @@ Data.prototype = {
 
 		// If not, create one
 		if ( !value ) {
-			value = {};
+			value = Object.create( null );
 
 			// We can accept data for non-element nodes in modern browsers,
 			// but we should not, see #8335.
@@ -63972,13 +63980,32 @@ var render = function() {
                 { key: index, staticClass: "border-bottom d-none d-md-block" },
                 [
                   _c("div", { staticClass: "row pt-4" }, [
-                    _c("div", { staticClass: "col-md-6" }, [
-                      _vm._v("Piotr Jura")
+                    _c("div", { staticClass: "col-6" }, [
+                      _c("div", { staticClass: "d-flex align-items-center" }, [
+                        _c("div", [
+                          _c("img", {
+                            staticClass: "mr-3 rounded-circle",
+                            attrs: { src: review.picture.thumbnail, alt: "pic" }
+                          })
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "d-flex flex-column" }, [
+                          _c("span", [
+                            _vm._v(
+                              _vm._s(review.name.first + " " + review.name.last)
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("span", { staticClass: "text-secondary" }, [
+                            _vm._v(_vm._s(_vm._f("fromNow")(review.created_at)))
+                          ])
+                        ])
+                      ])
                     ]),
                     _vm._v(" "),
                     _c(
                       "div",
-                      { staticClass: "col-md-6 d-flex justify-content-end" },
+                      { staticClass: "col-6 d-flex justify-content-end" },
                       [
                         _c("star-rating", {
                           staticClass: "fa-sm",
@@ -63987,12 +64014,6 @@ var render = function() {
                       ],
                       1
                     )
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "row" }, [
-                    _c("div", { staticClass: "col-md-12" }, [
-                      _vm._v(_vm._s(_vm._f("fromNow")(review.created_at)))
-                    ])
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "row pt-4 pb-4" }, [
@@ -64074,7 +64095,10 @@ var render = function() {
                           _vm._v(" "),
                           _c("img", {
                             staticClass: "countryFlag",
-                            attrs: { src: _vm.bookables[0].flag, alt: "" }
+                            attrs: {
+                              src: _vm.bookables[0].country_flag,
+                              alt: ""
+                            }
                           })
                         ]
                       )

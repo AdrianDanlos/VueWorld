@@ -19,6 +19,19 @@ class BookableReviewController extends Controller
     {
         $bookable = Bookable::findOrFail($id);
 
-        return BookableReviewIndexResource::collection($bookable->reviews()->latest()->get());
+        $reviews = BookableReviewIndexResource::collection($bookable->reviews()->latest()->get());
+        $reviewsLength = count($reviews);
+
+        //Get faces and usernames from public api
+        $client = new \GuzzleHttp\Client();
+        $response = $client->request('GET', "https://randomuser.me/api/?inc=name,picture&results={$reviewsLength}");
+        $users = json_decode($response->getBody())->results;
+
+        foreach($reviews as $key=>$review){
+           $review->name = $users[$key]->name;
+           $review->picture = $users[$key]->picture;
+        }
+
+        return $reviews;
     }
 }

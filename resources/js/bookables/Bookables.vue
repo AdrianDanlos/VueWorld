@@ -17,7 +17,7 @@
             <i class="fas fa-map-marker-alt"></i>
             <span>{{bookables[0].city}},</span>
             <span>{{getCountryCodeIfTooLong()}}</span>
-            <img class="countryFlag" :src="bookables[0].flag" alt />
+            <img class="countryFlag" :src="bookables[0].country_flag" alt />
           </div>
         </div>
         <search-city
@@ -90,7 +90,6 @@ export default {
       if (country) {
         //Update URL
         let regexp = new RegExp(`\/bookables\/${this.country}.*`);
-
         if (regexp.test(this.$route.path)) {
           this.$router.push({
             name: "bookablesByCountry",

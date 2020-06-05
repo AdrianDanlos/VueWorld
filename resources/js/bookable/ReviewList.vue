@@ -31,13 +31,20 @@
     <div v-else>
       <div class="border-bottom d-none d-md-block" v-for="(review, index) in reviews" :key="index">
         <div class="row pt-4">
-          <div class="col-md-6">Piotr Jura</div>
-          <div class="col-md-6 d-flex justify-content-end">
+          <div class="col-6">
+            <div class="d-flex align-items-center">
+              <div>
+                <img class="mr-3 rounded-circle" :src="review.picture.thumbnail" alt="pic" />
+              </div>
+              <div class="d-flex flex-column">
+                <span>{{ review.name.first + ' ' + review.name.last}}</span>
+                <span class="text-secondary">{{ review.created_at | fromNow() }}</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-6 d-flex justify-content-end">
             <star-rating :value="review.rating" class="fa-sm"></star-rating>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-md-12">{{ review.created_at | fromNow() }}</div>
         </div>
         <div class="row pt-4 pb-4">
           <div class="col-md-12">{{ review.content }}</div>
@@ -89,10 +96,11 @@ export default {
     this.loading = true;
     axios
       .get(`/api/bookables/${this.bookableId}/reviews`)
-      .then(response => (this.reviews = response.data))
+      .then(response => {
+        console.log(response.data);
+        this.reviews = response.data;
+      })
       .then(() => (this.loading = false));
-
-    // axios.get('https://randomuser.me/api/').then(response => console.log(response))
   }
   // filters: {
   //   fromNow(value){
@@ -117,6 +125,5 @@ export default {
 .dropdown-item i {
   margin-right: 10px;
 }
-
 </style>
 

@@ -11,6 +11,6 @@ $factory->define(Review::class, function (Faker $faker){
     return [
         'id' => Str::uuid(),
         'content' => $faker->sentences(5, true),
-        'rating' => random_int(3, 5)
+        'rating' => random_int(random_int(2, 5), 5)
     ];
 });
