@@ -6,30 +6,32 @@
       :class="[searchLayout.inputPadding, searchLayout.inputMargin]"
     >
       <div
-        class="position-relative d-flex justify-content-start p-0 pr-sm-2"
+        class="position-relative d-flex justify-content-start pl-0"
         :class="searchLayout.inputSize"
       >
         <input
           id="search-country-input"
-          v-model="country"
           @keyup.enter="$emit('search', checkCountry())"
           @focus="modal = true"
+          :value="country"
+          @input="evt=>country=evt.target.value"
           class="w-100 d-none d-md-block"
           type="text"
-          autocomplete="search"
+          autocomplete="country"
           placeholder="Find your dream place"
         />
         <input
           id="search-country-input"
-          v-model="country"
           @keyup.enter="$emit('search', checkCountry())"
           @focus="modal = true"
+          :value="country"
+          @input="evt=>country=evt.target.value"
           class="w-100 d-block d-md-none"
           type="text"
-          autocomplete="search"
+          autocomplete="country"
           placeholder="Find a country"
         />
-        <div class="dropdown position-absolute d-none d-sm-block" v-if="filteredCountries && modal">
+        <div class="dropdown position-absolute d-sm-block" v-if="filteredCountries && modal">
           <ul>
             <li
               v-for="filteredCountry in filteredCountries"
@@ -86,9 +88,10 @@ export default {
         });
       }
       this.filteredCountries = [];
+      console.log(window.matchMedia("(max-width: 700px)"))
       this.countries.forEach(country => {
         if (
-          this.filteredCountries.length <= 4 &&
+          this.filteredCountries.length <= 2 &&
           country.name.toLowerCase().startsWith(this.country.toLowerCase())
         ) {
           this.filteredCountries.push({
@@ -204,5 +207,21 @@ i {
 
 .btn-go-container {
   z-index: 1;
+}
+
+@media (max-width: 767px) {
+  .dropdown {
+    bottom: 32px;
+    top: unset;
+  }
+  .flag-container{
+    width: 80px;
+    height: 39px;
+  }
+  .dropdown li{
+    border-top: 1px solid var(--main-color);
+    border-bottom: unset;
+    height: 40px;
+  }
 }
 </style>

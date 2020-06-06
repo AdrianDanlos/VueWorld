@@ -22,7 +22,7 @@
         </div>
         <search-city
           class="search-city col-12 col-lg-7 position-static order-3 order-lg-2"
-          :searchLayout="{inputSize: 'col-10', inputMargin: 'mt-3 mt-lg-0', buttonSize: 'col-2'}"
+          :searchLayout="{inputSize: 'col-10 pr-2', inputMargin: 'mt-3 mt-lg-0', buttonSize: 'col-2'}"
           @search="getBookablesByCountry($event)"
           @current-flag="setFlag($event)"
         ></search-city>
@@ -200,7 +200,7 @@ export default {
   flex-grow: 1;
 }
 ::v-deep .dropdown {
-  width: 100%;
+  width: calc(100% - .5rem);
   top: 50px;
   left: 0;
 }
