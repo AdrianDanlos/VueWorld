@@ -31,7 +31,7 @@
           autocomplete="country"
           placeholder="Find a country"
         />
-        <div class="dropdown position-absolute d-sm-block" v-if="filteredCountries && modal">
+        <div class="dropdown position-absolute" v-if="filteredCountries && modal">
           <ul>
             <li
               v-for="filteredCountry in filteredCountries"
@@ -72,9 +72,7 @@ export default {
       countries: [
         { flag: "https://restcountries.eu/data/afg.svg", name: "Afghanistan" },
         { flag: "https://restcountries.eu/data/alb.svg", name: "Albania" },
-        { flag: "https://restcountries.eu/data/dza.svg", name: "Algeria" },
-        { flag: "https://restcountries.eu/data/and.svg", name: "Andorra" },
-        { flag: "https://restcountries.eu/data/ago.svg", name: "Angola" }
+        { flag: "https://restcountries.eu/data/dza.svg", name: "Algeria" }
       ],
       filteredCountries: [],
       modal: false
@@ -88,14 +86,16 @@ export default {
         });
       }
       this.filteredCountries = [];
-      console.log(window.matchMedia("(max-width: 700px)"))
       this.countries.forEach(country => {
         if (
-          this.filteredCountries.length <= 2 &&
-          country.name.toLowerCase().startsWith(this.country.toLowerCase())
+          this.filteredCountries.length < 3 &&
+          (country.name.toLowerCase().startsWith(this.country.toLowerCase()) ||
+            country.alpha3Code
+              .toLowerCase()
+              .startsWith(this.country.toLowerCase()))
         ) {
           this.filteredCountries.push({
-            name: country.name,
+            name: country.name.length < 15 ? country.name : country.alpha3Code,
             flag: country.flag
           });
         }
@@ -106,12 +106,23 @@ export default {
       this.modal = false;
     },
     checkCountry() {
+      let filteredCountryName = this.filteredCountries[0].name.toLowerCase();
+      let inputCountry = this.country.toLowerCase();
+
       if (
         this.filteredCountries.length &&
-        this.country.toLowerCase() ===
-          this.filteredCountries[0].name.toLowerCase()
+        inputCountry === filteredCountryName
       ) {
-        return this.country;
+        if (inputCountry.length === 3) {
+          //If the dropdown value is on alpha3Code (3chars) find its full name
+          return this.countries.find(element => {
+            if (element.alpha3Code.toLowerCase() === filteredCountryName) {
+              return element;
+            }
+          }).name;
+        } else {
+          return this.country;
+        }
       }
       return null;
     }
@@ -211,14 +222,13 @@ i {
 
 @media (max-width: 767px) {
   .dropdown {
-    bottom: 32px;
     top: unset;
   }
-  .flag-container{
+  .flag-container {
     width: 80px;
     height: 39px;
   }
-  .dropdown li{
+  .dropdown li {
     border-top: 1px solid var(--main-color);
     border-bottom: unset;
     height: 40px;

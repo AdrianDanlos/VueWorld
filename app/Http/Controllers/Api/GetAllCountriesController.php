@@ -16,7 +16,7 @@ class GetAllCountriesController extends Controller
     public function __invoke(Request $request)
     {
         $client = new \GuzzleHttp\Client();
-        $response = $client->request('GET', 'https://restcountries.eu/rest/v2/all?fields=name;flag;');
+        $response = $client->request('GET', 'https://restcountries.eu/rest/v2/all?fields=name;flag;alpha3Code');
         return json_decode($response->getBody());
     }
 }

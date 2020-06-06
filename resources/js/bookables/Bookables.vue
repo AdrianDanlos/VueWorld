@@ -87,6 +87,7 @@ export default {
       this.bookables = _.shuffle(this.bookables);
     },
     async getBookablesByCountry(country) {
+      console.log('COUNTRYYY: ' + country)
       if (country) {
         //Update URL
         let regexp = new RegExp(`\/bookables\/${country}.*`);
@@ -222,6 +223,12 @@ export default {
   position: absolute;
   top: -42px;
   left: 133px;
+}
+
+@media (max-width: 767px) {
+  ::v-deep .dropdown {
+    bottom: 32px;
+  }
 }
 
 </style>

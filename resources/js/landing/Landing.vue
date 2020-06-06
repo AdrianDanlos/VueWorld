@@ -132,4 +132,9 @@ p {
     width: calc(100% - (6px * 2));
   }
 }
+@media (max-width: 767px) {
+  ::v-deep .dropdown {
+    bottom: 40px;
+  }
+}
 </style>

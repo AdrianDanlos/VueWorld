@@ -3223,8 +3223,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
+                console.log('COUNTRYYY: ' + country);
+
                 if (!country) {
-                  _context.next = 17;
+                  _context.next = 18;
                   break;
                 }
 
@@ -3245,37 +3247,37 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _this.errors = ""; //fetching data from the server
                 //axios returns a promise object -> console.log(axios.get('api/bookables'))
 
-                _context.prev = 5;
-                _context.next = 8;
+                _context.prev = 6;
+                _context.next = 9;
                 return axios.get("/api/bookables/countries/".concat(country));
 
-              case 8:
+              case 9:
                 _this.bookables = _context.sent.data;
-                _context.next = 13;
+                _context.next = 14;
                 break;
 
-              case 11:
-                _context.prev = 11;
-                _context.t0 = _context["catch"](5);
+              case 12:
+                _context.prev = 12;
+                _context.t0 = _context["catch"](6);
 
-              case 13:
+              case 14:
                 if (!_this.bookables.length) {
                   _this.errors = _this.errAxiosCall;
                 }
 
                 _this.loading = false;
-                _context.next = 18;
+                _context.next = 19;
                 break;
 
-              case 17:
+              case 18:
                 _this.errors = _this.errCountryNotFound;
 
-              case 18:
+              case 19:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[5, 11]]);
+        }, _callee, null, [[6, 12]]);
       }))();
     },
     getCountryCodeIfTooLong: function getCountryCodeIfTooLong() {
@@ -3739,12 +3741,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }, {
         flag: "https://restcountries.eu/data/dza.svg",
         name: "Algeria"
-      }, {
-        flag: "https://restcountries.eu/data/and.svg",
-        name: "Andorra"
-      }, {
-        flag: "https://restcountries.eu/data/ago.svg",
-        name: "Angola"
       }],
       filteredCountries: [],
       modal: false
@@ -3761,11 +3757,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }
 
       this.filteredCountries = [];
-      console.log(window.matchMedia("(max-width: 700px)"));
       this.countries.forEach(function (country) {
-        if (_this.filteredCountries.length <= 2 && country.name.toLowerCase().startsWith(_this.country.toLowerCase())) {
+        if (_this.filteredCountries.length < 3 && (country.name.toLowerCase().startsWith(_this.country.toLowerCase()) || country.alpha3Code.toLowerCase().startsWith(_this.country.toLowerCase()))) {
           _this.filteredCountries.push({
-            name: country.name,
+            name: country.name.length < 15 ? country.name : country.alpha3Code,
             flag: country.flag
           });
         }
@@ -3776,8 +3771,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.modal = false;
     },
     checkCountry: function checkCountry() {
-      if (this.filteredCountries.length && this.country.toLowerCase() === this.filteredCountries[0].name.toLowerCase()) {
-        return this.country;
+      var filteredCountryName = this.filteredCountries[0].name.toLowerCase();
+      var inputCountry = this.country.toLowerCase();
+
+      if (this.filteredCountries.length && inputCountry === filteredCountryName) {
+        if (inputCountry.length === 3) {
+          //If the dropdown value is on alpha3Code (3chars) find its full name
+          return this.countries.find(function (element) {
+            if (element.alpha3Code.toLowerCase() === filteredCountryName) {
+              return element;
+            }
+          }).name;
+        } else {
+          return this.country;
+        }
       }
 
       return null;
@@ -8561,7 +8568,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.flip-list-move[data-v-7a867923] {\n  transition: transform 1s;\n}\n*[data-v-7a867923]:focus {\n  outline: 0 !important;\n  box-shadow: none;\n}\n.country-container[data-v-7a867923] {\n  background-color: white;\n  border: 1px solid rgba(0, 0, 0, 0.125);\n  border-radius: 0.25rem;\n}\n.country-container span[data-v-7a867923] {\n  margin: 2px;\n}\n.country-container i[data-v-7a867923] {\n  margin-right: 10px;\n}\n.country-container img[data-v-7a867923] {\n  margin-left: 10px;\n}\n.countryFlag[data-v-7a867923] {\n  width: 40px;\n  border-radius: 2px;\n  border: 1px solid #f6f6f6;\n}\n.error-container[data-v-7a867923] {\n  height: 20px;\n}\n.search-city[data-v-7a867923] {\n  padding: 0;\n}\n.bookable-move[data-v-7a867923] {\n  transition: transform 1s;\n}\n.short-text[data-v-7a867923] {\n  display: none;\n}\n@media (max-width: 1200px) {\n.short-text[data-v-7a867923] {\n    display: block;\n}\n.full-text[data-v-7a867923] {\n    display: none;\n}\n}\n@media (max-width: 767px) {\n.country-info-container[data-v-7a867923],\n  .shuffle-btn-container[data-v-7a867923] {\n    height: 50px;\n}\n}\n[data-v-7a867923] .info-bar #search-country-input {\n  border: 1px solid rgba(0, 0, 0, 0.125);\n  height: 48px;\n}\n[data-v-7a867923] #search-country-input {\n  background-color: white;\n}\n[data-v-7a867923] .info-bar .search-container {\n  flex-grow: 1;\n}\n[data-v-7a867923] .dropdown {\n  width: calc(100% - .5rem);\n  top: 50px;\n  left: 0;\n}\n[data-v-7a867923] .dropdown li {\n  background-color: white;\n}\n[data-v-7a867923] .dropdown ul {\n  margin-top: -2px;\n}\n[data-v-7a867923] .invalid-feedback {\n  display: block;\n  padding-left: 40px;\n}\n[data-v-7a867923] .flag-loader {\n  width: 190px;\n  position: absolute;\n  top: -42px;\n  left: 133px;\n}\n\n", ""]);
+exports.push([module.i, "\n.flip-list-move[data-v-7a867923] {\n  transition: transform 1s;\n}\n*[data-v-7a867923]:focus {\n  outline: 0 !important;\n  box-shadow: none;\n}\n.country-container[data-v-7a867923] {\n  background-color: white;\n  border: 1px solid rgba(0, 0, 0, 0.125);\n  border-radius: 0.25rem;\n}\n.country-container span[data-v-7a867923] {\n  margin: 2px;\n}\n.country-container i[data-v-7a867923] {\n  margin-right: 10px;\n}\n.country-container img[data-v-7a867923] {\n  margin-left: 10px;\n}\n.countryFlag[data-v-7a867923] {\n  width: 40px;\n  border-radius: 2px;\n  border: 1px solid #f6f6f6;\n}\n.error-container[data-v-7a867923] {\n  height: 20px;\n}\n.search-city[data-v-7a867923] {\n  padding: 0;\n}\n.bookable-move[data-v-7a867923] {\n  transition: transform 1s;\n}\n.short-text[data-v-7a867923] {\n  display: none;\n}\n@media (max-width: 1200px) {\n.short-text[data-v-7a867923] {\n    display: block;\n}\n.full-text[data-v-7a867923] {\n    display: none;\n}\n}\n@media (max-width: 767px) {\n.country-info-container[data-v-7a867923],\n  .shuffle-btn-container[data-v-7a867923] {\n    height: 50px;\n}\n}\n[data-v-7a867923] .info-bar #search-country-input {\n  border: 1px solid rgba(0, 0, 0, 0.125);\n  height: 48px;\n}\n[data-v-7a867923] #search-country-input {\n  background-color: white;\n}\n[data-v-7a867923] .info-bar .search-container {\n  flex-grow: 1;\n}\n[data-v-7a867923] .dropdown {\n  width: calc(100% - .5rem);\n  top: 50px;\n  left: 0;\n}\n[data-v-7a867923] .dropdown li {\n  background-color: white;\n}\n[data-v-7a867923] .dropdown ul {\n  margin-top: -2px;\n}\n[data-v-7a867923] .invalid-feedback {\n  display: block;\n  padding-left: 40px;\n}\n[data-v-7a867923] .flag-loader {\n  width: 190px;\n  position: absolute;\n  top: -42px;\n  left: 133px;\n}\n@media (max-width: 767px) {\n[data-v-7a867923] .dropdown {\n    bottom: 32px;\n}\n}\n\n", ""]);
 
 // exports
 
@@ -8599,7 +8606,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n#landing[data-v-6cb9731e] {\n  background: url(\"/images/landing/indonesia.jpg\");\n  background-repeat: no-repeat;\n  background-attachment: fixed;\n  background-position: center;\n  background-size: cover;\n  width: 100%;\n  height: 100vh;\n}\np[data-v-6cb9731e] {\n  color: white;\n  font-weight: 400 !important;\n}\n.brand-logo[data-v-6cb9731e] {\n  margin: 3rem 0;\n}\n.custom-appear-class[data-v-6cb9731e] {\n  opacity: 0;\n}\n.custom-appear-to-class[data-v-6cb9731e] {\n  transition-duration: 1s;\n  opacity: 1;\n}\n@media (max-width: 575px) {\n.brand-logo[data-v-6cb9731e] {\n    width: 150px;\n}\n}\n[data-v-6cb9731e] .search-container {\n  margin-bottom: 40vh;\n  width: 100%;\n}\n[data-v-6cb9731e] #search-country-input {\n  border: 6px solid rgba(0, 0, 0, 0.5);\n  height: 60px;\n  font-size: 1.2rem;\n  color: white;\n  background-color: rgba(255, 255, 255, 0.2);\n}\n[data-v-6cb9731e] #search-country-input::-webkit-input-placeholder {\n  font-size: 1.2rem;\n  font-weight: 300 !important;\n  color: white;\n}\n[data-v-6cb9731e] #search-country-input::-moz-placeholder {\n  font-size: 1.2rem;\n  font-weight: 300 !important;\n  color: white;\n}\n[data-v-6cb9731e] #search-country-input:-ms-input-placeholder {\n  font-size: 1.2rem;\n  font-weight: 300 !important;\n  color: white;\n}\n[data-v-6cb9731e] #search-country-input::-ms-input-placeholder {\n  font-size: 1.2rem;\n  font-weight: 300 !important;\n  color: white;\n}\n[data-v-6cb9731e] #search-country-input::placeholder {\n  font-size: 1.2rem;\n  font-weight: 300 !important;\n  color: white;\n}\n[data-v-6cb9731e] .btn {\n  font-size: 1.1rem;\n}\n[data-v-6cb9731e] .dropdown {\n  width: calc(100% - (10px * 2));\n  top: 55px;\n  left: 6px;\n}\n[data-v-6cb9731e] .dropdown li {\n  background-color: rgba(255, 255, 255, 0.9);\n  font-size: 1.2rem;\n}\n[data-v-6cb9731e] .btn-go-container {\n  width: 70px;\n}\n@media (max-width: 575px) {\n[data-v-6cb9731e] .btn-go-container {\n    width: 100%;\n    height: 48px;\n}\n[data-v-6cb9731e] .dropdown li {\n    background-color: white;\n}\n[data-v-6cb9731e] .dropdown {\n    width: calc(100% - (6px * 2));\n}\n}\n", ""]);
+exports.push([module.i, "\n#landing[data-v-6cb9731e] {\n  background: url(\"/images/landing/indonesia.jpg\");\n  background-repeat: no-repeat;\n  background-attachment: fixed;\n  background-position: center;\n  background-size: cover;\n  width: 100%;\n  height: 100vh;\n}\np[data-v-6cb9731e] {\n  color: white;\n  font-weight: 400 !important;\n}\n.brand-logo[data-v-6cb9731e] {\n  margin: 3rem 0;\n}\n.custom-appear-class[data-v-6cb9731e] {\n  opacity: 0;\n}\n.custom-appear-to-class[data-v-6cb9731e] {\n  transition-duration: 1s;\n  opacity: 1;\n}\n@media (max-width: 575px) {\n.brand-logo[data-v-6cb9731e] {\n    width: 150px;\n}\n}\n[data-v-6cb9731e] .search-container {\n  margin-bottom: 40vh;\n  width: 100%;\n}\n[data-v-6cb9731e] #search-country-input {\n  border: 6px solid rgba(0, 0, 0, 0.5);\n  height: 60px;\n  font-size: 1.2rem;\n  color: white;\n  background-color: rgba(255, 255, 255, 0.2);\n}\n[data-v-6cb9731e] #search-country-input::-webkit-input-placeholder {\n  font-size: 1.2rem;\n  font-weight: 300 !important;\n  color: white;\n}\n[data-v-6cb9731e] #search-country-input::-moz-placeholder {\n  font-size: 1.2rem;\n  font-weight: 300 !important;\n  color: white;\n}\n[data-v-6cb9731e] #search-country-input:-ms-input-placeholder {\n  font-size: 1.2rem;\n  font-weight: 300 !important;\n  color: white;\n}\n[data-v-6cb9731e] #search-country-input::-ms-input-placeholder {\n  font-size: 1.2rem;\n  font-weight: 300 !important;\n  color: white;\n}\n[data-v-6cb9731e] #search-country-input::placeholder {\n  font-size: 1.2rem;\n  font-weight: 300 !important;\n  color: white;\n}\n[data-v-6cb9731e] .btn {\n  font-size: 1.1rem;\n}\n[data-v-6cb9731e] .dropdown {\n  width: calc(100% - (10px * 2));\n  top: 55px;\n  left: 6px;\n}\n[data-v-6cb9731e] .dropdown li {\n  background-color: rgba(255, 255, 255, 0.9);\n  font-size: 1.2rem;\n}\n[data-v-6cb9731e] .btn-go-container {\n  width: 70px;\n}\n@media (max-width: 575px) {\n[data-v-6cb9731e] .btn-go-container {\n    width: 100%;\n    height: 48px;\n}\n[data-v-6cb9731e] .dropdown li {\n    background-color: white;\n}\n[data-v-6cb9731e] .dropdown {\n    width: calc(100% - (6px * 2));\n}\n}\n@media (max-width: 767px) {\n[data-v-6cb9731e] .dropdown {\n    bottom: 40px;\n}\n}\n", ""]);
 
 // exports
 
@@ -8675,7 +8682,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\ninput[data-v-62f66040] {\r\n  border-radius: 5px;\r\n  background: url(\"/images/searchBar/search.png\") no-repeat;\r\n  background-clip: padding-box;\r\n  background-position: left 5px top 3px;\r\n  background-size: 40px 40px;\r\n  padding-left: 60px;\r\n  caret-color: #6c757d;\r\n  color: rgb(56, 56, 56);\n}\ninput[data-v-62f66040]:focus,\r\ninput[data-v-62f66040]:active {\r\n  outline: none;\n}\ninput[data-v-62f66040]:focus::-webkit-input-placeholder {\r\n  color: transparent;\n}\ninput[data-v-62f66040]:focus::-moz-placeholder {\r\n  color: transparent;\n}\ninput[data-v-62f66040]:focus:-ms-input-placeholder {\r\n  color: transparent;\n}\ninput[data-v-62f66040]:focus::-ms-input-placeholder {\r\n  color: transparent;\n}\ninput[data-v-62f66040]:focus::placeholder {\r\n  color: transparent;\n}\ninput[data-v-62f66040]::-webkit-input-placeholder {\r\n  color: rgb(56, 56, 56);\n}\ninput[data-v-62f66040]::-moz-placeholder {\r\n  color: rgb(56, 56, 56);\n}\ninput[data-v-62f66040]:-ms-input-placeholder {\r\n  color: rgb(56, 56, 56);\n}\ninput[data-v-62f66040]::-ms-input-placeholder {\r\n  color: rgb(56, 56, 56);\n}\ninput[data-v-62f66040]::placeholder {\r\n  color: rgb(56, 56, 56);\n}\ni[data-v-62f66040] {\r\n  font-size: 22px;\n}\n.btn[data-v-62f66040] {\r\n  font-weight: bold;\r\n  height: 100%;\n}\n.search-blanket[data-v-62f66040] {\r\n  width: 100%;\r\n  height: 100vh;\r\n  position: absolute;\r\n  top: 0;\r\n  left: 0;\r\n  background: transparent;\n}\n.dropdown[data-v-62f66040] {\r\n  z-index: 1;\n}\n.dropdown ul[data-v-62f66040] {\r\n  list-style: none;\r\n  padding: 0;\n}\n.dropdown li[data-v-62f66040] {\r\n  border-bottom: 1px solid var(--main-color);\r\n  padding-left: 16px;\r\n  color: rgb(44, 44, 44);\r\n  font-weight: 400;\r\n  height: 48px;\n}\n.dropdown li[data-v-62f66040]:hover {\r\n  cursor: pointer;\r\n  background-color: var(--main-color);\r\n  color: white;\n}\n.dropdown li i[data-v-62f66040] {\r\n  color: var(--main-color);\n}\n.dropdown li:hover i[data-v-62f66040] {\r\n  color: white !important;\n}\n.flag-container[data-v-62f66040] {\r\n  width: 85px;\r\n  height: 48px;\n}\n.dropdownFlag[data-v-62f66040] {\r\n  height: 100%;\r\n  width: 100%;\r\n  -o-object-fit: cover;\r\n     object-fit: cover;\r\n  opacity: 0.7;\n}\n.btn-go-container[data-v-62f66040] {\r\n  z-index: 1;\n}\n@media (max-width: 767px) {\n.dropdown[data-v-62f66040] {\r\n    bottom: 32px;\r\n    top: unset;\n}\n.flag-container[data-v-62f66040]{\r\n    width: 80px;\r\n    height: 39px;\n}\n.dropdown li[data-v-62f66040]{\r\n    border-top: 1px solid var(--main-color);\r\n    border-bottom: unset;\r\n    height: 40px;\n}\n}\r\n", ""]);
+exports.push([module.i, "\ninput[data-v-62f66040] {\r\n  border-radius: 5px;\r\n  background: url(\"/images/searchBar/search.png\") no-repeat;\r\n  background-clip: padding-box;\r\n  background-position: left 5px top 3px;\r\n  background-size: 40px 40px;\r\n  padding-left: 60px;\r\n  caret-color: #6c757d;\r\n  color: rgb(56, 56, 56);\n}\ninput[data-v-62f66040]:focus,\r\ninput[data-v-62f66040]:active {\r\n  outline: none;\n}\ninput[data-v-62f66040]:focus::-webkit-input-placeholder {\r\n  color: transparent;\n}\ninput[data-v-62f66040]:focus::-moz-placeholder {\r\n  color: transparent;\n}\ninput[data-v-62f66040]:focus:-ms-input-placeholder {\r\n  color: transparent;\n}\ninput[data-v-62f66040]:focus::-ms-input-placeholder {\r\n  color: transparent;\n}\ninput[data-v-62f66040]:focus::placeholder {\r\n  color: transparent;\n}\ninput[data-v-62f66040]::-webkit-input-placeholder {\r\n  color: rgb(56, 56, 56);\n}\ninput[data-v-62f66040]::-moz-placeholder {\r\n  color: rgb(56, 56, 56);\n}\ninput[data-v-62f66040]:-ms-input-placeholder {\r\n  color: rgb(56, 56, 56);\n}\ninput[data-v-62f66040]::-ms-input-placeholder {\r\n  color: rgb(56, 56, 56);\n}\ninput[data-v-62f66040]::placeholder {\r\n  color: rgb(56, 56, 56);\n}\ni[data-v-62f66040] {\r\n  font-size: 22px;\n}\n.btn[data-v-62f66040] {\r\n  font-weight: bold;\r\n  height: 100%;\n}\n.search-blanket[data-v-62f66040] {\r\n  width: 100%;\r\n  height: 100vh;\r\n  position: absolute;\r\n  top: 0;\r\n  left: 0;\r\n  background: transparent;\n}\n.dropdown[data-v-62f66040] {\r\n  z-index: 1;\n}\n.dropdown ul[data-v-62f66040] {\r\n  list-style: none;\r\n  padding: 0;\n}\n.dropdown li[data-v-62f66040] {\r\n  border-bottom: 1px solid var(--main-color);\r\n  padding-left: 16px;\r\n  color: rgb(44, 44, 44);\r\n  font-weight: 400;\r\n  height: 48px;\n}\n.dropdown li[data-v-62f66040]:hover {\r\n  cursor: pointer;\r\n  background-color: var(--main-color);\r\n  color: white;\n}\n.dropdown li i[data-v-62f66040] {\r\n  color: var(--main-color);\n}\n.dropdown li:hover i[data-v-62f66040] {\r\n  color: white !important;\n}\n.flag-container[data-v-62f66040] {\r\n  width: 85px;\r\n  height: 48px;\n}\n.dropdownFlag[data-v-62f66040] {\r\n  height: 100%;\r\n  width: 100%;\r\n  -o-object-fit: cover;\r\n     object-fit: cover;\r\n  opacity: 0.7;\n}\n.btn-go-container[data-v-62f66040] {\r\n  z-index: 1;\n}\n@media (max-width: 767px) {\n.dropdown[data-v-62f66040] {\r\n    top: unset;\n}\n.flag-container[data-v-62f66040] {\r\n    width: 80px;\r\n    height: 39px;\n}\n.dropdown li[data-v-62f66040] {\r\n    border-top: 1px solid var(--main-color);\r\n    border-bottom: unset;\r\n    height: 40px;\n}\n}\r\n", ""]);
 
 // exports
 
@@ -64821,52 +64828,48 @@ var render = function() {
             }),
             _vm._v(" "),
             _vm.filteredCountries && _vm.modal
-              ? _c(
-                  "div",
-                  { staticClass: "dropdown position-absolute d-sm-block" },
-                  [
-                    _c(
-                      "ul",
-                      _vm._l(_vm.filteredCountries, function(filteredCountry) {
-                        return _c(
-                          "li",
-                          {
-                            key: filteredCountry.name,
-                            staticClass:
-                              "d-flex align-items-center justify-content-between",
-                            on: {
-                              mousedown: function($event) {
-                                return _vm.setCountry(filteredCountry.name)
-                              }
+              ? _c("div", { staticClass: "dropdown position-absolute" }, [
+                  _c(
+                    "ul",
+                    _vm._l(_vm.filteredCountries, function(filteredCountry) {
+                      return _c(
+                        "li",
+                        {
+                          key: filteredCountry.name,
+                          staticClass:
+                            "d-flex align-items-center justify-content-between",
+                          on: {
+                            mousedown: function($event) {
+                              return _vm.setCountry(filteredCountry.name)
                             }
-                          },
-                          [
-                            _c("div", [
-                              _c("i", {
-                                staticClass: "far fa-building main-color"
-                              }),
-                              _vm._v(" "),
-                              _c("span", { staticClass: "ml-3" }, [
-                                _vm._v(_vm._s(filteredCountry.name))
-                              ])
-                            ]),
+                          }
+                        },
+                        [
+                          _c("div", [
+                            _c("i", {
+                              staticClass: "far fa-building main-color"
+                            }),
                             _vm._v(" "),
-                            _c("div", { staticClass: "flag-container" }, [
-                              _c("img", {
-                                staticClass: "dropdownFlag",
-                                attrs: {
-                                  src: filteredCountry.flag,
-                                  alt: "dropdownFlag"
-                                }
-                              })
+                            _c("span", { staticClass: "ml-3" }, [
+                              _vm._v(_vm._s(filteredCountry.name))
                             ])
-                          ]
-                        )
-                      }),
-                      0
-                    )
-                  ]
-                )
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "flag-container" }, [
+                            _c("img", {
+                              staticClass: "dropdownFlag",
+                              attrs: {
+                                src: filteredCountry.flag,
+                                alt: "dropdownFlag"
+                              }
+                            })
+                          ])
+                        ]
+                      )
+                    }),
+                    0
+                  )
+                ])
               : _vm._e()
           ]
         ),
