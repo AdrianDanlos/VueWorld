@@ -1,10 +1,10 @@
 <template>
   <div>
     <v-errors
-      class="error-container row px-3 mb-1"
-      :errorLayout="errors ? 'd-block' : 'd-none' + ' offset-md-3 col-md-9'"
+      class="error-container px-3 mb-1 justify-content-center"
+      :errorLayout="errors ? 'd-block text-center' : 'd-none'"
       :errors="[errors]"
-      :class="[{'d-block': errors, 'd-none': !errors}]"
+      :class="[{'d-none': !errors, 'd-flex': errors}]"
     ></v-errors>
     <loading v-if="loading"></loading>
     <div v-else>
@@ -211,10 +211,6 @@ export default {
 
 ::v-deep .dropdown ul {
   margin-top: -2px;
-}
-
-::v-deep .invalid-feedback {
-  padding-left: 40px;
 }
 
 ::v-deep .flag-loader {

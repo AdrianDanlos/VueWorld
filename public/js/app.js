@@ -8568,7 +8568,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.flip-list-move[data-v-7a867923] {\n  transition: transform 1s;\n}\n*[data-v-7a867923]:focus {\n  outline: 0 !important;\n  box-shadow: none;\n}\n.country-container[data-v-7a867923] {\n  background-color: white;\n  border: 1px solid rgba(0, 0, 0, 0.125);\n  border-radius: 0.25rem;\n}\n.country-container span[data-v-7a867923] {\n  margin: 2px;\n}\n.country-container i[data-v-7a867923] {\n  margin-right: 10px;\n}\n.country-container img[data-v-7a867923] {\n  margin-left: 10px;\n}\n.countryFlag[data-v-7a867923] {\n  width: 40px;\n  border-radius: 2px;\n  border: 1px solid #f6f6f6;\n}\n.error-container[data-v-7a867923] {\n  height: 20px;\n}\n.search-city[data-v-7a867923] {\n  padding: 0;\n}\n.bookable-move[data-v-7a867923] {\n  transition: transform 1s;\n}\n.short-text[data-v-7a867923] {\n  display: none;\n}\n@media (max-width: 1200px) {\n.short-text[data-v-7a867923] {\n    display: block;\n}\n.full-text[data-v-7a867923] {\n    display: none;\n}\n}\n@media (max-width: 767px) {\n.country-info-container[data-v-7a867923],\n  .shuffle-btn-container[data-v-7a867923] {\n    height: 50px;\n}\n}\n[data-v-7a867923] .info-bar #search-country-input {\n  border: 1px solid rgba(0, 0, 0, 0.125);\n  height: 48px;\n}\n[data-v-7a867923] #search-country-input {\n  background-color: white;\n}\n[data-v-7a867923] .info-bar .search-container {\n  flex-grow: 1;\n}\n[data-v-7a867923] .dropdown {\n  width: calc(100% - .5rem);\n  top: 50px;\n  left: 0;\n}\n[data-v-7a867923] .dropdown li {\n  background-color: white;\n}\n[data-v-7a867923] .dropdown ul {\n  margin-top: -2px;\n}\n[data-v-7a867923] .invalid-feedback {\n  padding-left: 40px;\n}\n[data-v-7a867923] .flag-loader {\n  width: 190px;\n  position: absolute;\n  top: -42px;\n  left: 133px;\n}\n@media (max-width: 767px) {\n[data-v-7a867923] .dropdown {\n    bottom: 32px;\n}\n}\n\n", ""]);
+exports.push([module.i, "\n.flip-list-move[data-v-7a867923] {\n  transition: transform 1s;\n}\n*[data-v-7a867923]:focus {\n  outline: 0 !important;\n  box-shadow: none;\n}\n.country-container[data-v-7a867923] {\n  background-color: white;\n  border: 1px solid rgba(0, 0, 0, 0.125);\n  border-radius: 0.25rem;\n}\n.country-container span[data-v-7a867923] {\n  margin: 2px;\n}\n.country-container i[data-v-7a867923] {\n  margin-right: 10px;\n}\n.country-container img[data-v-7a867923] {\n  margin-left: 10px;\n}\n.countryFlag[data-v-7a867923] {\n  width: 40px;\n  border-radius: 2px;\n  border: 1px solid #f6f6f6;\n}\n.error-container[data-v-7a867923] {\n  height: 20px;\n}\n.search-city[data-v-7a867923] {\n  padding: 0;\n}\n.bookable-move[data-v-7a867923] {\n  transition: transform 1s;\n}\n.short-text[data-v-7a867923] {\n  display: none;\n}\n@media (max-width: 1200px) {\n.short-text[data-v-7a867923] {\n    display: block;\n}\n.full-text[data-v-7a867923] {\n    display: none;\n}\n}\n@media (max-width: 767px) {\n.country-info-container[data-v-7a867923],\n  .shuffle-btn-container[data-v-7a867923] {\n    height: 50px;\n}\n}\n[data-v-7a867923] .info-bar #search-country-input {\n  border: 1px solid rgba(0, 0, 0, 0.125);\n  height: 48px;\n}\n[data-v-7a867923] #search-country-input {\n  background-color: white;\n}\n[data-v-7a867923] .info-bar .search-container {\n  flex-grow: 1;\n}\n[data-v-7a867923] .dropdown {\n  width: calc(100% - .5rem);\n  top: 50px;\n  left: 0;\n}\n[data-v-7a867923] .dropdown li {\n  background-color: white;\n}\n[data-v-7a867923] .dropdown ul {\n  margin-top: -2px;\n}\n[data-v-7a867923] .flag-loader {\n  width: 190px;\n  position: absolute;\n  top: -42px;\n  left: 133px;\n}\n@media (max-width: 767px) {\n[data-v-7a867923] .dropdown {\n    bottom: 32px;\n}\n}\n\n", ""]);
 
 // exports
 
@@ -64133,12 +64133,10 @@ var render = function() {
     "div",
     [
       _c("v-errors", {
-        staticClass: "error-container row px-3 mb-1",
-        class: [{ "d-block": _vm.errors, "d-none": !_vm.errors }],
+        staticClass: "error-container px-3 mb-1 justify-content-center",
+        class: [{ "d-none": !_vm.errors, "d-flex": _vm.errors }],
         attrs: {
-          errorLayout: _vm.errors
-            ? "d-block"
-            : "d-none" + " offset-md-3 col-md-9",
+          errorLayout: _vm.errors ? "d-block text-center" : "d-none",
           errors: [_vm.errors]
         }
       }),
