@@ -115,7 +115,7 @@ export default {
   left: 6px;
 }
 ::v-deep .dropdown li {
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: rgba(255, 255, 255, 1);
   font-size: 1.2rem;
 }
 
