@@ -117,6 +117,7 @@ export default {
 ::v-deep .dropdown li {
   background-color: rgba(255, 255, 255, 1);
   font-size: 1.2rem;
+  font-weight: 300;
 }
 
 ::v-deep .btn-go-container {

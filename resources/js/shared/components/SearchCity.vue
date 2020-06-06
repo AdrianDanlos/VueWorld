@@ -191,7 +191,6 @@ i {
   border-bottom: 1px solid var(--main-color);
   padding-left: 16px;
   color: rgb(44, 44, 44);
-  font-weight: 400;
   height: 48px;
 }
 

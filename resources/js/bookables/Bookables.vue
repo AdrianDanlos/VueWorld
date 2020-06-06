@@ -207,6 +207,7 @@ export default {
 }
 ::v-deep .dropdown li {
   background-color: white;
+  font-weight: 400;
 }
 
 ::v-deep .dropdown ul {
