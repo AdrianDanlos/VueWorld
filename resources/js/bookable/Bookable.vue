@@ -18,7 +18,7 @@
         <availability
           :bookable-id="this.$route.params.id"
           @availability="checkPrice($event)"
-          class="mb-4"
+          class="mb-3"
         ></availability>
 
         <transition name="fade">
@@ -26,23 +26,22 @@
         </transition>
         <transition name="fade">
           <button
-            class="btn btn-main btn-block"
+            class="btn btn-main btn-block mb-2"
             v-if="price"
             @click="addToBasket"
             :disabled="inBasketAlready"
-          >Book now</button>
+          >Add to basket</button>
         </transition>
 
-        <button
-          class="btn btn-caution btn-block"
-          v-if="inBasketAlready"
-          @click="removeFromBasket"
-        >Remove from basket</button>
+        <router-link :to="{name: 'basket'}" class="btn btn-buy btn-block" v-if="inBasketAlready">
+          <i class="fas fa-shopping-cart mr-1"></i>
+          <span>Buy</span>
+        </router-link>
 
         <div
           v-if="inBasketAlready"
-          class="mt-4 text-muted warning"
-        >Correctly added to the basket. If you want to change dates, remove from the basket first.</div>
+          class="mt-2 text-muted warning"
+        >If you would like to change dates, remove it from the basket first.</div>
       </div>
     </div>
     <div class="row">
@@ -137,5 +136,13 @@ export default {
 <style scoped>
 .warning {
   font-size: 0.7rem;
+}
+.btn-buy {
+  background: #f08f0d;
+  color: white;
+}
+.btn-buy:hover {
+  background: #f09c2e;
+  color: white;
 }
 </style> 

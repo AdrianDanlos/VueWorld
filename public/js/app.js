@@ -2864,7 +2864,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
 
 
 
@@ -3661,6 +3660,8 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
+//
 //
 //
 //
@@ -8530,7 +8531,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.warning[data-v-0d2ee2be] {\n  font-size: 0.7rem;\n}\n", ""]);
+exports.push([module.i, "\n.warning[data-v-0d2ee2be] {\n  font-size: 0.7rem;\n}\n.btn-buy[data-v-0d2ee2be] {\n  background: #f08f0d;\n  color: white;\n}\n.btn-buy[data-v-0d2ee2be]:hover {\n  background: #f09c2e;\n  color: white;\n}\n", ""]);
 
 // exports
 
@@ -63629,7 +63630,7 @@ var render = function() {
             attrs: {
               type: "text",
               name: "from",
-              placeholder: "Start date",
+              placeholder: "year/month/day",
               disabled: _vm.inBasketAlready
             },
             domProps: { value: _vm.from },
@@ -63677,7 +63678,7 @@ var render = function() {
             attrs: {
               type: "text",
               name: "to",
-              placeholder: "End date",
+              placeholder: "year/month/day",
               disabled: _vm.inBasketAlready
             },
             domProps: { value: _vm.to },
@@ -63783,7 +63784,7 @@ var render = function() {
         { staticClass: "col-md-4 pb-4" },
         [
           _c("availability", {
-            staticClass: "mb-4",
+            staticClass: "mb-3",
             attrs: { "bookable-id": this.$route.params.id },
             on: {
               availability: function($event) {
@@ -63811,30 +63812,34 @@ var render = function() {
               ? _c(
                   "button",
                   {
-                    staticClass: "btn btn-main btn-block",
+                    staticClass: "btn btn-main btn-block mb-2",
                     attrs: { disabled: _vm.inBasketAlready },
                     on: { click: _vm.addToBasket }
                   },
-                  [_vm._v("Book now")]
+                  [_vm._v("Add to basket")]
                 )
               : _vm._e()
           ]),
           _vm._v(" "),
           _vm.inBasketAlready
             ? _c(
-                "button",
+                "router-link",
                 {
-                  staticClass: "btn btn-caution btn-block",
-                  on: { click: _vm.removeFromBasket }
+                  staticClass: "btn btn-buy btn-block",
+                  attrs: { to: { name: "basket" } }
                 },
-                [_vm._v("Remove from basket")]
+                [
+                  _c("i", { staticClass: "fas fa-shopping-cart mr-1" }),
+                  _vm._v(" "),
+                  _c("span", [_vm._v("Buy")])
+                ]
               )
             : _vm._e(),
           _vm._v(" "),
           _vm.inBasketAlready
-            ? _c("div", { staticClass: "mt-4 text-muted warning" }, [
+            ? _c("div", { staticClass: "mt-2 text-muted warning" }, [
                 _vm._v(
-                  "Correctly added to the basket. If you want to change dates, remove from the basket first."
+                  "If you would like to change dates, remove it from the basket first."
                 )
               ])
             : _vm._e()
@@ -64780,7 +64785,8 @@ var render = function() {
               attrs: {
                 id: "search-country-input",
                 type: "text",
-                autocomplete: "country",
+                name: "none",
+                autocomplete: "none",
                 placeholder: "Find your dream place"
               },
               domProps: { value: _vm.country },
@@ -64808,7 +64814,8 @@ var render = function() {
               attrs: {
                 id: "search-country-input",
                 type: "text",
-                autocomplete: "country",
+                name: "none",
+                autocomplete: "none",
                 placeholder: "Find a country"
               },
               domProps: { value: _vm.country },

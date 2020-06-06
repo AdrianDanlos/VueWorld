@@ -2,6 +2,10 @@
 @import url("https://fonts.googleapis.com/css?family=Nunito");
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400&family=Roboto:wght@300;400&display=swap');
 
+html{
+    background-color: #f8fafc !important;
+}
+
 html,
 body {
     font-family: 'Roboto', sans-serif !important;
@@ -82,15 +86,6 @@ body {
     color: var(--main-color);
 }
 
-.btn-caution{
-    color: #B03104;
-    border-color: #B03104;
-}
 
-.btn-caution:hover{
-    color: #fff;
-    background-color: #B03104;
-    border-color: #B03104;
-}
 
 

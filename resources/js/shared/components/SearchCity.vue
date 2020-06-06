@@ -17,7 +17,8 @@
           @input="evt=>country=evt.target.value"
           class="w-100 d-none d-md-block"
           type="text"
-          autocomplete="country"
+          name="none"
+          autocomplete="none"
           placeholder="Find your dream place"
         />
         <input
@@ -28,7 +29,8 @@
           @input="evt=>country=evt.target.value"
           class="w-100 d-block d-md-none"
           type="text"
-          autocomplete="country"
+          name="none"
+          autocomplete="none"
           placeholder="Find a country"
         />
         <div class="dropdown position-absolute" v-if="filteredCountries && modal">
