@@ -7,7 +7,7 @@
   >
     <div id="landing" class="d-flex flex-column justify-content-center align-items-center">
       <img class="brand-logo" src="/images/landing/brand.png" alt="brand" />
-      <p class="text-center px-4">{{isError ? errCountryNotFound : brandData}}</p>
+      <p class="brand-info text-center px-4">{{isError ? errCountryNotFound : brandData}}</p>
       <search-city
         class="w-100 px-4"
         :searchLayout="{inputSize: 'col-12 col-sm-10 col-lg-6 mb-4 mb-sm-0 pr-0 pr-sm-2', buttonSize: 'col-12 col-sm-2 col-md-1'}"
@@ -57,7 +57,7 @@ export default {
 
 <style scoped>
 #landing {
-  background: url("/images/landing/indonesia.jpg");
+  background: url("/images/landing/landing.jpg");
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center;
@@ -65,12 +65,15 @@ export default {
   width: 100%;
   height: 100vh;
 }
-p {
-  color: white;
-  font-weight: 400 !important;
-}
+
 .brand-logo {
   margin: 3rem 0;
+}
+.brand-info{
+  background: var(--main-color);
+  border-radius: 50px;
+  color: white;
+  font-weight: 500 !important;
 }
 
 .custom-appear-class {
@@ -95,13 +98,13 @@ p {
   border: 6px solid rgba(0, 0, 0, 0.5);
   height: 60px;
   font-size: 1.2rem;
-  color: white;
-  background-color: rgba(255, 255, 255, 0.2);
+  color: rgb(77, 77, 77);
+  background-color: rgba(255, 255, 255, 1);
 }
 ::v-deep #search-country-input::placeholder {
   font-size: 1.2rem;
   font-weight: 300 !important;
-  color: white;
+  color: rgb(77, 77, 77);
 }
 ::v-deep .btn {
   font-size: 1.1rem;
