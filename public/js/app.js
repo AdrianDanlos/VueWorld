@@ -3182,6 +3182,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 //We import and declare ('export component') BookablesListItem component locally in this parent component (Bookables).
 //To delcare a component globally we would do it in the app.js.
 
@@ -3223,10 +3224,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                console.log('COUNTRYYY: ' + country);
-
                 if (!country) {
-                  _context.next = 18;
+                  _context.next = 17;
                   break;
                 }
 
@@ -3247,37 +3246,37 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _this.errors = ""; //fetching data from the server
                 //axios returns a promise object -> console.log(axios.get('api/bookables'))
 
-                _context.prev = 6;
-                _context.next = 9;
+                _context.prev = 5;
+                _context.next = 8;
                 return axios.get("/api/bookables/countries/".concat(country));
 
-              case 9:
+              case 8:
                 _this.bookables = _context.sent.data;
-                _context.next = 14;
+                _context.next = 13;
                 break;
 
-              case 12:
-                _context.prev = 12;
-                _context.t0 = _context["catch"](6);
+              case 11:
+                _context.prev = 11;
+                _context.t0 = _context["catch"](5);
 
-              case 14:
+              case 13:
                 if (!_this.bookables.length) {
                   _this.errors = _this.errAxiosCall;
                 }
 
                 _this.loading = false;
-                _context.next = 19;
+                _context.next = 18;
                 break;
 
-              case 18:
+              case 17:
                 _this.errors = _this.errCountryNotFound;
 
-              case 19:
+              case 18:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[6, 12]]);
+        }, _callee, null, [[5, 11]]);
       }))();
     },
     getCountryCodeIfTooLong: function getCountryCodeIfTooLong() {
@@ -3771,14 +3770,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.modal = false;
     },
     checkCountry: function checkCountry() {
-      var filteredCountryName = this.filteredCountries[0].name.toLowerCase();
+      var _this2 = this;
+
       var inputCountry = this.country.toLowerCase();
 
-      if (this.filteredCountries.length && inputCountry === filteredCountryName) {
+      if (this.filteredCountries.length && inputCountry === this.filteredCountries[0].name.toLowerCase()) {
         if (inputCountry.length === 3) {
           //If the dropdown value is on alpha3Code (3chars) find its full name
           return this.countries.find(function (element) {
-            if (element.alpha3Code.toLowerCase() === filteredCountryName) {
+            if (element.alpha3Code.toLowerCase() === _this2.filteredCountries[0].name.toLowerCase()) {
               return element;
             }
           }).name;
@@ -3791,7 +3791,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }
   },
   created: function created() {
-    var _this2 = this;
+    var _this3 = this;
 
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
@@ -3800,13 +3800,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             case 0:
               _context.prev = 0;
 
-              _this2.filterCountries();
+              _this3.filterCountries();
 
               _context.next = 4;
               return axios.get("/api/countries");
 
             case 4:
-              _this2.countries = _context.sent.data;
+              _this3.countries = _context.sent.data;
               console.log("Ready");
               _context.next = 10;
               break;
@@ -8568,7 +8568,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.flip-list-move[data-v-7a867923] {\n  transition: transform 1s;\n}\n*[data-v-7a867923]:focus {\n  outline: 0 !important;\n  box-shadow: none;\n}\n.country-container[data-v-7a867923] {\n  background-color: white;\n  border: 1px solid rgba(0, 0, 0, 0.125);\n  border-radius: 0.25rem;\n}\n.country-container span[data-v-7a867923] {\n  margin: 2px;\n}\n.country-container i[data-v-7a867923] {\n  margin-right: 10px;\n}\n.country-container img[data-v-7a867923] {\n  margin-left: 10px;\n}\n.countryFlag[data-v-7a867923] {\n  width: 40px;\n  border-radius: 2px;\n  border: 1px solid #f6f6f6;\n}\n.error-container[data-v-7a867923] {\n  height: 20px;\n}\n.search-city[data-v-7a867923] {\n  padding: 0;\n}\n.bookable-move[data-v-7a867923] {\n  transition: transform 1s;\n}\n.short-text[data-v-7a867923] {\n  display: none;\n}\n@media (max-width: 1200px) {\n.short-text[data-v-7a867923] {\n    display: block;\n}\n.full-text[data-v-7a867923] {\n    display: none;\n}\n}\n@media (max-width: 767px) {\n.country-info-container[data-v-7a867923],\n  .shuffle-btn-container[data-v-7a867923] {\n    height: 50px;\n}\n}\n[data-v-7a867923] .info-bar #search-country-input {\n  border: 1px solid rgba(0, 0, 0, 0.125);\n  height: 48px;\n}\n[data-v-7a867923] #search-country-input {\n  background-color: white;\n}\n[data-v-7a867923] .info-bar .search-container {\n  flex-grow: 1;\n}\n[data-v-7a867923] .dropdown {\n  width: calc(100% - .5rem);\n  top: 50px;\n  left: 0;\n}\n[data-v-7a867923] .dropdown li {\n  background-color: white;\n}\n[data-v-7a867923] .dropdown ul {\n  margin-top: -2px;\n}\n[data-v-7a867923] .invalid-feedback {\n  display: block;\n  padding-left: 40px;\n}\n[data-v-7a867923] .flag-loader {\n  width: 190px;\n  position: absolute;\n  top: -42px;\n  left: 133px;\n}\n@media (max-width: 767px) {\n[data-v-7a867923] .dropdown {\n    bottom: 32px;\n}\n}\n\n", ""]);
+exports.push([module.i, "\n.flip-list-move[data-v-7a867923] {\n  transition: transform 1s;\n}\n*[data-v-7a867923]:focus {\n  outline: 0 !important;\n  box-shadow: none;\n}\n.country-container[data-v-7a867923] {\n  background-color: white;\n  border: 1px solid rgba(0, 0, 0, 0.125);\n  border-radius: 0.25rem;\n}\n.country-container span[data-v-7a867923] {\n  margin: 2px;\n}\n.country-container i[data-v-7a867923] {\n  margin-right: 10px;\n}\n.country-container img[data-v-7a867923] {\n  margin-left: 10px;\n}\n.countryFlag[data-v-7a867923] {\n  width: 40px;\n  border-radius: 2px;\n  border: 1px solid #f6f6f6;\n}\n.error-container[data-v-7a867923] {\n  height: 20px;\n}\n.search-city[data-v-7a867923] {\n  padding: 0;\n}\n.bookable-move[data-v-7a867923] {\n  transition: transform 1s;\n}\n.short-text[data-v-7a867923] {\n  display: none;\n}\n@media (max-width: 1200px) {\n.short-text[data-v-7a867923] {\n    display: block;\n}\n.full-text[data-v-7a867923] {\n    display: none;\n}\n}\n@media (max-width: 767px) {\n.country-info-container[data-v-7a867923],\n  .shuffle-btn-container[data-v-7a867923] {\n    height: 50px;\n}\n}\n[data-v-7a867923] .info-bar #search-country-input {\n  border: 1px solid rgba(0, 0, 0, 0.125);\n  height: 48px;\n}\n[data-v-7a867923] #search-country-input {\n  background-color: white;\n}\n[data-v-7a867923] .info-bar .search-container {\n  flex-grow: 1;\n}\n[data-v-7a867923] .dropdown {\n  width: calc(100% - .5rem);\n  top: 50px;\n  left: 0;\n}\n[data-v-7a867923] .dropdown li {\n  background-color: white;\n}\n[data-v-7a867923] .dropdown ul {\n  margin-top: -2px;\n}\n[data-v-7a867923] .invalid-feedback {\n  padding-left: 40px;\n}\n[data-v-7a867923] .flag-loader {\n  width: 190px;\n  position: absolute;\n  top: -42px;\n  left: 133px;\n}\n@media (max-width: 767px) {\n[data-v-7a867923] .dropdown {\n    bottom: 32px;\n}\n}\n\n", ""]);
 
 // exports
 
@@ -64134,7 +64134,13 @@ var render = function() {
     [
       _c("v-errors", {
         staticClass: "error-container row px-3 mb-1",
-        attrs: { errorLayout: "offset-md-3 col-md-9", errors: [_vm.errors] }
+        class: [{ "d-block": _vm.errors, "d-none": !_vm.errors }],
+        attrs: {
+          errorLayout: _vm.errors
+            ? "d-block"
+            : "d-none" + " offset-md-3 col-md-9",
+          errors: [_vm.errors]
+        }
       }),
       _vm._v(" "),
       _vm.loading

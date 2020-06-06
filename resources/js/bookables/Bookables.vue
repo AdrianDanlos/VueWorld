@@ -2,8 +2,9 @@
   <div>
     <v-errors
       class="error-container row px-3 mb-1"
-      :errorLayout="'offset-md-3 col-md-9'"
+      :errorLayout="errors ? 'd-block' : 'd-none' + ' offset-md-3 col-md-9'"
       :errors="[errors]"
+      :class="[{'d-block': errors, 'd-none': !errors}]"
     ></v-errors>
     <loading v-if="loading"></loading>
     <div v-else>
@@ -87,7 +88,6 @@ export default {
       this.bookables = _.shuffle(this.bookables);
     },
     async getBookablesByCountry(country) {
-      console.log('COUNTRYYY: ' + country)
       if (country) {
         //Update URL
         let regexp = new RegExp(`\/bookables\/${country}.*`);
@@ -214,7 +214,6 @@ export default {
 }
 
 ::v-deep .invalid-feedback {
-  display: block;
   padding-left: 40px;
 }
 

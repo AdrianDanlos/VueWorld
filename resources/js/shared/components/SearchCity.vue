@@ -106,17 +106,16 @@ export default {
       this.modal = false;
     },
     checkCountry() {
-      let filteredCountryName = this.filteredCountries[0].name.toLowerCase();
       let inputCountry = this.country.toLowerCase();
 
       if (
         this.filteredCountries.length &&
-        inputCountry === filteredCountryName
+        inputCountry === this.filteredCountries[0].name.toLowerCase()
       ) {
         if (inputCountry.length === 3) {
           //If the dropdown value is on alpha3Code (3chars) find its full name
           return this.countries.find(element => {
-            if (element.alpha3Code.toLowerCase() === filteredCountryName) {
+            if (element.alpha3Code.toLowerCase() === this.filteredCountries[0].name.toLowerCase()) {
               return element;
             }
           }).name;
