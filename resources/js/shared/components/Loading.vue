@@ -5,3 +5,10 @@
 </template>
 
 
+<style scoped>
+@media (max-width: 575px) {
+  img {
+    margin-top: -20vh;
+  }
+}
+</style>

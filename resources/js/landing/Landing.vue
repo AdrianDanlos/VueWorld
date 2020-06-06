@@ -81,6 +81,12 @@ p {
   opacity: 1;
 }
 
+@media (max-width: 575px) {
+  .brand-logo {
+    width: 150px;
+  }
+}
+
 ::v-deep .search-container {
   margin-bottom: 40vh;
   width: 100%;
@@ -101,7 +107,7 @@ p {
   font-size: 1.1rem;
 }
 ::v-deep .dropdown {
-  width: calc(100% - (6px * 2)); /*100% - border width*/
+  width: calc(100% - (10px * 2));
   top: 55px;
   left: 6px;
 }

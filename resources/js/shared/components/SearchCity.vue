@@ -6,7 +6,7 @@
       :class="[searchLayout.inputPadding, searchLayout.inputMargin]"
     >
       <div
-        class="position-relative d-flex justify-content-start p-0 pr-2 p-sm-0"
+        class="position-relative d-flex justify-content-start p-0 pr-sm-2"
         :class="searchLayout.inputSize"
       >
         <input
@@ -14,12 +14,22 @@
           v-model="country"
           @keyup.enter="$emit('search', checkCountry())"
           @focus="modal = true"
-          class="w-100"
+          class="w-100 d-none d-md-block"
           type="text"
           autocomplete="search"
           placeholder="Find your dream place"
         />
-        <div class="dropdown position-absolute" v-if="filteredCountries && modal">
+        <input
+          id="search-country-input"
+          v-model="country"
+          @keyup.enter="$emit('search', checkCountry())"
+          @focus="modal = true"
+          class="w-100 d-block d-md-none"
+          type="text"
+          autocomplete="search"
+          placeholder="Find a country"
+        />
+        <div class="dropdown position-absolute d-none d-sm-block" v-if="filteredCountries && modal">
           <ul>
             <li
               v-for="filteredCountry in filteredCountries"

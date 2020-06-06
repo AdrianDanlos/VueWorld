@@ -1,48 +1,54 @@
 <template>
-  <div class="row">
-    <div class="col-md-8 pb-4">
-      <div class="card">
-        <div class="card-body">
-          <div v-if="!loading">
-            <h2>{{ bookable.title }}</h2>
-            <hr />
-            <article>{{ bookable.description }}</article>
-            <div :style="{ backgroundImage: 'url(' + bookable.photo_url + ')' }" id="photo"></div>
+  <div>
+    <div class="row">
+      <div class="col-md-8 pb-4">
+        <div class="card">
+          <div class="card-body">
+            <div v-if="!loading">
+              <h2>{{ bookable.title }}</h2>
+              <hr />
+              <article>{{ bookable.description }}</article>
+              <div :style="{ backgroundImage: 'url(' + bookable.photo_url + ')' }" id="photo"></div>
+            </div>
+            <loading v-else></loading>
           </div>
-          <loading v-else></loading>
         </div>
       </div>
-      <review-list :bookable-id="this.$route.params.id"></review-list>
-    </div>
-    <div class="col-md-4 pb-4">
-      <availability
-        :bookable-id="this.$route.params.id"
-        @availability="checkPrice($event)"
-        class="mb-4"
-      ></availability>
+      <div class="col-md-4 pb-4">
+        <availability
+          :bookable-id="this.$route.params.id"
+          @availability="checkPrice($event)"
+          class="mb-4"
+        ></availability>
 
-      <transition name="fade">
-        <price-breakdown v-if="price" :price="price" class="mb-4"></price-breakdown>
-      </transition>
-      <transition name="fade">
+        <transition name="fade">
+          <price-breakdown v-if="price" :price="price" class="mb-4"></price-breakdown>
+        </transition>
+        <transition name="fade">
+          <button
+            class="btn btn-main btn-block"
+            v-if="price"
+            @click="addToBasket"
+            :disabled="inBasketAlready"
+          >Book now</button>
+        </transition>
+
         <button
-          class="btn btn-main btn-block"
-          v-if="price"
-          @click="addToBasket"
-          :disabled="inBasketAlready"
-        >Book now</button>
-      </transition>
+          class="btn btn-caution btn-block"
+          v-if="inBasketAlready"
+          @click="removeFromBasket"
+        >Remove from basket</button>
 
-      <button
-        class="btn btn-caution btn-block"
-        v-if="inBasketAlready"
-        @click="removeFromBasket"
-      >Remove from basket</button>
-
-      <div
-        v-if="inBasketAlready"
-        class="mt-4 text-muted warning"
-      >Correctly added to the basket. If you want to change dates, remove from the basket first.</div>
+        <div
+          v-if="inBasketAlready"
+          class="mt-4 text-muted warning"
+        >Correctly added to the basket. If you want to change dates, remove from the basket first.</div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 col-md-8">
+        <review-list :bookable-id="this.$route.params.id"></review-list>
+      </div>
     </div>
   </div>
 </template>

@@ -2,7 +2,7 @@
   <div id="review-list-container">
     <div class="d-flex justify-content-between align-items-center mt-4 mb-3">
       <h6 class="text-uppercase text-secondary font-weight-bolder p-0 m-0">Review List</h6>
-      <div class="dropdown d-none d-md-block">
+      <div class="dropdown">
         <button
           class="btn btn-main dropdown-toggle"
           type="button"
@@ -29,7 +29,7 @@
     </div>
     <loading v-if="loading"></loading>
     <div v-else>
-      <div class="border-bottom d-none d-md-block" v-for="(review, index) in reviews" :key="index">
+      <div class="border-bottom" v-for="(review, index) in reviews" :key="index">
         <div class="row pt-4">
           <div class="col-6">
             <div class="d-flex align-items-center">
