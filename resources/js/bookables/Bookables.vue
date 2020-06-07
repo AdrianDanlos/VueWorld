@@ -16,7 +16,7 @@
             class="d-flex align-items-center justify-content-center position-relative country-container h-100 py-2"
           >
             <i class="fas fa-map-marker-alt"></i>
-            <span>{{bookables[0].city}},</span>
+            <span v-if="bookables[0].city">{{bookables[0].city + ','}}</span>
             <span>{{getCountryCodeIfTooLong()}}</span>
             <img class="countryFlag" :src="bookables[0].country_flag" alt />
           </div>

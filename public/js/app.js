@@ -3771,28 +3771,27 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.modal = false;
     },
     checkCountry: function checkCountry() {
-      var _this2 = this;
-
       var inputCountry = this.country.toLowerCase();
 
-      if (this.filteredCountries.length && inputCountry === this.filteredCountries[0].name.toLowerCase()) {
-        if (inputCountry.length === 3) {
-          //If the dropdown value is on alpha3Code (3chars) find its full name
-          return this.countries.find(function (element) {
-            if (element.alpha3Code.toLowerCase() === _this2.filteredCountries[0].name.toLowerCase()) {
-              return element;
-            }
-          }).name;
-        } else {
-          return this.country;
+      if (this.filteredCountries.length && this.filteredCountries.some(function (e) {
+        return e.name.toLowerCase() === inputCountry;
+      }) //if there is an object with a name prop matching the input
+      ) {
+          if (inputCountry.length === 3) {
+            //If the dropdown value is on alpha3Code (3chars) find its full name
+            return this.countries.find(function (e) {
+              return e.alpha3Code.toLowerCase() === inputCountry;
+            }).name;
+          } else {
+            return this.country;
+          }
         }
-      }
 
       return null;
     }
   },
   created: function created() {
-    var _this3 = this;
+    var _this2 = this;
 
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
@@ -3801,13 +3800,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             case 0:
               _context.prev = 0;
 
-              _this3.filterCountries();
+              _this2.filterCountries();
 
               _context.next = 4;
               return axios.get("/api/countries");
 
             case 4:
-              _this3.countries = _context.sent.data;
+              _this2.countries = _context.sent.data;
               console.log("Ready");
               _context.next = 10;
               break;
@@ -64171,9 +64170,11 @@ var render = function() {
                         [
                           _c("i", { staticClass: "fas fa-map-marker-alt" }),
                           _vm._v(" "),
-                          _c("span", [
-                            _vm._v(_vm._s(_vm.bookables[0].city) + ",")
-                          ]),
+                          _vm.bookables[0].city
+                            ? _c("span", [
+                                _vm._v(_vm._s(_vm.bookables[0].city + ","))
+                              ])
+                            : _vm._e(),
                           _vm._v(" "),
                           _c("span", [
                             _vm._v(_vm._s(_vm.getCountryCodeIfTooLong()))
