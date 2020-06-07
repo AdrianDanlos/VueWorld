@@ -10,24 +10,22 @@
         :class="searchLayout.inputSize"
       >
         <input
-          id="search-country-input"
           @keyup.enter="$emit('search', checkCountry())"
           @focus="modal = true"
           :value="country"
           @input="evt=>country=evt.target.value"
-          class="w-100 d-none d-md-block"
+          class="search-country-input w-100 d-none d-md-block"
           type="text"
           name="none"
           autocomplete="none"
           placeholder="Find your dream place"
         />
         <input
-          id="search-country-input"
           @keyup.enter="$emit('search', checkCountry())"
           @focus="modal = true"
           :value="country"
           @input="evt=>country=evt.target.value"
-          class="w-100 d-block d-md-none"
+          class="search-country-input w-100 d-block d-md-none"
           type="text"
           name="none"
           autocomplete="none"

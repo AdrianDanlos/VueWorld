@@ -6,8 +6,11 @@
     (2.1.8+)
   >
     <div id="landing" class="d-flex flex-column justify-content-center align-items-center">
-      <img class="brand-logo" src="/images/landing/brand.png" alt="brand" />
-      <p class="brand-info text-center px-4">{{isError ? errCountryNotFound : brandData}}</p>
+      <div id="title-container">
+        <p class="title d-none d-lg-block">MEET THE WORLD</p>
+        <p class="title d-block d-lg-none">LIVE</p>
+      </div>
+      <p v-if="isError" class="brand-info text-center px-4">{{errCountryNotFound}}</p>
       <search-city
         class="w-100 px-4"
         :searchLayout="{inputSize: 'col-12 col-sm-10 col-lg-6 mb-4 mb-sm-0 pr-0 pr-sm-2', buttonSize: 'col-12 col-sm-2 col-md-1'}"
@@ -21,8 +24,6 @@
 export default {
   data() {
     return {
-      brandData:
-        "36,000 properties, 178 countries • Over 13 million verified guest reviews • 24/7 customer service",
       errCountryNotFound:
         "Sorry, we cannot find anything that matches your search term.",
       error: false
@@ -66,10 +67,7 @@ export default {
   height: 100vh;
 }
 
-.brand-logo {
-  margin: 3rem 0;
-}
-.brand-info{
+.brand-info {
   background: var(--main-color);
   border-radius: 50px;
   color: white;
@@ -83,25 +81,35 @@ export default {
   transition-duration: 1s;
   opacity: 1;
 }
-
-@media (max-width: 575px) {
-  .brand-logo {
-    width: 150px;
-  }
+#title-container {
+  width: 100%;
+  text-align: center;
+  background: #fffffff7;
+  margin-bottom: 1rem;
+}
+.title {
+  background: url("/images/landing/landing.jpg") NO-REPEAT;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 900 !important;
+  font-size: 12rem;
+  background-size: cover;
+  line-height: 190px;
+  padding: 0 20px;
 }
 
 ::v-deep .search-container {
-  margin-bottom: 40vh;
+  margin-bottom: 35vh;
   width: 100%;
 }
-::v-deep #search-country-input {
+::v-deep .search-country-input {
   border: 6px solid rgba(0, 0, 0, 0.5);
   height: 60px;
   font-size: 1.2rem;
   color: rgb(77, 77, 77);
   background-color: rgba(255, 255, 255, 1);
 }
-::v-deep #search-country-input::placeholder {
+::v-deep .search-country-input::placeholder {
   font-size: 1.2rem;
   font-weight: 300 !important;
   color: rgb(77, 77, 77);
@@ -125,6 +133,10 @@ export default {
 }
 
 @media (max-width: 575px) {
+  .title{
+    font-size: 9rem;
+    line-height: 150px;
+  }
   ::v-deep .btn-go-container {
     width: 100%;
     height: 48px;

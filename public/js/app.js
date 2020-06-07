@@ -3379,10 +3379,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      brandData: "36,000 properties, 178 countries • Over 13 million verified guest reviews • 24/7 customer service",
       errCountryNotFound: "Sorry, we cannot find anything that matches your search term.",
       error: false
     };
@@ -3660,8 +3662,6 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-//
-//
 //
 //
 //
@@ -8569,7 +8569,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.flip-list-move[data-v-7a867923] {\n  transition: transform 1s;\n}\n*[data-v-7a867923]:focus {\n  outline: 0 !important;\n  box-shadow: none;\n}\n.country-container[data-v-7a867923] {\n  background-color: white;\n  border: 1px solid rgba(0, 0, 0, 0.125);\n  border-radius: 0.25rem;\n}\n.country-container span[data-v-7a867923] {\n  margin: 2px;\n}\n.country-container i[data-v-7a867923] {\n  margin-right: 10px;\n}\n.country-container img[data-v-7a867923] {\n  margin-left: 10px;\n}\n.countryFlag[data-v-7a867923] {\n  width: 40px;\n  border-radius: 2px;\n  border: 1px solid #f6f6f6;\n}\n.error-container[data-v-7a867923] {\n  height: 20px;\n}\n.search-city[data-v-7a867923] {\n  padding: 0;\n}\n.bookable-move[data-v-7a867923] {\n  transition: transform 1s;\n}\n.short-text[data-v-7a867923] {\n  display: none;\n}\n@media (max-width: 1200px) {\n.short-text[data-v-7a867923] {\n    display: block;\n}\n.full-text[data-v-7a867923] {\n    display: none;\n}\n}\n@media (max-width: 767px) {\n.country-info-container[data-v-7a867923],\n  .shuffle-btn-container[data-v-7a867923] {\n    height: 50px;\n}\n}\n[data-v-7a867923] .info-bar #search-country-input {\n  border: 1px solid rgba(0, 0, 0, 0.125);\n  height: 48px;\n}\n[data-v-7a867923] #search-country-input {\n  background-color: white;\n}\n[data-v-7a867923] .info-bar .search-container {\n  flex-grow: 1;\n}\n[data-v-7a867923] .dropdown {\n  width: calc(100% - .5rem);\n  top: 50px;\n  left: 0;\n}\n[data-v-7a867923] .dropdown li {\n  background-color: white;\n  font-weight: 400;\n}\n[data-v-7a867923] .dropdown ul {\n  margin-top: -2px;\n}\n[data-v-7a867923] .flag-loader {\n  width: 190px;\n  position: absolute;\n  top: -42px;\n  left: 133px;\n}\n@media (max-width: 767px) {\n[data-v-7a867923] .dropdown {\n    bottom: 32px;\n}\n}\n\n", ""]);
+exports.push([module.i, "\n.flip-list-move[data-v-7a867923] {\n  transition: transform 1s;\n}\n*[data-v-7a867923]:focus {\n  outline: 0 !important;\n  box-shadow: none;\n}\n.country-container[data-v-7a867923] {\n  background-color: white;\n  border: 1px solid rgba(0, 0, 0, 0.125);\n  border-radius: 0.25rem;\n}\n.country-container span[data-v-7a867923] {\n  margin: 2px;\n}\n.country-container i[data-v-7a867923] {\n  margin-right: 10px;\n}\n.country-container img[data-v-7a867923] {\n  margin-left: 10px;\n}\n.countryFlag[data-v-7a867923] {\n  width: 40px;\n  border-radius: 2px;\n  border: 1px solid #f6f6f6;\n}\n.error-container[data-v-7a867923] {\n  height: 20px;\n}\n.search-city[data-v-7a867923] {\n  padding: 0;\n}\n.bookable-move[data-v-7a867923] {\n  transition: transform 1s;\n}\n.short-text[data-v-7a867923] {\n  display: none;\n}\n@media (max-width: 1200px) {\n.short-text[data-v-7a867923] {\n    display: block;\n}\n.full-text[data-v-7a867923] {\n    display: none;\n}\n}\n@media (max-width: 767px) {\n.country-info-container[data-v-7a867923],\n  .shuffle-btn-container[data-v-7a867923] {\n    height: 50px;\n}\n}\n[data-v-7a867923] .info-bar .search-country-input {\n  border: 1px solid rgba(0, 0, 0, 0.125);\n  height: 48px;\n}\n[data-v-7a867923] .search-country-input {\n  background-color: white;\n}\n[data-v-7a867923] .info-bar .search-container {\n  flex-grow: 1;\n}\n[data-v-7a867923] .dropdown {\n  width: calc(100% - .5rem);\n  top: 50px;\n  left: 0;\n}\n[data-v-7a867923] .dropdown li {\n  background-color: white;\n  font-weight: 400;\n}\n[data-v-7a867923] .dropdown ul {\n  margin-top: -2px;\n}\n[data-v-7a867923] .flag-loader {\n  width: 190px;\n  position: absolute;\n  top: -42px;\n  left: 133px;\n}\n@media (max-width: 767px) {\n[data-v-7a867923] .dropdown {\n    bottom: 32px;\n}\n}\n\n", ""]);
 
 // exports
 
@@ -8607,7 +8607,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n#landing[data-v-6cb9731e] {\n  background: url(\"/images/landing/landing.jpg\");\n  background-repeat: no-repeat;\n  background-attachment: fixed;\n  background-position: center;\n  background-size: cover;\n  width: 100%;\n  height: 100vh;\n}\n.brand-logo[data-v-6cb9731e] {\n  margin: 3rem 0;\n}\n.brand-info[data-v-6cb9731e]{\n  background: var(--main-color);\n  border-radius: 50px;\n  color: white;\n  font-weight: 500 !important;\n}\n.custom-appear-class[data-v-6cb9731e] {\n  opacity: 0;\n}\n.custom-appear-to-class[data-v-6cb9731e] {\n  transition-duration: 1s;\n  opacity: 1;\n}\n@media (max-width: 575px) {\n.brand-logo[data-v-6cb9731e] {\n    width: 150px;\n}\n}\n[data-v-6cb9731e] .search-container {\n  margin-bottom: 40vh;\n  width: 100%;\n}\n[data-v-6cb9731e] #search-country-input {\n  border: 6px solid rgba(0, 0, 0, 0.5);\n  height: 60px;\n  font-size: 1.2rem;\n  color: rgb(77, 77, 77);\n  background-color: rgba(255, 255, 255, 1);\n}\n[data-v-6cb9731e] #search-country-input::-webkit-input-placeholder {\n  font-size: 1.2rem;\n  font-weight: 300 !important;\n  color: rgb(77, 77, 77);\n}\n[data-v-6cb9731e] #search-country-input::-moz-placeholder {\n  font-size: 1.2rem;\n  font-weight: 300 !important;\n  color: rgb(77, 77, 77);\n}\n[data-v-6cb9731e] #search-country-input:-ms-input-placeholder {\n  font-size: 1.2rem;\n  font-weight: 300 !important;\n  color: rgb(77, 77, 77);\n}\n[data-v-6cb9731e] #search-country-input::-ms-input-placeholder {\n  font-size: 1.2rem;\n  font-weight: 300 !important;\n  color: rgb(77, 77, 77);\n}\n[data-v-6cb9731e] #search-country-input::placeholder {\n  font-size: 1.2rem;\n  font-weight: 300 !important;\n  color: rgb(77, 77, 77);\n}\n[data-v-6cb9731e] .btn {\n  font-size: 1.1rem;\n}\n[data-v-6cb9731e] .dropdown {\n  width: calc(100% - (10px * 2));\n  top: 55px;\n  left: 6px;\n}\n[data-v-6cb9731e] .dropdown li {\n  background-color: rgba(255, 255, 255, 1);\n  font-size: 1.2rem;\n  font-weight: 300;\n}\n[data-v-6cb9731e] .btn-go-container {\n  width: 70px;\n}\n@media (max-width: 575px) {\n[data-v-6cb9731e] .btn-go-container {\n    width: 100%;\n    height: 48px;\n}\n[data-v-6cb9731e] .dropdown li {\n    background-color: white;\n}\n[data-v-6cb9731e] .dropdown {\n    width: calc(100% - (6px * 2));\n}\n}\n@media (max-width: 767px) {\n[data-v-6cb9731e] .dropdown {\n    bottom: 40px;\n}\n}\n", ""]);
+exports.push([module.i, "\n#landing[data-v-6cb9731e] {\n  background: url(\"/images/landing/landing.jpg\");\n  background-repeat: no-repeat;\n  background-attachment: fixed;\n  background-position: center;\n  background-size: cover;\n  width: 100%;\n  height: 100vh;\n}\n.brand-info[data-v-6cb9731e] {\n  background: var(--main-color);\n  border-radius: 50px;\n  color: white;\n  font-weight: 500 !important;\n}\n.custom-appear-class[data-v-6cb9731e] {\n  opacity: 0;\n}\n.custom-appear-to-class[data-v-6cb9731e] {\n  transition-duration: 1s;\n  opacity: 1;\n}\n#title-container[data-v-6cb9731e] {\n  width: 100%;\n  text-align: center;\n  background: #fffffff7;\n  margin-bottom: 1rem;\n}\n.title[data-v-6cb9731e] {\n  background: url(\"/images/landing/landing.jpg\") NO-REPEAT;\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  font-weight: 900 !important;\n  font-size: 12rem;\n  background-size: cover;\n  line-height: 190px;\n  padding: 0 20px;\n}\n[data-v-6cb9731e] .search-container {\n  margin-bottom: 35vh;\n  width: 100%;\n}\n[data-v-6cb9731e] .search-country-input {\n  border: 6px solid rgba(0, 0, 0, 0.5);\n  height: 60px;\n  font-size: 1.2rem;\n  color: rgb(77, 77, 77);\n  background-color: rgba(255, 255, 255, 1);\n}\n[data-v-6cb9731e] .search-country-input::-webkit-input-placeholder {\n  font-size: 1.2rem;\n  font-weight: 300 !important;\n  color: rgb(77, 77, 77);\n}\n[data-v-6cb9731e] .search-country-input::-moz-placeholder {\n  font-size: 1.2rem;\n  font-weight: 300 !important;\n  color: rgb(77, 77, 77);\n}\n[data-v-6cb9731e] .search-country-input:-ms-input-placeholder {\n  font-size: 1.2rem;\n  font-weight: 300 !important;\n  color: rgb(77, 77, 77);\n}\n[data-v-6cb9731e] .search-country-input::-ms-input-placeholder {\n  font-size: 1.2rem;\n  font-weight: 300 !important;\n  color: rgb(77, 77, 77);\n}\n[data-v-6cb9731e] .search-country-input::placeholder {\n  font-size: 1.2rem;\n  font-weight: 300 !important;\n  color: rgb(77, 77, 77);\n}\n[data-v-6cb9731e] .btn {\n  font-size: 1.1rem;\n}\n[data-v-6cb9731e] .dropdown {\n  width: calc(100% - (10px * 2));\n  top: 55px;\n  left: 6px;\n}\n[data-v-6cb9731e] .dropdown li {\n  background-color: rgba(255, 255, 255, 1);\n  font-size: 1.2rem;\n  font-weight: 300;\n}\n[data-v-6cb9731e] .btn-go-container {\n  width: 70px;\n}\n@media (max-width: 575px) {\n.title[data-v-6cb9731e]{\n    font-size: 9rem;\n    line-height: 150px;\n}\n[data-v-6cb9731e] .btn-go-container {\n    width: 100%;\n    height: 48px;\n}\n[data-v-6cb9731e] .dropdown li {\n    background-color: white;\n}\n[data-v-6cb9731e] .dropdown {\n    width: calc(100% - (6px * 2));\n}\n}\n@media (max-width: 767px) {\n[data-v-6cb9731e] .dropdown {\n    bottom: 40px;\n}\n}\n", ""]);
 
 // exports
 
@@ -64404,14 +64404,21 @@ var render = function() {
           attrs: { id: "landing" }
         },
         [
-          _c("img", {
-            staticClass: "brand-logo",
-            attrs: { src: "/images/landing/brand.png", alt: "brand" }
-          }),
-          _vm._v(" "),
-          _c("p", { staticClass: "brand-info text-center px-4" }, [
-            _vm._v(_vm._s(_vm.isError ? _vm.errCountryNotFound : _vm.brandData))
+          _c("div", { attrs: { id: "title-container" } }, [
+            _c("p", { staticClass: "title d-none d-lg-block" }, [
+              _vm._v("MEET THE WORLD")
+            ]),
+            _vm._v(" "),
+            _c("p", { staticClass: "title d-block d-lg-none" }, [
+              _vm._v("LIVE")
+            ])
           ]),
+          _vm._v(" "),
+          _vm.isError
+            ? _c("p", { staticClass: "brand-info text-center px-4" }, [
+                _vm._v(_vm._s(_vm.errCountryNotFound))
+              ])
+            : _vm._e(),
           _vm._v(" "),
           _c("search-city", {
             staticClass: "w-100 px-4",
@@ -64781,9 +64788,8 @@ var render = function() {
           },
           [
             _c("input", {
-              staticClass: "w-100 d-none d-md-block",
+              staticClass: "search-country-input w-100 d-none d-md-block",
               attrs: {
-                id: "search-country-input",
                 type: "text",
                 name: "none",
                 autocomplete: "none",
@@ -64810,9 +64816,8 @@ var render = function() {
             }),
             _vm._v(" "),
             _c("input", {
-              staticClass: "w-100 d-block d-md-none",
+              staticClass: "search-country-input w-100 d-block d-md-none",
               attrs: {
-                id: "search-country-input",
                 type: "text",
                 name: "none",
                 autocomplete: "none",

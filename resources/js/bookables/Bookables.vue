@@ -188,12 +188,12 @@ export default {
   }
 }
 
-::v-deep .info-bar #search-country-input {
+::v-deep .info-bar .search-country-input {
   border: 1px solid rgba(0, 0, 0, 0.125);
   height: 48px;
 }
 
-::v-deep #search-country-input {
+::v-deep .search-country-input {
   background-color: white;
 }
 
