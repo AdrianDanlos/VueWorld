@@ -10,7 +10,7 @@
         <p class="title d-none d-lg-block">MEET THE WORLD</p>
         <p class="title d-block d-lg-none">LIVE</p>
       </div>
-      <p v-if="isError" class="brand-info text-center px-4">{{errCountryNotFound}}</p>
+      <p v-if="isError" class="brand-info text-center p-1 w-100">{{errCountryNotFound}}</p>
       <search-city
         class="w-100 px-4"
         :searchLayout="{inputSize: 'col-12 col-sm-10 col-lg-6 mb-4 mb-sm-0 pr-0 pr-sm-2', buttonSize: 'col-12 col-sm-2 col-md-1'}"
@@ -69,7 +69,6 @@ export default {
 
 .brand-info {
   background: var(--main-color);
-  border-radius: 50px;
   color: white;
   font-weight: 500 !important;
 }
