@@ -63629,7 +63629,7 @@ var render = function() {
             attrs: {
               type: "text",
               name: "from",
-              placeholder: "year/month/day",
+              placeholder: "year-month-day",
               disabled: _vm.inBasketAlready
             },
             domProps: { value: _vm.from },
@@ -63677,7 +63677,7 @@ var render = function() {
             attrs: {
               type: "text",
               name: "to",
-              placeholder: "year/month/day",
+              placeholder: "year-month-day",
               disabled: _vm.inBasketAlready
             },
             domProps: { value: _vm.to },
