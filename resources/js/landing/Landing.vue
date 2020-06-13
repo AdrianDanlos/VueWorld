@@ -91,7 +91,7 @@ export default {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   font-weight: 900 !important;
-  font-size: 12rem;
+  font-size: 10vw;
   background-size: cover;
   line-height: 190px;
   padding: 0 20px;
