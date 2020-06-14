@@ -73,8 +73,8 @@ export default {
   margin-top: 2px;
 }
 .card {
-  -webkit-box-shadow: 11px 11px 5px -8px rgba(201, 201, 201, 1);
-  -moz-box-shadow: 11px 11px 5px -8px rgba(201, 201, 201, 1);
-  box-shadow: 11px 11px 5px -8px rgba(201, 201, 201, 1);
+  -webkit-box-shadow: 11px 11px 5px -8px rgba(201, 201, 201, 0.5);
+  -moz-box-shadow: 11px 11px 5px -8px rgba(201, 201, 201, 0.5);
+  box-shadow: 11px 11px 5px -8px rgba(201, 201, 201, 0.5);
 }
 </style>

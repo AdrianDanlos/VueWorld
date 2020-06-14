@@ -8587,7 +8587,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n#photo[data-v-ca153ad8] {\n  width: 100%;\n  background-size: cover;\n  margin-bottom: 1rem;\n}\n/* Trick to give the image resonsive height*/\n#photo[data-v-ca153ad8]:after {\n  content: \"\";\n  display: block;\n  padding-bottom: 70%;\n}\n.card-body[data-v-ca153ad8] {\n  position: relative;\n}\n.review-amount[data-v-ca153ad8] {\n  color: #3490dc;\n  margin-top: 2px;\n}\n.card[data-v-ca153ad8] {\n  box-shadow: 11px 11px 5px -8px rgba(201, 201, 201, 1);\n}\n", ""]);
+exports.push([module.i, "\n#photo[data-v-ca153ad8] {\n  width: 100%;\n  background-size: cover;\n  margin-bottom: 1rem;\n}\n/* Trick to give the image resonsive height*/\n#photo[data-v-ca153ad8]:after {\n  content: \"\";\n  display: block;\n  padding-bottom: 70%;\n}\n.card-body[data-v-ca153ad8] {\n  position: relative;\n}\n.review-amount[data-v-ca153ad8] {\n  color: #3490dc;\n  margin-top: 2px;\n}\n.card[data-v-ca153ad8] {\n  box-shadow: 11px 11px 5px -8px rgba(201, 201, 201, 0.5);\n}\n", ""]);
 
 // exports
 
