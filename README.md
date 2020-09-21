@@ -3,12 +3,8 @@
         <img src="https://raw.githubusercontent.com/AdrianDanlos/VueWorld/master/public/images/landing/brand.png" alt="logo" width="200"            height="110"/>
     </a>
 </p>
-<h3 align="center">Go to 
-  <a href="https://vueworld.herokuapp.com/" target="_blank">VueWorld</a>
-</h3>
-<br>
 
-> A lodging SPA that offers accomodation for your trips all around the world. It follows the philosophy of popular booking websites such as Airbnb and Hostelworld. You are not only booking an appartment, you are booking an experience. Come with us!
+><a href="https://vueworld.herokuapp.com/" target="_blank">VueWorld</a> is a lodging SPA that offers accomodation for your trips all around the world. It follows the philosophy of popular booking websites such as Airbnb and Hostelworld. You are not only booking an appartment, you are booking an experience. Come with us!
 
 <br>
 
