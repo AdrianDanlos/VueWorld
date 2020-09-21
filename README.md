@@ -8,7 +8,7 @@
 </h3>
 <br>
 
-> VueWorld SPA offers accomodation for your trips all around the world. Book your next adventure with us!
+> A lodging SPA that offers accomodation for your trips all around the world. It follows the philosophy of popular booking websites such as Airbnb and Hostelworld. You are not only booking an appartment, you are booking an experience. Come with us!
 
 <br>
 
