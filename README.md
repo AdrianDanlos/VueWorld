@@ -18,6 +18,9 @@
 
 ## Easy and intuitive
 <p align="center">
+<img src="https://raw.githubusercontent.com/AdrianDanlos/VueWorld/master/public/images/general/sizes.jpg" width="850">
+</p>
+<p align="center">
 <img src="https://raw.githubusercontent.com/AdrianDanlos/VueWorld/master/public/images/general/landing-screenshot.jpg" width="850">
 </p>
 <p align="center">
